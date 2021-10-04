@@ -100,7 +100,7 @@ var wow_reply =    [
          '우왕!!!!!!!!!!!!!'
          ];
 
-/* 바이올렛 명령어 */
+/* 호출 명령어 */
 var help_msg =       ['도움말', '--help', '-h'];
 var nalssi_msg =    ['날씨'];
 var silsigan_msg =    ['실시간 검색어', '인기 검색어', '검색어', '실검'];
