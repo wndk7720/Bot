@@ -45,6 +45,18 @@ var bot_reply =   [
          '싫어!!!! 단비꺼!!!! 우와아아앙!! 우와아아아아앙!!!!!'
          ];
          
+var give_msg =   ['가져', '줄게'];
+var give_reply =   [
+         '만세!!! 다 단비꺼다!!!',
+         '우와아아!! 너무 고마워!!!!!'
+         ];
+
+var steal_msg =   ['내놔', '내꺼'];
+var steal_reply = [
+         '싫어!!!! 단비꺼!!!! 우와아아앙!! 우와아아아아앙!!!!!',
+         '단비꺼!!!! 단비꺼!!! 단비꺼!!!!!!! 단비꺼라고!!!!! 으아아아아앙!!!!!'
+         ];
+
 var what_msg =    ['뭐해', '뭐하', '뭐햐', '뭐행', '머해', '머하', '머행', '모해', '모하', '모행'];
 var what_reply =   [
          '잘꺼다!!!',
@@ -733,6 +745,7 @@ function call_bot_command_response(msg, sender, isGroupChat, replier) {
       }
 
       if (msg.indexOf(bot_msg[i]) != -1) {
+         if (basic_response(msg, replier, give_msg, give_reply) == 0) return 0;
          if (coin_response(msg, replier, coin_msg) == 0) return 0;
          if (nalssi_response(msg, replier, nalssi_msg) == 0) return 0;
          if (silsigan_response(msg, replier, silsigan_msg) == 0) return 0;
@@ -764,6 +777,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
    if (call_bot_command_response(msg, sender, isGroupChat, replier) == 0) return;
    
    /* 기본적인 응답 */
+   if (basic_response(msg, replier, steal_msg, steal_reply) == 0) return;
    if (basic_response(msg, replier, bot_msg, bot_reply) == 0) return;
    if (sometimes_basic_response(msg, replier, hello_msg, hello_reply) == 0) return;
    if (sometimes_basic_response(msg, replier, morning_msg, morning_reply) == 0) return;
