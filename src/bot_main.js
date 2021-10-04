@@ -1,4 +1,4 @@
-const VIOLET_VERSION = '1.0.0';
+const BOT_VERSION = '21.10.4';
 
 const RAND_MAX = 1000;
 const BOSS_GAME_RAND_MAX = 100;
@@ -16,99 +16,75 @@ const LOTTO_RAND_MAX = 45;
 /* 기본 응답어 */
 var hello_msg =      ['안녕', '안뇽', '안냥', '하이', 'ㅎㅇ'];
 var hello_reply =   [
-         '「안녕하십니까.」',
-         '「안녕하세요?」',
-         '「안녕하세요.」'
+         '안녕!!!',
+         '하이!!!',
+         '하로!!!'
          ];
 
 var morning_msg =    ['좋은아침', '좋은 아침', '굿모닝', 'ㄱㅁㄴ'];
 var morning_reply = [
-         '「좋은아침 입니다.」',
-         '「오늘도 기분 좋은 하루 되시길 바랍니다.」',
-         '「오늘 하루도 힘냅시다.」'
+         '굿모닝!!!'
+         '오하요!!!',
+         '좋은아침!!!'
          ]; 
 
 var bye_msg =    ['잘자', 'ㅂㅂ', '굿나잇', '바이', 'ㅂ2', 'ㅂㅇ'];
 var bye_reply =   [
-         '「안녕히 주무십시오.」',
-         '「고생하셨습니다.」',
-         '「수고하셨습니다.」'
+         '안잘꺼야!!!',
+         '잘자...',
+         '굿나잇!!!'
          ]; 
 
-var violet_msg =   ['바이올렛', '에버가든', '바에'];
-var violet_reply =   [
-         '「고객님이 원하신다면 어디든 달려가겠습니다. 자동 수기 인형 서비스 바이올렛 에버가든입니다.」',
-         '「우리들은 그저 주어진 이 목숨을 어떻게 살아가야 할지 생각할 수 밖에 없습니다.」',
-         '「서로가, 자신들의 주장을 고집하는 것이 전쟁이라는 것입니다.」',
-         '「고객님, 무슨일이십니까.」',
-         '「무슨일이시죠?」',
-         '「부르셨나요?」',
-         '「이용해주셔서 감사합니다.」',
-         '「이제 명령은 필요 없어요. 」'
+var bot_msg =   ['단비'];
+var bot_reply =   [
+         '나와떠!!!',
+         '안녕!!!',
+         '왜불러!!!',
+         '나왔따!!!',
+         '끄아아아앙!!!'
          ];
          
-var violet_love_msg =    ['사랑', '아이시테루', 'love', 'LOVE'];
-var violet_love_reply =   [
-         '「알고 싶습니다. ‘사랑해’를... 알고 싶습니다.」',
-         '「소중한 사람과 헤어진다는 것은.. 두 번 다시 만나지 못한다는 것은.. 이렇게나 쓸쓸하고 이렇게나 괴로운 것이었군요.」',
-         '「‘사랑해’는 무척 용기가 필요한 말이네요. 받아들이지 않으면 거기에 있고 싶지 않을 정도로..」'
-         ];
-         
-var violet_gil_msg =    ['길베르트'];
-var violet_gil_reply =   [
-         '「소령님..」',
-         '「지금 어디에 계십니까..」',
-         '「언젠가..」',
-         '「기다리고 있습니다.」',
-         '「소령님은 살아계십니다.」'
-         ];
-         
-var violet_what_msg =    ['뭐해', '뭐하', '뭐햐', '뭐행', '머해', '머하', '머행', '모해', '모하', '모행'];
-var violet_what_reply =   [
-         '「지금은 시를 쓰고 있습니다.」',
-         '「잠시 졸았습니다..」',
-         '「편지를 쓰고 있었습니다.」',
-         '「만화란 것을 보고 있었습니다. 참으로 흥미진진 하군요.」',
-         '「과자를 먹고 있습니다.」',
-         '「오늘따라 일이 많군요.」',
-         '「잠시 요리를 하고 있습니다.」',
-         '「열심히 공부중 입니다.」',
-         '「오늘의 하늘을 바라보고 있었습니다.」'
+var what_msg =    ['뭐해', '뭐하', '뭐햐', '뭐행', '머해', '머하', '머행', '모해', '모하', '모행'];
+var what_reply =   [
+         '잘꺼다!!!',
+         '논다!!!',
+         '만화본다!!!',
+         '과자 먹는다!!!',
+         '일한다!!!',
+         '공부한다!!!',
+         '요리한다!!!',
+         '빼에에에엑!!!'
          ];
 
 var kkk_msg =       ['ㅋㅋㅋㅋ'];
 var kkk_reply =    [
-         '「그렇게 웃기시나요?」',
-         '「저도 같이 웃고 싶습니다.」',
-         '「웃으면 복이 온다고 해요.」',
-         '「정말 재미있군요?」',
-         '「알고 싶습니다. ‘웃음’을... 알고 싶습니다.」'
+         'ㅋㅋㅋ',
+         '재미따!!!',
+         '웃기다!!!',
+         'ㅋㅎㅋㅎㅋ',
+         'ㅋㅋㅋㅋㅋㅋㅋㅋ'
          ];
 
 var chool_msg =       ['출근'];
 var chool_reply =    [
-         '「잘 다녀오십시오.」',
-         '「저는 이미 출근했습니다.」',
-         '「조심히 다녀오세요.」',
-         '「힘내십시오.」'
+         '다녀와라!!!',
+         '힘내!!!',
+         '화이팅!!!',
+         '아자아자!!!'
          ];
          
 var toi_msg =       ['퇴근'];
 var toi_reply =    [
-         '「고생 많으셨습니다.」',
-         '「저도 퇴근하고 싶습니다.」',
-         '「듣기만해도 행복한 말이군요.」',
-         '「푹 쉬세요.」',
-         '「수고하셨습니다.」'
+         '고생해따!!!',
+         '수고해따!!!',
+         '쉬자!!!'
          ];   
    
 var wow_msg =       ['어우', '오오', '오우', 'ㅗㅜㅑ'];
 var wow_reply =    [
-         '「대박이네요.」',
-         '「대박입니다.」',
-         '「큰일입니다.」',
-         '「와..」',
-         '「오호.」'
+         '우와!!!',
+         '오오오!!!',
+         '우왕!!!!!!!!!!!!!'
          ];
 
 /* 바이올렛 명령어 */
@@ -128,13 +104,13 @@ var ramen_sub_content =   ['계란', '파송송', '치즈', '참치', '삼겹살
          '꽃', '향수', '태풍', '고추기름', '물 한사바리', '제로콜라', '장아찌'];
 
 var chik_msg =      ['치킨추천', '치킨 추천'];
-var chik_reply =   ['「BBQ 어떠십니까.」', '「맘스터치 어떠십니까.」', '「BHC 어떠십니까.」', 
-         '「페리카나 어떠십니까.」', '「굽네치킨 어떠십니까.」', '「네네치킨 어떠십니까.」', 
-         '「노랑통닭 어떠십니까.」', '「교촌치킨 어떠십니까.」', '「멕시카나 어떠십니까.」', 
-         '「부어치킨 어떠십니까.」', '「순수치킨 어떠십니까.」', 
-         '「호식이 두마리 치킨 어떠십니까.」', '「처갓집 어떠십니까.」', 
-         '「바른치킨 어떠십니까.」', '「멕시칸 어떠십니까.」', '「또래오래 어떠십니까.」', 
-         '「깐부치킨 어떠십니까.」', '「치킨플러스 어떠십니까.」', '「KFC 어떠십니까.」'];
+var chik_reply =   ['BBQ!!!', '맘스터치!!!', 'BHC!!!', 
+         '페리카나!!!', '굽네치킨!!!', '네네치킨!!!', 
+         '노랑통닭!!!', '교촌치킨!!!', '멕시카나!!!', 
+         '부어치킨!!!', '순수치킨!!!', 
+         '호식이 두마리 치킨!!!', '처갓집!!!', 
+         '바른치킨!!!', '멕시칸!!!', '또래오래!!!', 
+         '깐부치킨!!!', '치킨플러스!!!', 'KFC!!!'];
          
 var recommend_ani_msg =   ['애니추천', '만화추천', '애니 추천', '만화 추천', '추천애니', '추천만화', 
          '추천 애니', '추천 만화'];
@@ -143,13 +119,13 @@ var today_ani_msg =    ['오늘의 애니', '오늘의애니', '오늘 애니', 
          
 var meal_msg =       ['아침추천', '점심추천', '저녁추천', '아침 추천', '점심 추천', '저녁 추천',
          '뭐먹', '메뉴', '밥', '식사'];
-var meal_reply =    ['「짜장면 어떠십니까.」', '「짬뽕 어떠십니까.」', '「탕수육 어떠십니까.」', '「초밥 어떠십니까.」',
-         '「돈부리 어떠십니까.」', '「소바 어떠십니까.」', '「라면 어떠십니까.」', 
-         '「돼지국밥 어떠십니까.」', '「삼겹살정식 어떠십니까.」', '「갈비탕 어떠십니까.」', '「비빔국수 어떠십니까.」', 
-         '「스테이크 어떠십니까.」', '「햄버거 어떠십니까.」', '「피자 어떠십니까.」', '「파스타 어떠십니까.」', 
-         '「만두 어떠십니까.」', '「카레 어떠십니까.」', '「훈제오리 어떠십니까.」', '「냉면 어떠십니까.」', 
-         '「된장찌개 어떠십니까.」', '「닭도리탕 어떠십니까.」', '「김치찌개 어떠십니까.」', 
-         '「불고기 어떠십니까.」', '「떡볶이 어떠십니까.」', '「순대국밥 어떠십니까.」', '「보쌈 어떠십니까.」'];
+var meal_reply =    ['짜장면!!!', '짬뽕!!!', '탕수육!!!', '초밥!!!',
+         '돈부리!!!', '소바!!!', '라면!!!', 
+         '돼지국밥!!!', '삼겹살정식!!!', '갈비탕!!!', '비빔국수!!!', 
+         '스테이크!!!', '햄버거!!!', '피자!!!', '파스타!!!', 
+         '만두!!!', '카레!!!', '훈제오리!!!', '냉면!!!', 
+         '된장찌개!!!', '닭도리탕!!!', '김치찌개!!!', 
+         '불고기!!!', '떡볶이!!!', '순대국밥!!!', '보쌈!!!'];
 
 /* 호감도 명령어 */
 var hogam_up_msg =    ['이뻐', '귀여', '좋아', '착해', '똑똑', '최고', 
@@ -166,14 +142,6 @@ var study_check_msg =    ['공부내용', '학습내용', '배운내용'];
 var study_del_msg =    ['잊어버려'];
 var study_req =    [];
 var study_rsp =    [];
-
-/* 미니게임 명령어 */
-var game_msg =       ['미니게임'];
-var boss_game_msg =    ['퍽', '펀치', '이얍'];
-var game_start_flag = 0;
-var game_start_cool_time = 0;
-const BOSS_VIOLET_HP = 2000;
-var game_hp = BOSS_VIOLET_HP;
 
 /* 2021 설연휴 자음퀴즈 이벤트 */
 /*
@@ -236,7 +204,7 @@ function ani_quiz_response(msg, replier, req_msg, ani_quiz_msg, ani_answer_msg) 
       if (msg.indexOf(req_msg[i]) != -1) {
          if (ani_quiz_start == 0) {
             ani_quiz_start = 1;
-            replier.reply("「잠시후 어린이날 기념 추억의 애니퀴즈 이벤트가 있을 예정이옵니다. 많은 참여 부탁드립니다ㅎㅎ」");
+            replier.reply("잠시후 애니퀴즈 이벤트가 있을 예정이다!!! 많이 참여해줘라!!!");
             java.lang.Thread.sleep(ONE_TWO_THTREE_SEC * 1000);
             for (ani_quiz_index=0; ani_quiz_index < ani_quiz_msg.length; ) {
                ani_quiz_index++;
@@ -245,20 +213,20 @@ function ani_quiz_response(msg, replier, req_msg, ani_quiz_msg, ani_answer_msg) 
                replier.reply("「2021 설연휴 기념 애니자음퀴즈 이벤트 " + ani_quiz_index + "번째 입니다.」\n\n" 
                            + ani_quiz_msg[ani_quiz_index - 1] + "\n(띄어쓰기 없이 입력해주세요!)"); 
                */
-               replier.reply("「2021 어린이날 기념 추억의 애니퀴즈 이벤트☆ (" + ani_quiz_index + "/30)」\n\n" 
+               replier.reply("애니퀴즈 이벤트☆ (" + ani_quiz_index + "/30)」\n\n" 
                            + ani_quiz_msg[ani_quiz_index - 1] + "\n(띄어쓰기 없이 입력해주세요!)"); 
                
                java.lang.Thread.sleep(ONE_TWO_THTREE_SEC * 1000);
                
                if (ani_quiz_answer_flag == 0) {
                   ani_quiz_answer_flag = 1;
-                  replier.reply("「정답은 " + ani_answer_msg[ani_quiz_index - 1] + " 였습니다.」");
+                  replier.reply("정답은 " + ani_answer_msg[ani_quiz_index - 1] + " 이었다!!!");
                }
             }
             
          }
          else {
-            replier.reply("「이미 퀴즈 이벤트 진행중입니다!」");
+            replier.reply("이미 퀴즈 이벤트 진행중이다!!!");
          }
          
          return 0;
@@ -272,7 +240,7 @@ function ani_quiz_answer_response(msg, replier, req_msg, sender) {
    if (ani_quiz_start) {
       if (ani_quiz_answer_flag == 0) {
          if (msg.indexOf(req_msg[ani_quiz_index - 1]) != -1) {
-            replier.reply("「" + sender +"님 정답입니다!」");
+            replier.reply(sender +"님 정답!!!");
             ani_quiz_answer_flag = 1;
             return 0;
          }
@@ -307,7 +275,7 @@ function lotto_response(msg, replier, req_msg) {
          }
          
          num.sort(function(a, b) {return a - b;});
-         replier.reply('「' + num[0] +', '+ num[1] +', '+ num[2] +', '+ num[3] +', '+ num[4] +', '+ num[5] + ' 정도 추천드립니다.」');
+         replier.reply(num[0] +', '+ num[1] +', '+ num[2] +', '+ num[3] +', '+ num[4] +', '+ num[5] + ' 일거다!!!');
          return 0;
       }
    }
@@ -322,7 +290,7 @@ function ramen_response(msg, replier, req_msg, rsp_main_msg, rsp_sub_msg) {
    for (var i=0; i < req_msg.length; i++) {
       if (msg.indexOf(req_msg[i]) != -1) {
          java.lang.Thread.sleep(500);
-         replier.reply("「" + rsp_sub_msg[sub_rand % rsp_sub_msg.length] + " 넣은 " + rsp_main_msg[main_rand % rsp_main_msg.length] + " 추천 드립니다.」");
+         replier.reply(rsp_sub_msg[sub_rand % rsp_sub_msg.length] + " 넣은 " + rsp_main_msg[main_rand % rsp_main_msg.length] + " 먹어라!!!");
          return 0;
       }
    }
@@ -366,7 +334,7 @@ function getCoinPrice(pos) {
       coin_name = "XRP";
    }
    else {
-      result = "「고객님, 정보 제공을 지원하지 않는 코인입니다.」";
+      result = "난 그런 코인 모른다!!!";
       return result;
    }
 
@@ -376,7 +344,7 @@ function getCoinPrice(pos) {
    price = price.split(":")[1]
    price = price.split(".")[0]
     
-   result = "「현재 "+pos+" 시세는 "+price+"원 인것 같습니다.」";
+   result = "현재 "+pos+" 시세는 "+price+"원이다!!!";
     return result;
 }
 
@@ -405,10 +373,10 @@ function getCal(pos) {
     data = data.trim();
    data = data.replace("\n","");
 
-    var result = "「" + data + "kcal 인것 같습니다.」";
+    var result = data + "kcal 이다!!!";
 
     if (result.length > pos.length + 30) {
-        result = "「칼로리 정보를 찾지 못하였습니다.」"
+        result = "몇 칼로리인지 모르겠다!!!"
     }
     return result;
 }
@@ -427,7 +395,7 @@ function cal_response(msg, replier, req_msg) {
             replier.reply(getCal(split_str));
          }
          else {
-            replier.reply('「고객님, 죄송하지만 잘 알아 듣지 못하였습니다. "칼로리 + 음식" 형태의 문장으로 말씀해주십시오.」');
+            replier.reply('"칼로리 + 음식" 형태의 문장으로 말해라!!!');
          }
          return 0;
       }
@@ -446,7 +414,7 @@ function hogam_up_response(msg, replier, req_msg, sender) {
                hogam_sender_value[j]++;
                exist_flag = 1;
                
-               replier.reply("「감사합니다.」 (" + hogam_sender[j] + "님의 호감도 : " + hogam_sender_value[j] + ")");
+               replier.reply("고마워!!! (" + hogam_sender[j] + "님의 호감도 : " + hogam_sender_value[j] + ")");
             }
          }
          
@@ -454,7 +422,7 @@ function hogam_up_response(msg, replier, req_msg, sender) {
             hogam_sender.push(sender);
             hogam_sender_value.push(1);
             
-            replier.reply("「감사합니다.」 (" + sender + "님의 호감도 : 1)");
+            replier.reply("헤헤!!! (" + sender + "님의 호감도 : 1)");
          }
          
          return 0;
@@ -518,10 +486,10 @@ function study_req_rsp(msg, isGroupChat, replier, req_msg) {
             study_req.push(msg.substring(first_msg_start_index, first_msg_end_index));
             study_rsp.push(msg.substring(second_msg_start_index, second_msg_end_index));
             
-            replier.reply('「명심하겠습니다.」');
+            replier.reply('명심하겠다!!!');
          }
          else {
-            replier.reply('「다시 한 번 말씀해주십시오.」 ("공부하기 [배울 문장] [응답 문장]")');
+            replier.reply('다시 말해라!!! ("공부하기 [배울 문장] [응답 문장]")');
          }
          return 0;
       }
@@ -545,7 +513,7 @@ function study_response(msg, replier, req_msg, rsp_msg) {
 
 
 function study_check_response(msg, replier, req_msg) {
-   var result = '「기록된 내용은 아래와 같습니다.」\n\n';
+   var result = '기록된 내용은 아래와 같다!!!\n\n';
    
    for (var i=0; i < req_msg.length; i++) {
       if (msg.indexOf(req_msg[i]) != -1) {
@@ -576,7 +544,7 @@ function study_del_response(msg, replier, req_msg) {
          study_rsp.splice(0, study_rsp.length);
          
          java.lang.Thread.sleep(500);
-         replier.reply('「기록 삭제 완료하였습니다.」');
+         replier.reply('기록 삭제 완료!!!');
          return 0;
       }
    }
@@ -589,9 +557,9 @@ function help_response(msg, replier, req_msg) {
    for (var i=0; i < req_msg.length; i++) {
       if (msg.indexOf(req_msg[i]) != -1) {
          java.lang.Thread.sleep(500);
-         replier.reply('/*\n * Violet Evergarden Bot\n *      Version ' + VIOLET_VERSION + '\n */' +
-            '\n\n 「"바이올렛", "에버가든", "바에" + "명령어"」 형태로 동작합니다.\n\n' +
-            '명령어 목록은 아래와 같습니다.\n   - 도움말, -h, --help\n   - 환영하기\n   - 뭐해\n   - 날씨\n   - 아침, 점심, 저녁추천\n   - 라면추천\n   - 치킨추천\n   - 애니추천\n   - 오늘의 애니\n   - 공부하기\n   - 실시간 검색어\n   - 비트코인\n   - 칼로리\n   - 로또번호');
+         replier.reply('/*\n * Danbi Bot\n *      Version ' + BOT_VERSION + '\n */' +
+            '\n\n 「"단비" + "명령어"」 형태로 동작합니다.\n\n' +
+            '명령어 목록은 아래와 같습니다.\n   - 도움말, -h, --help\n   - 환영하기\n   - 뭐해\n   - 날씨\n   - 아침, 점심, 저녁추천\n   - 라면추천\n   - 치킨추천\n   - 애니추천\n   - 오늘의 애니\n   - 공부하기\n   - 실시간 검색어\n   - 비트코인\n   - 칼로리\n   - 로또번호\n\ngit@github.com:wndk7720/Bot.git');
          return 0;
       }
    }
@@ -603,7 +571,7 @@ function help_response(msg, replier, req_msg) {
 function nalssi_response(msg, replier, req_msg) {
    for (var i=0; i < req_msg.length; i++) {
       if (msg.indexOf(req_msg[i]) != -1) {
-         replier.reply("「링크를 첨부하였으니 확인 바랍니다.」\nhttps://www.google.com/search?q=날씨");   
+         replier.reply("밑에서 확인해라!!!\nhttps://www.google.com/search?q=날씨");   
          return 0;
       }
    }
@@ -627,9 +595,9 @@ function silsigan_response(msg, replier, req_msg) {
                var str = keywordData["rank"] + ". " + keywordData["keyword"]; 
                keywords.push(str);
             }
-            replier.reply("「현재 인기 키워드를 기록하였습니다.」\n\n" + keywords.join("\n")); 
+            replier.reply("현재 인기 키워드다!!!\n\n" + keywords.join("\n")); 
          } catch (e) { 
-            replier.reply("「고객님, 죄송하지만 잘 알아 듣지 못하였습니다.」"); 
+            replier.reply("못 알아 들었다!!!"); 
          } 
          
          return 0;
@@ -643,7 +611,7 @@ function silsigan_response(msg, replier, req_msg) {
 function meet_response(msg, replier, req_msg) {
    for (var i=0; i < req_msg.length; i++) {
       if (msg.indexOf(req_msg[i]) != -1) {
-         replier.reply("「고객님이 원하신다면 어디든 달려가겠습니다. 자동 수기 인형 서비스 바이올렛 에버가든입니다.\n\n닉네임은 이름/나이/최애캐 설정해주시고, 간단한 자기소개(입문작/최애작/최애캐/가장 최근에 본 애니) 부탁드립니다.」");
+         replier.reply("안녕하세요~ 다덕임 오픈톡방에 오신것을 환영해요*^-^*\n\n 닉네임은 이름/나이/최애캐 설정해주시고, 간단한 자기소개(입문작/최애작/최애캐/가장 최근에 본 애니) 부탁드립니다~");
          return 0;
       }
    }
@@ -655,7 +623,7 @@ function meet_response(msg, replier, req_msg) {
 function yok_response(msg, replier, req_msg) {
    for (var i=0; i < req_msg.length; i++) {
       if (msg.indexOf(req_msg[i]) != -1) {
-         replier.reply("「 '" + req_msg[i] + "' 이런 말 쓰시면 안되옵니다.」");
+         replier.reply("'" + req_msg[i] + "' 이런 말 쓰시면 죽는다!!!");
          return 0;
       }
    }
@@ -690,9 +658,9 @@ function today_ani_response(msg, replier, req_msg) {
                keywords.push(str);
             }
             
-            replier.reply("「오늘 방영하는 애니를 기록하였습니다.」\n\n" + keywords.join("\n")); 
+            replier.reply("오늘 방영하는 애니 목록이다!!!\n\n" + keywords.join("\n")); 
          } catch (e) { 
-            replier.reply("「고객님, 죄송하지만 잘 알아 듣지 못하였습니다.」"); 
+            replier.reply("못 알아들었다!!!"); 
          } 
          
          return 0;
@@ -728,17 +696,17 @@ function recommend_ani_response(msg, replier, req_msg) {
             var str = " - " + keywordData["subject"] + " (" + keywordData["genres"] + ")" + "\n   > 방영일 : " + keywordData["startDate"] + "\n   > " + keywordData["website"]; 
             
             if (subject_rand < (datas.length / 4)) {
-               replier.reply("「이 작품이 정말 재밌습니다.」\n\n" + str);  
+               replier.reply("이거 재미따!!!\n\n" + str);  
             }
             else if (subject_rand < (datas.length / 2)) {
-               replier.reply("「저의 소중한 애니 하나를 추천드립니다.」\n\n" + str);  
+               replier.reply("내가 보는거다!!!\n\n" + str);  
             }
             else {
-               replier.reply("「이런 애니는 어떠십니까?」\n\n" + str);  
+               replier.reply("이런 애니어때!!!\n\n" + str);  
             }
             
          } catch (e) {
-            replier.reply("「고객님, 죄송하지만 잘 알아 듣지 못하였습니다.」");
+            replier.reply("못 알아들었다!!!");
          }
 
          return 0;
@@ -749,20 +717,20 @@ function recommend_ani_response(msg, replier, req_msg) {
 }
 
 
-function violet_command_response(msg, sender, isGroupChat, replier) {
+function call_bot_command_response(msg, sender, isGroupChat, replier) {
    
-   for (var i=0; i < violet_msg.length; i++) {
-      if (msg.indexOf(violet_msg[i]) == 0) {
+   for (var i=0; i < bot_msg.length; i++) {
+      if (msg.indexOf(bot_msg[i]) == 0) {
          if (help_response(msg, replier, help_msg) == 0) return 0;
          if (meet_response(msg, replier, meet_msg) == 0) return 0;
          if (cal_response(msg, replier, cal_msg) == 0) return 0;
          if (study_req_rsp(msg, isGroupChat, replier, study_msg) == 0) return 0;
          if (study_check_response(msg, replier, study_check_msg) == 0) return 0;
          if (study_del_response(msg, replier, study_del_msg) == 0) return 0;
-         if (ani_quiz_response(msg, replier, ani_quiz_msg, ani_quiz_problem, ani_quiz_answer) == 0) return 0;
+         //if (ani_quiz_response(msg, replier, ani_quiz_msg, ani_quiz_problem, ani_quiz_answer) == 0) return 0;
       }
 
-      if (msg.indexOf(violet_msg[i]) != -1) {
+      if (msg.indexOf(bot_msg[i]) != -1) {
          if (coin_response(msg, replier, coin_msg) == 0) return 0;
          if (nalssi_response(msg, replier, nalssi_msg) == 0) return 0;
          if (silsigan_response(msg, replier, silsigan_msg) == 0) return 0;
@@ -770,8 +738,7 @@ function violet_command_response(msg, sender, isGroupChat, replier) {
          if (recommend_ani_response(msg, replier, recommend_ani_msg) == 0) return 0;
          if (ramen_response(msg, replier, ramen_msg, ramen_content, ramen_sub_content) == 0) return 0;
          if (basic_response(msg, replier, chik_msg, chik_reply) == 0) return 0;
-         if (basic_response(msg, replier, violet_what_msg, violet_what_reply) == 0) return 0;
-         if (basic_response(msg, replier, violet_love_msg, violet_love_reply) == 0) return 0;
+         if (basic_response(msg, replier, what_msg, what_reply) == 0) return 0;
          if (hogam_up_response(msg, replier, hogam_up_msg, sender) == 0) return 0;
          if (hogam_down_response(msg, replier, hogam_down_msg, sender) == 0) return 0;
          if (basic_response(msg, replier, meal_msg, meal_reply) == 0) return 0;
@@ -790,14 +757,12 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
 
    /* 우선 반응 명령어 */
    if (yok_response(msg, replier, yok_msg) == 0) return;
-   if (basic_response(msg, replier, violet_gil_msg, violet_gil_reply) == 0) return;
 
    /* 바이올렛 명령어 */
-   if (violet_command_response(msg, sender, isGroupChat, replier) == 0) return;
+   if (call_bot_command_response(msg, sender, isGroupChat, replier) == 0) return;
    
    /* 기본적인 응답 */
-   if (sometimes_basic_response(msg, replier, violet_msg, violet_reply) == 0) return;
-   if (sometimes_basic_response(msg, replier, violet_love_msg, violet_love_reply) == 0) return;
+   if (sometimes_basic_response(msg, replier, bot_msg, bot_reply) == 0) return;
    if (sometimes_basic_response(msg, replier, hello_msg, hello_reply) == 0) return;
    if (sometimes_basic_response(msg, replier, morning_msg, morning_reply) == 0) return;
    if (sometimes_basic_response(msg, replier, bye_msg, bye_reply) == 0) return;
@@ -807,6 +772,6 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
    if (sometimes_basic_response(msg, replier, toi_msg, toi_reply) == 0) return;
    
    /* 이벤트성 응답 */
-   if (ani_quiz_answer_response(msg, replier, ani_quiz_answer, sender) == 0) return;
+   //if (ani_quiz_answer_response(msg, replier, ani_quiz_answer, sender) == 0) return;
    if (study_response(msg, replier, study_req, study_rsp) == 0) return;
 }
