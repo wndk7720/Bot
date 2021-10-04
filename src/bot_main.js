@@ -41,7 +41,8 @@ var bot_reply =   [
          '안녕!!!',
          '왜불러!!!',
          '나왔따!!!',
-         '끄아아아앙!!!'
+         '끄아아아앙!!!',
+         '싫어!!!! 단비꺼!!!! 우와아아앙!! 우와아아아아앙!!!!!'
          ];
          
 var what_msg =    ['뭐해', '뭐하', '뭐햐', '뭐행', '머해', '머하', '머행', '모해', '모하', '모행'];
@@ -557,9 +558,10 @@ function help_response(msg, replier, req_msg) {
    for (var i=0; i < req_msg.length; i++) {
       if (msg.indexOf(req_msg[i]) != -1) {
          java.lang.Thread.sleep(500);
-         replier.reply('/*\n * Danbi Bot\n *      Version ' + BOT_VERSION + '\n */' +
+         replier.reply('/*\n * Danbi Bot\n * Version ' + BOT_VERSION + '\n */' +
             '\n\n 「"단비" + "명령어"」 형태로 동작합니다.\n\n' +
-            '명령어 목록은 아래와 같습니다.\n   - 도움말, -h, --help\n   - 환영하기\n   - 뭐해\n   - 날씨\n   - 아침, 점심, 저녁추천\n   - 라면추천\n   - 치킨추천\n   - 애니추천\n   - 오늘의 애니\n   - 공부하기\n   - 실시간 검색어\n   - 비트코인\n   - 칼로리\n   - 로또번호\n\ngit@github.com:wndk7720/Bot.git');
+            '명령어 목록은 아래와 같습니다.\n   - 도움말, -h, --help\n   - 환영하기\n   - 뭐해\n   - 날씨\n   - 아침, 점심, 저녁추천\n   - 라면추천\n   - 치킨추천\n   - 애니추천\n   - 오늘의 애니\n   - 공부하기\n   - 실시간 검색어\n   - 비트코인\n   - 칼로리\n   - 로또번호\n\n' +
+            '[github: git@github.com:wndk7720/Bot.git]');
          return 0;
       }
    }
@@ -758,7 +760,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
    /* 우선 반응 명령어 */
    if (yok_response(msg, replier, yok_msg) == 0) return;
 
-   /* 바이올렛 명령어 */
+   /* 호출 명령어 */
    if (call_bot_command_response(msg, sender, isGroupChat, replier) == 0) return;
    
    /* 기본적인 응답 */
