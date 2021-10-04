@@ -1,4 +1,4 @@
-const BOT_VERSION = '21.10.4';
+const BOT_VERSION = '21.10.04';
 
 const RAND_MAX = 1000;
 const BOSS_GAME_RAND_MAX = 100;
@@ -613,7 +613,7 @@ function silsigan_response(msg, replier, req_msg) {
 function meet_response(msg, replier, req_msg) {
    for (var i=0; i < req_msg.length; i++) {
       if (msg.indexOf(req_msg[i]) != -1) {
-         replier.reply("안녕하세요~ 다덕임 오픈톡방에 오신것을 환영해요*^-^*\n\n 닉네임은 이름/나이/최애캐 설정해주시고, 간단한 자기소개(입문작/최애작/최애캐/가장 최근에 본 애니) 부탁드립니다~");
+         replier.reply("안녕!! 나는 단비라고해 *^-^* 너는 이름이 모야?\n\n(닉네임은 이름/나이/최애캐 설정해주시고, 간단한 자기소개(입문작/최애작/최애캐/가장 최근에 본 애니) 부탁드립니다~)");
          return 0;
       }
    }
@@ -764,7 +764,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
    if (call_bot_command_response(msg, sender, isGroupChat, replier) == 0) return;
    
    /* 기본적인 응답 */
-   if (sometimes_basic_response(msg, replier, bot_msg, bot_reply) == 0) return;
+   if (basic_response(msg, replier, bot_msg, bot_reply) == 0) return;
    if (sometimes_basic_response(msg, replier, hello_msg, hello_reply) == 0) return;
    if (sometimes_basic_response(msg, replier, morning_msg, morning_reply) == 0) return;
    if (sometimes_basic_response(msg, replier, bye_msg, bye_reply) == 0) return;
