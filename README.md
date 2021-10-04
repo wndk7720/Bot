@@ -1,6 +1,6 @@
-# Bot
+# Danbi Bot
 
-### Danbi Bot (Version 21.10.04)
+### Version 21.10.04
 
  「"단비" + "명령어"」 형태로 동작한다!!!
 
