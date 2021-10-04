@@ -23,7 +23,7 @@ var hello_reply =   [
 
 var morning_msg =    ['좋은아침', '좋은 아침', '굿모닝', 'ㄱㅁㄴ'];
 var morning_reply = [
-         '굿모닝!!!'
+         '굿모닝!!!',
          '오하요!!!',
          '좋은아침!!!'
          ]; 
