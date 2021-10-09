@@ -122,7 +122,7 @@ var wow_reply =    [
          ];
 
 var dot_msg =       ['...'];
-var dat_reply =    [
+var dot_reply =    [
          '다음 기회가 있을거다!!!',
          '그럴 수도 있지!!!',
          '힘내자!!!',
