@@ -1,4 +1,4 @@
-const BOT_VERSION = '21.10.09';
+const BOT_VERSION = '21.10.10';
 
 const RAND_MAX = 1000;
 const BOSS_GAME_RAND_MAX = 100;
@@ -119,6 +119,14 @@ var wow_reply =    [
          '우와!!!',
          '오오오!!!',
          '우왕!!!!!!!!!!!!!'
+         ];
+
+var dot_msg =       ['...'];
+var dat_reply =    [
+         '다음 기회가 있을거다!!!',
+         '그럴 수도 있지!!!',
+         '힘내자!!!',
+         '으아아아아앙ㅠㅠㅠ'
          ];
 
 /* 호출 명령어 */
@@ -249,7 +257,7 @@ function regards_response(msg, replier, req_msg, morning_msg, daily_msg) {
 
                rand = Math.floor(Math.random() * RAND_MAX);
                sometimes_rand = Math.floor(Math.random() * RAND_MAX);
-               if (sometimes_rand > (RAND_MAX / 3)) {
+               if (sometimes_rand > (RAND_MAX / 2)) {
                   continue;
                }
 
@@ -379,7 +387,7 @@ function sometimes_basic_response(msg, replier, req_msg, rsp_msg) {
    var sometimes_rand = Math.floor(Math.random() * RAND_MAX);
    var rand = Math.floor(Math.random() * RAND_MAX);
 
-   if (sometimes_rand > (RAND_MAX / 3)) {
+   if (sometimes_rand > (RAND_MAX / 2)) {
       return -1;
    }
    
@@ -847,6 +855,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
    if (sometimes_basic_response(msg, replier, morning_msg, morning_reply) == 0) return;
    if (sometimes_basic_response(msg, replier, bye_msg, bye_reply) == 0) return;
    if (sometimes_basic_response(msg, replier, kkk_msg, kkk_reply) == 0) return;
+   if (sometimes_basic_response(msg, replier, dot_msg, dot_reply) == 0) return;
    if (sometimes_basic_response(msg, replier, wow_msg, wow_reply) == 0) return;
    if (sometimes_basic_response(msg, replier, chool_msg, chool_reply) == 0) return;
    if (sometimes_basic_response(msg, replier, toi_msg, toi_reply) == 0) return;
