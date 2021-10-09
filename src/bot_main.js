@@ -1,4 +1,4 @@
-const BOT_VERSION = '21.10.04';
+const BOT_VERSION = '21.10.09';
 
 const RAND_MAX = 1000;
 const BOSS_GAME_RAND_MAX = 100;
@@ -8,6 +8,7 @@ const ANI_RECOMMEND_RAND_MAX = 1000;
 const TWO_HOUR_SEC = 7200;
 const ONE_HOUR_SEC = 3600;
 const ONE_TWO_THTREE_SEC = 1234;
+const REGARDS_INTERVAL = 14816;
 const TEN_MIN_SEC = 600;
 
 const LOTTO_NUM_MAX = 6;
@@ -44,7 +45,27 @@ var bot_reply =   [
          '끄아아아앙!!!',
          '싫어!!!! 단비꺼!!!! 우와아아앙!! 우와아아아아앙!!!!!'
          ];
-         
+
+var regards_msg =   ['인사'];
+var regards_morning_reply =   [
+          '모두 일어나라!!!',
+          '으아아아앙!!!',
+          '좋은아침이다!!!',
+          '졸려..',
+          '아침밥줘!!!',
+          '안녕!!!',
+          '나와따!!!'
+          ];
+var regards_daily_reply =   [
+          '턱집어 넣구 허리펴라!!!',
+          '단비꺼야!!!!!!!!!!',
+          '우와아아아아앙!!!!!!!',
+          '까꿍!!!',
+          '놀아줘!!!', 
+          '다들 뭐하냐!!!',
+          '심심하다!!!'
+          ];
+
 var give_msg =   ['가져', '줄게'];
 var give_reply =   [
          '만세!!! 다 단비꺼다!!!',
@@ -207,12 +228,54 @@ function basic_response(msg, replier, req_msg, rsp_msg) {
    return -1;
 }
 
+var regards_start = 0;
+function regards_response(msg, replier, req_msg, morning_msg, daily_msg) {
+   var sometimes_rand;
+   var rand;
+   var date;
+   var cur_hours;
+   
+   for (var i=0; i < req_msg.length; i++) {
+      if (msg.indexOf(req_msg[i]) != -1) {
+         if (regards_start == 0) {
+            regards_start = 1;
+            replier.reply("안녕하세여!!!");
+
+            while (1) {
+               java.lang.Thread.sleep(REGARDS_INTERVAL * 1000);
+
+               date = new Date();
+               cur_hours = date.getHours();
+
+               rand = Math.floor(Math.random() * RAND_MAX);
+               sometimes_rand = Math.floor(Math.random() * RAND_MAX);
+               if (sometimes_rand > (RAND_MAX / 3)) {
+                  continue;
+               }
+
+               if (cur_hours > 6 && cur_hours < 10) {
+                  replier.reply(morning_msg[rand % morning_msg.length]);
+               }
+               else if (cur_hours > 9 && cur_hours < 22) {
+                  replier.reply(daily_msg[rand % daily_msg.length]);
+               }
+            }
+         }
+         else {
+            replier.reply("인사 안할꺼야!!! 으아아아앙!!!");
+         }
+         
+         return 0;
+      }
+   }
+   
+   return -1;
+}
+
 var ani_quiz_index = 0;
 var ani_quiz_start = 0;
 var ani_quiz_answer_flag = 1;
 function ani_quiz_response(msg, replier, req_msg, ani_quiz_msg, ani_answer_msg) {
-   var now_time;
-   
    for (var i=0; i < req_msg.length; i++) {
       if (msg.indexOf(req_msg[i]) != -1) {
          if (ani_quiz_start == 0) {
@@ -637,7 +700,7 @@ function meet_response(msg, replier, req_msg) {
 function yok_response(msg, replier, req_msg) {
    for (var i=0; i < req_msg.length; i++) {
       if (msg.indexOf(req_msg[i]) != -1) {
-         replier.reply("'" + req_msg[i] + "' 이런 말 쓰시면 죽는다!!!");
+         replier.reply("'" + req_msg[i] + "' 이런 말 쓰면 죽는다!!!");
          return 0;
       }
    }
@@ -742,6 +805,7 @@ function call_bot_command_response(msg, sender, isGroupChat, replier) {
          if (study_check_response(msg, replier, study_check_msg) == 0) return 0;
          if (study_del_response(msg, replier, study_del_msg) == 0) return 0;
          //if (ani_quiz_response(msg, replier, ani_quiz_msg, ani_quiz_problem, ani_quiz_answer) == 0) return 0;
+         if (regards_response(msg, replier, regards_msg, regards_morning_reply, regards_daily_reply) == 0) return 0;
       }
 
       if (msg.indexOf(bot_msg[i]) != -1) {
