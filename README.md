@@ -1,5 +1,5 @@
 # Danbi Bot
-### Version 21.10.10
+### Version 21.10.11
 
 - 운영환경 : 채팅 자동응답 봇
 - 언어 : javascript

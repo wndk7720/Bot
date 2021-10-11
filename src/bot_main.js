@@ -8,7 +8,7 @@ const ANI_RECOMMEND_RAND_MAX = 1000;
 const TWO_HOUR_SEC = 7200;
 const ONE_HOUR_SEC = 3600;
 const ONE_TWO_THTREE_SEC = 1234;
-const REGARDS_INTERVAL = 14816;
+const REGARDS_INTERVAL = 15816;
 const TEN_MIN_SEC = 600;
 
 const LOTTO_NUM_MAX = 6;
@@ -58,9 +58,7 @@ var regards_morning_reply =   [
           ];
 var regards_daily_reply =   [
           '턱집어 넣구 허리펴라!!!',
-          '단비꺼야!!!!!!!!!!',
-          '우와아아아아앙!!!!!!!',
-          '까꿍!!!',
+          '같이 놀사람!!!',
           '놀아줘!!!', 
           '다들 뭐하냐!!!',
           '심심하다!!!'
@@ -121,12 +119,11 @@ var wow_reply =    [
          '우왕!!!!!!!!!!!!!'
          ];
 
-var dot_msg =       ['...'];
+var dot_msg =       ['....'];
 var dot_reply =    [
          '다음 기회가 있을거다!!!',
          '그럴 수도 있지!!!',
-         '힘내자!!!',
-         '으아아아아앙ㅠㅠㅠ'
+         '힘내자!!!'
          ];
 
 /* 호출 명령어 */
@@ -257,7 +254,7 @@ function regards_response(msg, replier, req_msg, morning_msg, daily_msg) {
 
                rand = Math.floor(Math.random() * RAND_MAX);
                sometimes_rand = Math.floor(Math.random() * RAND_MAX);
-               if (sometimes_rand > (RAND_MAX / 2)) {
+               if (sometimes_rand > (RAND_MAX / 3)) {
                   continue;
                }
 
