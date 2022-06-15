@@ -653,7 +653,7 @@ function help_response(msg, replier, req_msg) {
          java.lang.Thread.sleep(500);
          replier.reply('/*\n * Danbi Bot\n * Version ' + BOT_VERSION + '\n */' +
             '\n\n 「"단비" + "명령어"」 형태로 동작한다!!!\n\n' +
-            '명령어 목록은 아래와 같다!!!\n   - 도움말, -h, --help\n   - 환영하기\n   - 뭐해\n   - 날씨\n   - 아침, 점심, 저녁추천\n   - 라면추천\n   - 치킨추천\n   - 애니추천\n   - 오늘의 애니\n   - 공부하기\n   - 실시간 검색어\n   - 비트코인\n   - 칼로리\n   - 로또번호\n\n' +
+            '명령어 목록은 아래와 같다!!!\n   - 도움말, -h, --help\n   - 환영하기\n   - 뭐해\n   - 날씨\n   - 아침, 점심, 저녁추천\n   - 라면추천\n   - 치킨추천\n   - 애니추천\n   - 오늘의 애니\n   - 공부하기\n   - 비트코인\n   - 칼로리\n   - 로또번호\n\n' +
             '@github: git@github.com:wndk7720/Bot.git');
          return 0;
       }
@@ -830,7 +830,7 @@ function call_bot_command_response(msg, sender, isGroupChat, replier) {
          if (basic_response(msg, replier, give_msg, give_reply) == 0) return 0;
          if (coin_response(msg, replier, coin_msg) == 0) return 0;
          if (nalssi_response(msg, replier, nalssi_msg) == 0) return 0;
-         if (silsigan_response(msg, replier, silsigan_msg) == 0) return 0;
+         //if (silsigan_response(msg, replier, silsigan_msg) == 0) return 0;
          if (today_ani_response(msg, replier, today_ani_msg) == 0) return 0;
          if (recommend_ani_response(msg, replier, recommend_ani_msg) == 0) return 0;
          if (ramen_response(msg, replier, ramen_msg, ramen_content, ramen_sub_content) == 0) return 0;
