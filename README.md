@@ -1,5 +1,5 @@
 # Danbi Bot
-### Version 21.10.11
+### Version 22.06.15
 
 - 운영환경 : 채팅 자동응답 봇
 - 언어 : javascript
@@ -20,9 +20,9 @@
    - 애니추천
    - 오늘의 애니
    - 공부하기
-   - 실시간 검색어
    - 비트코인
    - 칼로리
    - 로또번호
+   - 요약
 
 @github: git@github.com:wndk7720/Bot.git
