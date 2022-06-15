@@ -681,7 +681,7 @@ function sampling_msg_response(msg, replier, req_msg, rsp_msg) {
    var rand = Math.floor(Math.random() * RAND_MAX);
    var rand_index = 0;
 
-   if (rsp_msg.length > 5) {
+   if (rsp_msg.length < 5) {
        replier.reply("최근 대화를 별로 안했다!!!");
        return -1;
    }
