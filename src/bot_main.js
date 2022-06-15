@@ -1,4 +1,4 @@
-const BOT_VERSION = '21.10.10';
+const BOT_VERSION = '22.06.15';
 
 const RAND_MAX = 1000;
 const BOSS_GAME_RAND_MAX = 100;
@@ -13,6 +13,9 @@ const TEN_MIN_SEC = 600;
 
 const LOTTO_NUM_MAX = 6;
 const LOTTO_RAND_MAX = 45;
+
+const SAMPLING_THRESHOLD = 5;
+const SAMPLING_DATA_MAX = 100;
 
 /* 기본 응답어 */
 var hello_msg =      ['안녕', '안뇽', '안냥', '하이', 'ㅎㅇ'];
@@ -194,6 +197,12 @@ var study_check_msg =    ['공부내용', '학습내용', '배운내용'];
 var study_del_msg =    ['잊어버려'];
 var study_req =    [];
 var study_rsp =    [];
+
+/* 대화내용 샘플링 명령어 */
+var sampling_index = 0;
+var sampling_msg =    ['요약'];
+var sampling_data =    [];
+
 
 /* 2021 설연휴 자음퀴즈 이벤트 */
 /*
@@ -397,7 +406,7 @@ function sometimes_basic_response(msg, replier, req_msg, rsp_msg) {
    var sometimes_rand = Math.floor(Math.random() * RAND_MAX);
    var rand = Math.floor(Math.random() * RAND_MAX);
 
-   if (sometimes_rand > (RAND_MAX / 2)) {
+   if (sometimes_rand > (RAND_MAX / 5)) {
       return -1;
    }
    
@@ -647,13 +656,61 @@ function study_del_response(msg, replier, req_msg) {
 }
 
 
+function sampling_data_store(msg, sender, isGroupChat) {
+   var store_data;
+
+   if (isGroupChat == 0) {
+      return -1;
+   }
+
+   if (sampling_index > SAMPLING_THRESHOLD) {
+       if (sampling_data.length > SAMPLING_DATA_MAX) {
+           sampling_data.shift();
+       }
+       store_data = sender + ": " + msg;
+       sampling_data.push(store_data);
+       sampling_index = 0;
+   }
+   sampling_index++;
+
+   return 0;
+}
+
+
+function sampling_msg_response(msg, replier, req_msg, rsp_msg) {
+   var rand = Math.floor(Math.random() * RAND_MAX);
+   var rand_index = 0;
+
+   if (rsp_msg.length > 5) {
+       replier.reply("최근 대화를 별로 안했다!!!");
+       return -1;
+   }
+
+   rand_index = rand % (rsp_msg.length - 3);
+
+   for (var i=0; i < req_msg.length; i++) {
+      if (msg.indexOf(req_msg[i]) != -1) {
+         java.lang.Thread.sleep(500);
+
+         replier.reply("최근 대화요약이다!!!\n\n" + rsp_msg[rand_index] + "\n" + 
+         rsp_msg[rand_index + 1] + "\n" +
+         rsp_msg[rand_index + 2]);
+
+         return 0;
+      }
+   }
+   
+   return -1;
+}
+
+
 function help_response(msg, replier, req_msg) {
    for (var i=0; i < req_msg.length; i++) {
       if (msg.indexOf(req_msg[i]) != -1) {
          java.lang.Thread.sleep(500);
          replier.reply('/*\n * Danbi Bot\n * Version ' + BOT_VERSION + '\n */' +
             '\n\n 「"단비" + "명령어"」 형태로 동작한다!!!\n\n' +
-            '명령어 목록은 아래와 같다!!!\n   - 도움말, -h, --help\n   - 환영하기\n   - 뭐해\n   - 날씨\n   - 아침, 점심, 저녁추천\n   - 라면추천\n   - 치킨추천\n   - 애니추천\n   - 오늘의 애니\n   - 공부하기\n   - 비트코인\n   - 칼로리\n   - 로또번호\n\n' +
+            '명령어 목록은 아래와 같다!!!\n   - 도움말, -h, --help\n   - 환영하기\n   - 뭐해\n   - 날씨\n   - 아침, 점심, 저녁추천\n   - 라면추천\n   - 치킨추천\n   - 애니추천\n   - 오늘의 애니\n   - 공부하기\n   - 비트코인\n   - 칼로리\n   - 로또번호\n   - 요약\n\n' +
             '@github: git@github.com:wndk7720/Bot.git');
          return 0;
       }
@@ -840,6 +897,7 @@ function call_bot_command_response(msg, sender, isGroupChat, replier) {
          if (hogam_down_response(msg, replier, hogam_down_msg, sender) == 0) return 0;
          if (basic_response(msg, replier, meal_msg, meal_reply) == 0) return 0;
          if (lotto_response(msg, replier, lotto_msg) == 0) return 0;
+         if (sampling_msg_response(msg, replier, sampling_msg, sampling_data) == 0) return 0;
       }
    }
    
@@ -848,7 +906,6 @@ function call_bot_command_response(msg, sender, isGroupChat, replier) {
 
 
 function response(room, msg, sender, isGroupChat, replier, ImageDB) {
-   var rand = Math.floor(Math.random() * RAND_MAX);
    var today = new Date();
    var time_flag = 0;
 
@@ -858,6 +915,9 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
    /* 호출 명령어 */
    if (call_bot_command_response(msg, sender, isGroupChat, replier) == 0) return;
    
+   /* 샘플링용 메세지 저장 */
+   sampling_data_store(msg, sender, isGroupChat);
+
    /* 기본적인 응답 */
    if (basic_response(msg, replier, steal_msg, steal_reply) == 0) return;
    if (basic_response(msg, replier, bot_msg, bot_reply) == 0) return;
