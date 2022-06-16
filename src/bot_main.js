@@ -681,18 +681,20 @@ function sampling_msg_response(msg, replier, req_msg, rsp_msg) {
    var rand = Math.floor(Math.random() * RAND_MAX);
    var rand_index = 0;
 
-   if (rsp_msg.length < 5) {
-       replier.reply("최근 대화를 별로 안했다!!!");
-       return -1;
-   }
-
-   rand_index = rand % (rsp_msg.length - 3);
 
    for (var i=0; i < req_msg.length; i++) {
       if (msg.indexOf(req_msg[i]) != -1) {
+
+         if (rsp_msg.length < 5) {
+            replier.reply("최근 대화를 별로 안했다!!!");
+            return -1;
+         }
+         rand_index = rand % (rsp_msg.length - 3);
+
          java.lang.Thread.sleep(500);
 
-         replier.reply("최근 대화요약이다!!!\n\n" + rsp_msg[rand_index] + "\n" + 
+         replier.reply("최근 대화요약이다!!!\n\n" + 
+         rsp_msg[rand_index] + "\n" + 
          rsp_msg[rand_index + 1] + "\n" +
          rsp_msg[rand_index + 2]);
 
