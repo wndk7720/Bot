@@ -202,6 +202,7 @@ var study_rsp =    [];
 var sampling_index = 0;
 var sampling_msg =    ['요약'];
 var sampling_data =    [];
+var sampling_exception =    ['ㅋ', 'ㅎ'];
 
 
 /* 2021 설연휴 자음퀴즈 이벤트 */
@@ -663,15 +664,22 @@ function sampling_data_store(msg, sender, isGroupChat) {
       return -1;
    }
 
+   sampling_index++;
+
    if (sampling_index > SAMPLING_THRESHOLD) {
+       for (var i=0; i < sampling_exception.length; i++) {
+           if (msg.indexOf(sampling_exception[i]) == 0) {
+               return 0;
+           }
+       }
+
        if (sampling_data.length > SAMPLING_DATA_MAX) {
            sampling_data.shift();
        }
-       store_data = sender + ": " + msg;
+       store_data = "??? : " + msg;
        sampling_data.push(store_data);
        sampling_index = 0;
    }
-   sampling_index++;
 
    return 0;
 }
@@ -712,7 +720,7 @@ function help_response(msg, replier, req_msg) {
          java.lang.Thread.sleep(500);
          replier.reply('/*\n * Danbi Bot\n * Version ' + BOT_VERSION + '\n */' +
             '\n\n 「"단비" + "명령어"」 형태로 동작한다!!!\n\n' +
-            '명령어 목록은 아래와 같다!!!\n   - 도움말, -h, --help\n   - 환영하기\n   - 뭐해\n   - 날씨\n   - 아침, 점심, 저녁추천\n   - 라면추천\n   - 치킨추천\n   - 애니추천\n   - 오늘의 애니\n   - 공부하기\n   - 비트코인\n   - 칼로리\n   - 로또번호\n   - 요약\n\n' +
+            '명령어 목록은 아래와 같다!!!\n   - 도움말, -h, --help\n   - 환영하기\n   - 뭐해\n   - 날씨\n   - 아침, 점심, 저녁추천\n   - 라면추천\n   - 치킨추천\n   - 애니추천\n   - 오늘의 애니\n   - 공부하기\n   - 비트코인\n   - 칼로리\n   - 로또번호\n   - 대화요약\n\n' +
             '@github: git@github.com:wndk7720/Bot.git');
          return 0;
       }
