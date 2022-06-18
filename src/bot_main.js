@@ -202,7 +202,7 @@ var study_rsp =    [];
 var sampling_index = 0;
 var sampling_msg =    ['요약'];
 var sampling_data =    [];
-var sampling_exception =    ['ㅋ', 'ㅎ'];
+var sampling_exception =    ['ㅋ', 'ㅎ', '이모티콘', '사진'];
 
 
 /* 2021 설연휴 자음퀴즈 이벤트 */
