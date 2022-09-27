@@ -50,6 +50,23 @@ var bot_reply =   [
          '데헷☆',
          '제가 여기 있는 걸 어떻게 알았어요?'
          ];
+var bot_spe_reply =   [
+         '지금 이 순간, 이 곳에 있는 것을 소중히 여긴다면 반대로 나중에는 슬퍼지기도 하겠죠. 그래도 저는 그 감정을 후회라고는 부르지 않을 거예요.'
+         '부르셨나요, 주인님!',
+         '오늘의 오므라이스는 꼭 맛있게 해드릴거라구요!',
+         '네~ 주인님!',
+         '여기있습니다! 언제든지 날라갈 준비도 되어있어요! 맡겨만 주세요! 주인님!',
+         '주방장도 메이드도 드래곤도 토르예요!',
+         '코바승환씨 곁에 있을 수 있다면 어떤 벽이라도 부술 수 있어요!',
+         '주인님, 왜 그러세요?',
+         '',
+         '',
+         '',
+         '',
+         '',
+         '',
+         ''
+         ];
 
 var regards_msg =   ['인사'];
 var regards_morning_reply =   [
@@ -90,6 +107,23 @@ var what_reply =   [
          '요리하고 있어요!',
          '저, 수행할 거예요!',
          '대련중이에요!'
+         ];
+var what_spe_reply =   [
+         '이제 슬슬 제 꼬리구이를 먹어주실거라는 생각으로 요리를 하고있어요~ 꼬리가 무슨 맛이냐면요~ 달콤하고 크리미해요~',
+         '나는 코바승환씨와 함께 늙어갈 순 없어. 언젠간 이별을 할 때가 찾아오겠지. 그렇다고 해도 나는 코바승환씨를 만나지 않는 편이 나았을 거라고 절대 생각하지 않아. 지금은 이 시간을 소중히... 앗... 언제 들어오신거에요',
+         '세상을 지배하는 그림자의 왕에게 바치나니, 외법에 따라 이것을 최상으로 만들지어다. 바라건대 풍작 품위의 예찬, 값어치를 바꿔 더 나은 비석을 가져와다오. 나의 마는 흙이 되어 퍼져 더러움을 나의 이치는 침식되어 광기의 범람을 올바른 허구로 고쳐 바꾸어라! 맛있어져라 모에모에큥!',
+         '주인님을 위해 장을 보고있었어요~ 좋은 사케가 있던데, 있다가 한 잔 어떠세요? ㅎㅎ',
+         '',
+         '',
+         '',
+         '',
+         '',
+         '',
+         '',
+         '',
+         '',
+         '',
+         ''
          ];
 
 var kkk_msg =       ['ㅋㅋㅋㅋ'];
@@ -191,7 +225,7 @@ var study_rsp =    [];
 var sampling_index = 0;
 var sampling_msg =    ['요약'];
 var sampling_data =    [];
-var sampling_exception =    ['ㅋ', 'ㅎ', '이모티콘', '사진', '단비'];
+var sampling_exception =    ['ㅋ', 'ㅎ', '이모티콘', '사진', '토르'];
 
 /* 2021 설연휴 자음퀴즈 이벤트 */
 /*
@@ -233,6 +267,20 @@ var yok_msg =       ['ㅅㅂ','시발','시빨','씨발','씨빠','씨빨','슈�
 
 
 function basic_response(msg, replier, req_msg, rsp_msg) {
+   var rand = Math.floor(Math.random() * RAND_MAX);
+
+   for (var i=0; i < req_msg.length; i++) {
+      if (msg.indexOf(req_msg[i]) != -1) {
+         java.lang.Thread.sleep(500);
+         replier.reply(rsp_msg[rand % rsp_msg.length]);
+         return 0;
+      }
+   }
+
+   return -1;
+}
+
+function basic_tohru_response(msg, replier, req_msg, rsp_msg, rsp_spe_msg, sender) {
    var rand = Math.floor(Math.random() * RAND_MAX);
 
    for (var i=0; i < req_msg.length; i++) {
