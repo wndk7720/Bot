@@ -388,6 +388,20 @@ function ramen_response(msg, replier, req_msg, rsp_main_msg, rsp_sub_msg) {
    return -1;
 }
 
+function meal_response(msg, replier, req_msg, rsp_main_msg) {
+   var main_rand = Math.floor(Math.random() * RAND_MAX);
+
+   for (var i=0; i < req_msg.length; i++) {
+      if (msg.indexOf(req_msg[i]) != -1) {
+         java.lang.Thread.sleep(500);
+         replier.reply(rsp_main_msg[main_rand % rsp_main_msg.length] + " 추천이요!");
+         return 0;
+      }
+   }
+
+   return -1;
+}
+
 
 function sometimes_basic_response(msg, replier, req_msg, rsp_msg) {
    var sometimes_rand = Math.floor(Math.random() * RAND_MAX);
@@ -886,11 +900,11 @@ function call_bot_command_response(msg, sender, isGroupChat, replier) {
          if (today_ani_response(msg, replier, today_ani_msg) == 0) return 0;
          if (recommend_ani_response(msg, replier, recommend_ani_msg) == 0) return 0;
          if (ramen_response(msg, replier, ramen_msg, ramen_content, ramen_sub_content) == 0) return 0;
-         if (basic_response(msg, replier, chik_msg, chik_reply) == 0) return 0;
+         if (meal_response(msg, replier, chik_msg, chik_reply) == 0) return 0;
          if (basic_response(msg, replier, what_msg, what_reply) == 0) return 0;
          if (hogam_up_response(msg, replier, hogam_up_msg, sender) == 0) return 0;
          if (hogam_down_response(msg, replier, hogam_down_msg, sender) == 0) return 0;
-         if (basic_response(msg, replier, meal_msg, meal_reply) == 0) return 0;
+         if (meal_response(msg, replier, meal_msg, meal_reply) == 0) return 0;
          if (lotto_response(msg, replier, lotto_msg) == 0) return 0;
          if (sampling_msg_response(msg, replier, sampling_msg, sampling_data) == 0) return 0;
       }
