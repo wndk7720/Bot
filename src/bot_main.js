@@ -148,13 +148,13 @@ var ramen_sub_content =   ['계란', '파송송', '치즈', '참치', '삼겹살
          '꽃', '향수', '태풍', '고추기름', '물 한사바리', '제로콜라', '장아찌'];
 
 var chik_msg =      ['치킨추천', '치킨 추천'];
-var chik_reply =   ['BBQ!!!', '맘스터치!!!', 'BHC!!!', 
-         '페리카나!!!', '굽네치킨!!!', '네네치킨!!!', 
-         '노랑통닭!!!', '교촌치킨!!!', '멕시카나!!!', 
-         '부어치킨!!!', '순수치킨!!!', 
-         '호식이 두마리 치킨!!!', '처갓집!!!', 
-         '바른치킨!!!', '멕시칸!!!', '또래오래!!!', 
-         '깐부치킨!!!', '치킨플러스!!!', 'KFC!!!'];
+var chik_reply =   ['BBQ', '맘스터치', 'BHC',
+         '페리카나', '굽네치킨', '네네치킨',
+         '노랑통닭', '교촌치킨', '멕시카나',
+         '부어치킨', '순수치킨',
+         '호식이 두마리 치킨', '처갓집',
+         '바른치킨', '멕시칸', '또래오래',
+         '깐부치킨', '치킨플러스', 'KFC'];
          
 var recommend_ani_msg =   ['애니추천', '만화추천', '애니 추천', '만화 추천', '추천애니', '추천만화', 
          '추천 애니', '추천 만화'];
@@ -163,16 +163,16 @@ var today_ani_msg =    ['오늘의 애니', '오늘의애니', '오늘 애니', 
          
 var meal_msg =       ['아침추천', '점심추천', '저녁추천', '아침 추천', '점심 추천', '저녁 추천',
          '뭐먹', '메뉴', '밥', '식사'];
-var meal_reply =    ['짜장면!!!', '짬뽕!!!', '탕수육!!!', '초밥!!!',
-         '돈부리!!!', '소바!!!', '라면!!!', 
-         '돼지국밥!!!', '삼겹살정식!!!', '갈비탕!!!', '비빔국수!!!', 
-         '스테이크!!!', '햄버거!!!', '피자!!!', '파스타!!!', 
-         '만두!!!', '카레!!!', '훈제오리!!!', '냉면!!!', 
-         '된장찌개!!!', '닭도리탕!!!', '김치찌개!!!', 
-         '불고기!!!', '떡볶이!!!', '순대국밥!!!', '보쌈!!!'];
+var meal_reply =    ['짜장면', '짬뽕', '탕수육', '초밥',
+         '돈부리', '소바', '라면',
+         '돼지국밥', '삼겹살정식', '갈비탕', '비빔국수',
+         '스테이크', '햄버거', '피자', '파스타',
+         '만두', '카레', '훈제오리', '냉면',
+         '된장찌개', '닭도리탕', '김치찌개',
+         '불고기', '떡볶이', '순대국밥', '보쌈'];
 
 /* 호감도 명령어 */
-var hogam_up_msg =    ['이뻐', '귀여', '좋아', '착해', '똑똑', '최고', 
+var hogam_up_msg =    ['이뻐', '귀여', '좋아', '착해', '똑똑', '최고',
          '예뻐', '귀엽', '커엽', '귀욤', '귀요', '멋져', '멋있'];
 var hogam_down_msg =    ['바보', '멍청', '못생', '싫', '나뻐', '나쁜',
          '돼지', '뚱땡', '미워', '너무해', '흥', '그만', '냄',
@@ -229,7 +229,7 @@ var yok_msg =       ['ㅅㅂ','시발','시빨','씨발','씨빠','씨빨','슈�
          '쓔빨','씌발','싀빨','씌발','ㅆㅃ','ㅅㅃ','ㅆㅃ','ㅅㅍ','시팔','씨팔', 
          'ㅄ','ㅂㅅ','병신','븅신','또라이','미친놈','미친년','개새끼','뒤져','좆',
          'ㅅ1ㅂ','ㅅ@ㅂ','시이발','씨댕','개빡','시파','싀파','싀팔','싀바','꺼져',
-         '꺼저','도라이'];
+         '꺼저','도라이','ㅈㄴ','존나'];
 
 
 function basic_response(msg, replier, req_msg, rsp_msg) {
@@ -280,7 +280,7 @@ function regards_response(msg, replier, req_msg, morning_msg, daily_msg) {
             }
          }
          else {
-            replier.reply("인사 안할꺼야!!! 으아아아앙!!!");
+            replier.reply("안녕하십니까!");
          }
          
          return 0;
@@ -303,10 +303,6 @@ function ani_quiz_response(msg, replier, req_msg, ani_quiz_msg, ani_answer_msg) 
             for (ani_quiz_index=0; ani_quiz_index < ani_quiz_msg.length; ) {
                ani_quiz_index++;
                ani_quiz_answer_flag = 0;
-               /*
-               replier.reply("「2021 설연휴 기념 애니자음퀴즈 이벤트 " + ani_quiz_index + "번째 입니다.」\n\n" 
-                           + ani_quiz_msg[ani_quiz_index - 1] + "\n(띄어쓰기 없이 입력해주세요!)"); 
-               */
                replier.reply("애니퀴즈 이벤트☆ (" + ani_quiz_index + "/30)」\n\n" 
                            + ani_quiz_msg[ani_quiz_index - 1] + "\n(띄어쓰기 없이 입력해주세요!)"); 
                
@@ -369,7 +365,7 @@ function lotto_response(msg, replier, req_msg) {
          }
          
          num.sort(function(a, b) {return a - b;});
-         replier.reply(num[0] +', '+ num[1] +', '+ num[2] +', '+ num[3] +', '+ num[4] +', '+ num[5] + ' 일거다!!!');
+         replier.reply(num[0] +', '+ num[1] +', '+ num[2] +', '+ num[3] +', '+ num[4] +', '+ num[5] + ' 이 세계에서 가져온 번호 입니다!');
          return 0;
       }
    }
@@ -384,7 +380,7 @@ function ramen_response(msg, replier, req_msg, rsp_main_msg, rsp_sub_msg) {
    for (var i=0; i < req_msg.length; i++) {
       if (msg.indexOf(req_msg[i]) != -1) {
          java.lang.Thread.sleep(500);
-         replier.reply(rsp_sub_msg[sub_rand % rsp_sub_msg.length] + " 넣은 " + rsp_main_msg[main_rand % rsp_main_msg.length] + " 먹어라!!!");
+         replier.reply(rsp_sub_msg[sub_rand % rsp_sub_msg.length] + " 넣은 " + rsp_main_msg[main_rand % rsp_main_msg.length] + "을 추천드립니다");
          return 0;
       }
    }
@@ -428,7 +424,7 @@ function getCoinPrice(pos) {
       coin_name = "XRP";
    }
    else {
-      result = "난 그런 코인 모른다!!!";
+      result = "전 그런 코인은 잘 모르겠네요..";
       return result;
    }
 
@@ -438,7 +434,7 @@ function getCoinPrice(pos) {
    price = price.split(":")[1]
    price = price.split(".")[0]
     
-   result = "현재 "+pos+" 시세는 "+price+"원이다!!!";
+   result = "현재 "+pos+" 시세는 "+price+"원인 것 같군요!";
     return result;
 }
 
@@ -467,10 +463,10 @@ function getCal(pos) {
     data = data.trim();
    data = data.replace("\n","");
 
-    var result = data + "kcal 이다!!!";
+    var result = data + "kcal 네요~";
 
     if (result.length > pos.length + 30) {
-        result = "몇 칼로리인지 모르겠다!!!"
+        result = "몇 칼로리인지 모르겠어요.."
     }
     return result;
 }
@@ -489,7 +485,7 @@ function cal_response(msg, replier, req_msg) {
             replier.reply(getCal(split_str));
          }
          else {
-            replier.reply('"칼로리 + 음식" 형태의 문장으로 말해라!!!');
+            replier.reply('"칼로리 + 음식" 형태의 문장으로 말씀해주세요');
          }
          return 0;
       }
@@ -508,7 +504,7 @@ function hogam_up_response(msg, replier, req_msg, sender) {
                hogam_sender_value[j]++;
                exist_flag = 1;
                
-               replier.reply("고마워!!! (" + hogam_sender[j] + "님의 호감도 : " + hogam_sender_value[j] + ")");
+               replier.reply("고맙습니다ㅎㅎ (" + hogam_sender[j] + "님의 호감도 : " + hogam_sender_value[j] + ")");
             }
          }
          
@@ -516,7 +512,7 @@ function hogam_up_response(msg, replier, req_msg, sender) {
             hogam_sender.push(sender);
             hogam_sender_value.push(1);
             
-            replier.reply("헤헤!!! (" + sender + "님의 호감도 : 1)");
+            replier.reply("주인님~ 최고! (" + sender + "님의 호감도 : 1)");
          }
          
          return 0;
@@ -580,10 +576,10 @@ function study_req_rsp(msg, isGroupChat, replier, req_msg) {
             study_req.push(msg.substring(first_msg_start_index, first_msg_end_index));
             study_rsp.push(msg.substring(second_msg_start_index, second_msg_end_index));
             
-            replier.reply('명심하겠다!!!');
+            replier.reply('명심하겠습니다!');
          }
          else {
-            replier.reply('다시 말해라!!! ("공부하기 [배울 문장] [응답 문장]")');
+            replier.reply('다시 말해주세요 ("공부하기 [배울 문장] [응답 문장]")');
          }
          return 0;
       }
@@ -607,7 +603,7 @@ function study_response(msg, replier, req_msg, rsp_msg) {
 
 
 function study_check_response(msg, replier, req_msg) {
-   var result = '기록된 내용은 아래와 같다!!!\n\n';
+   var result = '기록된 내용은 아래와 같습니다!\n\n';
    
    for (var i=0; i < req_msg.length; i++) {
       if (msg.indexOf(req_msg[i]) != -1) {
@@ -638,7 +634,7 @@ function study_del_response(msg, replier, req_msg) {
          study_rsp.splice(0, study_rsp.length);
          
          java.lang.Thread.sleep(500);
-         replier.reply('기록 삭제 완료!!!');
+         replier.reply('기록 삭제 완료입니다');
          return 0;
       }
    }
@@ -684,14 +680,14 @@ function sampling_msg_response(msg, replier, req_msg, rsp_msg) {
       if (msg.indexOf(req_msg[i]) != -1) {
 
          if (rsp_msg.length < 5) {
-            replier.reply("최근 대화를 별로 안했다!!!");
+            replier.reply("대화기록이 부족해요..");
             return -1;
          }
          rand_index = rand % (rsp_msg.length - 3);
 
          java.lang.Thread.sleep(500);
 
-         replier.reply("최근 대화요약이다!!!\n\n" + 
+         replier.reply("최근 대화를 요약해드릴게요!\n\n" + 
          rsp_msg[rand_index] + "\n" + 
          rsp_msg[rand_index + 1] + "\n" +
          rsp_msg[rand_index + 2]);
@@ -723,7 +719,7 @@ function help_response(msg, replier, req_msg) {
 function nalssi_response(msg, replier, req_msg) {
    for (var i=0; i < req_msg.length; i++) {
       if (msg.indexOf(req_msg[i]) != -1) {
-         replier.reply("밑에서 확인해라!!!\nhttps://www.google.com/search?q=날씨");   
+         replier.reply("밑에서 확인할 수 있어요!\nhttps://www.google.com/search?q=날씨");   
          return 0;
       }
    }
@@ -747,9 +743,9 @@ function silsigan_response(msg, replier, req_msg) {
                var str = keywordData["rank"] + ". " + keywordData["keyword"]; 
                keywords.push(str);
             }
-            replier.reply("현재 인기 키워드다!!!\n\n" + keywords.join("\n")); 
+            replier.reply("현재 인기 키워드입니다!\n\n" + keywords.join("\n")); 
          } catch (e) { 
-            replier.reply("못 알아 들었다!!!"); 
+            replier.reply("못 알아 들었어요..ㅠ");
          } 
          
          return 0;
@@ -763,7 +759,7 @@ function silsigan_response(msg, replier, req_msg) {
 function meet_response(msg, replier, req_msg) {
    for (var i=0; i < req_msg.length; i++) {
       if (msg.indexOf(req_msg[i]) != -1) {
-         replier.reply("안녕!! 나는 단비라고해 *^-^* 너는 이름이 모야?\n\n(닉네임은 이름/나이/최애캐 설정해주시고, 간단한 자기소개(입문작/최애작/최애캐/가장 최근에 본 애니) 부탁드립니다~)");
+         replier.reply("반가워요~ 저는 토르라고 합니다!\n\n닉네임은 이름/나이/최애캐 설정해주시고, 간단한 자기소개(입문작/최애작/최애캐/가장 최근에 본 애니) 한번만 더 부탁드립니다~");
          return 0;
       }
    }
@@ -775,7 +771,7 @@ function meet_response(msg, replier, req_msg) {
 function yok_response(msg, replier, req_msg) {
    for (var i=0; i < req_msg.length; i++) {
       if (msg.indexOf(req_msg[i]) != -1) {
-         replier.reply("'" + req_msg[i] + "' 이런 말 쓰면 죽는다!!!");
+         replier.reply("'" + req_msg[i] + "' 이런 말 쓰면 안돼요!");
          return 0;
       }
    }
@@ -810,9 +806,9 @@ function today_ani_response(msg, replier, req_msg) {
                keywords.push(str);
             }
             
-            replier.reply("오늘 방영하는 애니 목록이다!!!\n\n" + keywords.join("\n")); 
+            replier.reply("오늘 방영하는 애니 목록입니다!\n\n" + keywords.join("\n")); 
          } catch (e) { 
-            replier.reply("못 알아들었다!!!"); 
+            replier.reply("못 알아들었어요..ㅠㅠ"); 
          } 
          
          return 0;
@@ -848,17 +844,17 @@ function recommend_ani_response(msg, replier, req_msg) {
             var str = " - " + keywordData["subject"] + " (" + keywordData["genres"] + ")" + "\n   > 방영일 : " + keywordData["startDate"] + "\n   > " + keywordData["website"]; 
             
             if (subject_rand < (datas.length / 4)) {
-               replier.reply("이거 재미따!!!\n\n" + str);  
+               replier.reply("이거 재밌어요~\n\n" + str);  
             }
             else if (subject_rand < (datas.length / 2)) {
-               replier.reply("내가 보는거다!!!\n\n" + str);  
+               replier.reply("제가 요즘 보는 애니입니다!\n\n" + str);  
             }
             else {
-               replier.reply("이런 애니어때!!!\n\n" + str);  
+               replier.reply("이런 애니어떠신가요?\n\n" + str);  
             }
             
          } catch (e) {
-            replier.reply("못 알아들었다!!!");
+            replier.reply("지금은 정신이 없어요ㅠㅠ");
          }
 
          return 0;
