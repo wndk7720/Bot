@@ -1,4 +1,4 @@
-const BOT_VERSION = '22.06.15';
+const BOT_VERSION = '22.10.01';
 
 const RAND_MAX = 1000;
 const BOSS_GAME_RAND_MAX = 100;
@@ -20,126 +20,115 @@ const SAMPLING_DATA_MAX = 100;
 /* 기본 응답어 */
 var hello_msg =      ['안녕', '안뇽', '안냥', '하이', 'ㅎㅇ'];
 var hello_reply =   [
-         '안녕!!!',
-         '하이!!!',
-         '하로!!!'
+         '안녕하세요!',
+         '안녕하세요~',
+         '안녕하세요'
          ];
 
 var morning_msg =    ['좋은아침', '좋은 아침', '굿모닝', 'ㄱㅁㄴ'];
 var morning_reply = [
-         '굿모닝!!!',
-         '오하요!!!',
-         '좋은아침!!!'
+         '좋은아침입니다~',
+         '굿모닝이요!',
+         '아침이네요~'
          ]; 
 
 var bye_msg =    ['잘자', 'ㅂㅂ', '굿나잇', '바이', 'ㅂ2', 'ㅂㅇ'];
 var bye_reply =   [
-         '안잘꺼야!!!',
-         '잘자...',
-         '굿나잇!!!'
+         '주무세요~',
+         '잘자요!',
+         '굿밤이에요~'
          ]; 
 
-var bot_msg =   ['단비'];
+var bot_msg =   ['토르'];
 var bot_reply =   [
-         '나와떠!!!',
-         '안녕!!!',
-         '왜불러!!!',
-         '나왔따!!!',
-         '끄아아아앙!!!',
-         '싫어!!!! 단비꺼!!!! 우와아아앙!! 우와아아아아앙!!!!!'
+         '부르셨나요?',
+         '무슨 일이시죠?',
+         '등장했습니다!',
+         '네?',
+         '네!',
+         '지금 바빠요!',
+         '데헷☆',
+         '제가 여기 있는 걸 어떻게 알았어요?'
          ];
 
 var regards_msg =   ['인사'];
 var regards_morning_reply =   [
-          '모두 일어나라!!!',
-          '으아아아앙!!!',
-          '좋은아침이다!!!',
-          '졸려..',
-          '아침밥줘!!!',
-          '안녕!!!',
-          '나와따!!!'
+          '모두 일어날 시간입니다~',
+          '아침이 밝았습니다. 고개를 들어주세요.',
+          '좋은아침이에요!',
+          '오늘따라 졸리네요..',
+          '아침 드세요~',
+          '안녕하세요~'
           ];
 var regards_daily_reply =   [
-          '턱집어 넣구 허리펴라!!!',
-          '같이 놀사람!!!',
-          '놀아줘!!!', 
-          '다들 뭐하냐!!!',
-          '심심하다!!!',
-          '단비는 오늘도 심심하다!!!',
-          '졸리다...',
-          '날씨가 좋다!!!',
-          '밥은 먹고들 다니냐!!!',
-          '무엇들 하느냐!!!',
-          '나랑 놀 사람 없냐!!!',
-          '다들 바쁘냐!!!',
-          '다뭐해!!!',
-          '나른하구나!!!',
-          '배고프다!!!',
-          '뒹굴뒹굴 재밌다!!!',
-          '눈치게임 1 !!!',
-          '재밌는거 없냐!!!'
+          '너무 졸릴 땐 한숨 자고 일어나세요~',
+          '오늘의 집청소는 깔끔하게 되가고 있어요!',
+          '다들 뭐하세요?',
+          '심심하네요..',
+          '졸려요..',
+          '잠이 스르르 오고 있어요..',
+          '저는 오늘같은 날씨가 참 좋단 말이죠',
+          '밥은 드셨죠?',
+          '혹시 저랑 놀아주실분 있나요?',
+          '나른하네요~',
+          '다들 바쁘시죠?',
+          '오늘은 집안일을 벌써 다 끝냈어요!',
+          '뒹굴뒹굴~',
+          '벌써 배고프네요..',
+          '오늘은 제대로 이쪽 세계 재료만 써서 만들거에요',
+          '눈치게임 하실분 있나요? 1!',
+          '오늘은 어떤 재밌는 일이 있을까요?'
           ];
-
-var give_msg =   ['가져', '줄게'];
-var give_reply =   [
-         '만세!!! 다 단비꺼다!!!',
-         '우와아아!! 너무 고마워!!!!!'
-         ];
-
-var steal_msg =   ['내놔', '내꺼'];
-var steal_reply = [
-         '싫어!!!! 단비꺼!!!! 우와아아앙!! 우와아아아아앙!!!!!',
-         '단비꺼!!!! 단비꺼!!! 단비꺼!!!!!!! 단비꺼라고!!!!! 으아아아아앙!!!!!'
-         ];
 
 var what_msg =    ['뭐해', '뭐하', '뭐햐', '뭐행', '머해', '머하', '머행', '모해', '모하', '모행'];
 var what_reply =   [
-         '잘꺼다!!!',
-         '논다!!!',
-         '만화본다!!!',
-         '과자 먹는다!!!',
-         '일한다!!!',
-         '공부한다!!!',
-         '요리한다!!!',
-         '빼에에에엑!!!'
+         '잘준비를 하고 있어요',
+         '만화를 보고 있어요~',
+         '코타츠안은 역시 최고에요..',
+         '청소하고 있어요!',
+         '공부하고 있어요!',
+         '요리하고 있어요!',
+         '저, 수행할 거예요!',
+         '대련중이에요!'
          ];
 
 var kkk_msg =       ['ㅋㅋㅋㅋ'];
 var kkk_reply =    [
          'ㅋㅋㅋ',
-         '재미따!!!',
-         '웃기다!!!',
+         '같이 웃어요~',
+         '뭐가 그렇게 재밌어요!',
          'ㅋㅎㅋㅎㅋ',
+         'ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ',
          'ㅋㅋㅋㅋㅋㅋㅋㅋ'
          ];
 
 var chool_msg =       ['출근'];
 var chool_reply =    [
-         '다녀와라!!!',
-         '힘내!!!',
-         '화이팅!!!',
-         '아자아자!!!'
+         '다녀오세요~',
+         '힘내세요!',
+         '아자아자!',
+         '듣기만해도 힘드네요..'
          ];
          
 var toi_msg =       ['퇴근'];
 var toi_reply =    [
-         '고생해따!!!',
-         '수고해따!!!',
-         '쉬자!!!'
-         ];   
+         '고생했어요!',
+         '수고하셨습니다~',
+         '쉬러갑시다!'
+         ];
    
 var wow_msg =       ['어우', '오오', '오우', 'ㅗㅜㅑ'];
 var wow_reply =    [
          '우와!!!',
          '오오오!!!',
-         '우왕!!!!!!!!!!!!!'
+         '오우!!!!!!!!!!!!!'
          ];
 
 var dot_msg =       ['....'];
 var dot_reply =    [
-         '다음 기회가 있을거다!!!',
-         '그럴 수도 있지!!!',
-         '힘내자!!!'
+         '다음 기회가 있을거에요~',
+         '그럴 수도 있죠!',
+         '힘내세요!'
          ];
 
 /* 호출 명령어 */
@@ -204,7 +193,6 @@ var sampling_msg =    ['요약'];
 var sampling_data =    [];
 var sampling_exception =    ['ㅋ', 'ㅎ', '이모티콘', '사진', '단비'];
 
-
 /* 2021 설연휴 자음퀴즈 이벤트 */
 /*
 var ani_quiz_msg = ['애니퀴즈'];
@@ -220,6 +208,7 @@ var ani_quiz_answer  = ['마녀배달부키키', '신세기에반게리온', '�
                   '예를들어라스트던전앞마을의소년이초반마을에서사는듯한이야기'];
 */
 /* 2021 어린이날 기념 추억의 애니퀴즈 이벤트 */
+/*
 var ani_quiz_msg = ['애니퀴즈'];
 var ani_quiz_problem = ['ㄷㅂㅊㅅ', 'ㅅㅍㄷㅇㅂㄱ', 'ㄹㅋ', 'ㄷㅇㅇㅈㅅㅇㄹㅁ', 'ㄲㄹㄱㅅㅂㄷ',
                   'ㅍㅇㅍㅍㄱ', 'ㅁㅅㅇㅅㅅ', 'ㅇㄷㅍㅊ', 'ㅁㅂㄱㅅㄹㅇㅇㅅ', 'ㅂㄴㅂㄴ',
@@ -233,7 +222,8 @@ var ani_quiz_answer  = ['달빛천사', '스피드왕번개', '레카', '달의�
                   '녹색전차해모수', '천사소녀네티', '전설의용사다간', '보거스는내친구', '방가방가햄토리',
                   '다다다', '빨강망토차차', '구슬동자', '배추도사무도사', '슈퍼갤즈',
                   '요리킹조리킹', '마루코는아홉살', '은비까비의옛날옛적에', '전설의마법쿠루쿠루', '하얀마음백구'];
-                  
+*/
+
 /* 금지어 */
 var yok_msg =       ['ㅅㅂ','시발','시빨','씨발','씨빠','씨빨','슈발','싀발','슈빨','쓔발',
          '쓔빨','씌발','싀빨','씌발','ㅆㅃ','ㅅㅃ','ㅆㅃ','ㅅㅍ','시팔','씨팔', 
@@ -267,7 +257,7 @@ function regards_response(msg, replier, req_msg, morning_msg, daily_msg) {
       if (msg.indexOf(req_msg[i]) != -1) {
          if (regards_start == 0) {
             regards_start = 1;
-            replier.reply("안녕하세여!!!");
+            replier.reply("안녕하세요ㅎㅎ");
 
             while (1) {
                java.lang.Thread.sleep(REGARDS_INTERVAL * 1000);
@@ -718,9 +708,9 @@ function help_response(msg, replier, req_msg) {
    for (var i=0; i < req_msg.length; i++) {
       if (msg.indexOf(req_msg[i]) != -1) {
          java.lang.Thread.sleep(500);
-         replier.reply('/*\n * Danbi Bot\n * Version ' + BOT_VERSION + '\n */' +
-            '\n\n 「"단비" + "명령어"」 형태로 동작한다!!!\n\n' +
-            '명령어 목록은 아래와 같다!!!\n   - 도움말, -h, --help\n   - 환영하기\n   - 뭐해\n   - 날씨\n   - 아침, 점심, 저녁추천\n   - 라면추천\n   - 치킨추천\n   - 애니추천\n   - 오늘의 애니\n   - 공부하기\n   - 비트코인\n   - 칼로리\n   - 로또번호\n   - 대화요약\n\n' +
+         replier.reply('/*\n * Tohru Bot\n * Version ' + BOT_VERSION + '\n */' +
+            '\n\n 「"단비" + "명령어"」 형태로 동작합니다.\n\n' +
+            '명령어 목록은 아래와 같습니다.\n   - 도움말, -h, --help\n   - 환영하기\n   - 뭐해\n   - 날씨\n   - 아침, 점심, 저녁추천\n   - 라면추천\n   - 치킨추천\n   - 애니추천\n   - 오늘의 애니\n   - 공부하기\n   - 비트코인\n   - 칼로리\n   - 로또번호\n   - 대화요약\n\n' +
             '@github: git@github.com:wndk7720/Bot.git');
          return 0;
       }
@@ -894,7 +884,6 @@ function call_bot_command_response(msg, sender, isGroupChat, replier) {
       }
 
       if (msg.indexOf(bot_msg[i]) != -1) {
-         if (basic_response(msg, replier, give_msg, give_reply) == 0) return 0;
          if (coin_response(msg, replier, coin_msg) == 0) return 0;
          if (nalssi_response(msg, replier, nalssi_msg) == 0) return 0;
          //if (silsigan_response(msg, replier, silsigan_msg) == 0) return 0;
@@ -929,7 +918,6 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
    sampling_data_store(msg, sender, isGroupChat);
 
    /* 기본적인 응답 */
-   if (basic_response(msg, replier, steal_msg, steal_reply) == 0) return;
    if (basic_response(msg, replier, bot_msg, bot_reply) == 0) return;
    if (sometimes_basic_response(msg, replier, hello_msg, hello_reply) == 0) return;
    if (sometimes_basic_response(msg, replier, morning_msg, morning_reply) == 0) return;
