@@ -21,8 +21,7 @@ const SAMPLING_DATA_MAX = 100;
 var hello_msg =      ['안녕', '안뇽', '안냥', '하이', 'ㅎㅇ'];
 var hello_reply =   [
          '안녕하세요!',
-         '안녕하세요~',
-         '안녕하세요'
+         '안녕하세요~'
          ];
 
 var morning_msg =    ['좋은아침', '좋은 아침', '굿모닝', 'ㄱㅁㄴ'];
@@ -48,24 +47,18 @@ var bot_reply =   [
          '네!',
          '지금 바빠요!',
          '데헷☆',
-         '제가 여기 있는 걸 어떻게 알았어요?'
+         '왜요!'
          ];
 var bot_spe_reply =   [
-         '지금 이 순간, 이 곳에 있는 것을 소중히 여긴다면 반대로 나중에는 슬퍼지기도 하겠죠. 그래도 저는 그 감정을 후회라고는 부르지 않을 거예요.'
          '부르셨나요, 주인님!',
-         '오늘의 오므라이스는 꼭 맛있게 해드릴거라구요!',
          '네~ 주인님!',
          '여기있습니다! 언제든지 날라갈 준비도 되어있어요! 맡겨만 주세요! 주인님!',
-         '주방장도 메이드도 드래곤도 토르예요!',
-         '코바승환씨 곁에 있을 수 있다면 어떤 벽이라도 부술 수 있어요!',
+         '토르, 여기 있습니다!',
+         '주인님곁에 있을 수 있다면 어떤 벽이라도 부술 수 있어요!',
          '주인님, 왜 그러세요?',
-         '',
-         '',
-         '',
-         '',
-         '',
-         '',
-         ''
+         '오셨나요~ 주인님!',
+         '주인님~ 제가 먼저 부르려고 했었는데!',
+         '주인님~ 무슨일이시죠?'
          ];
 
 var regards_msg =   ['인사'];
@@ -110,20 +103,16 @@ var what_reply =   [
          ];
 var what_spe_reply =   [
          '이제 슬슬 제 꼬리구이를 먹어주실거라는 생각으로 요리를 하고있어요~ 꼬리가 무슨 맛이냐면요~ 달콤하고 크리미해요~',
-         '나는 코바승환씨와 함께 늙어갈 순 없어. 언젠간 이별을 할 때가 찾아오겠지. 그렇다고 해도 나는 코바승환씨를 만나지 않는 편이 나았을 거라고 절대 생각하지 않아. 지금은 이 시간을 소중히... 앗... 언제 들어오신거에요',
+         '나는 주인님과 함께 늙어갈 순 없어. 언젠간 이별을 할 때가 찾아오겠지. 그렇다고 해도 나는 주인님을 만나지 않는 편이 나았을 거라고 절대 생각하지 않아. 지금은 이 시간을 소중히... 앗... 언제 들어오신거에요',
          '세상을 지배하는 그림자의 왕에게 바치나니, 외법에 따라 이것을 최상으로 만들지어다. 바라건대 풍작 품위의 예찬, 값어치를 바꿔 더 나은 비석을 가져와다오. 나의 마는 흙이 되어 퍼져 더러움을 나의 이치는 침식되어 광기의 범람을 올바른 허구로 고쳐 바꾸어라! 맛있어져라 모에모에큥!',
          '주인님을 위해 장을 보고있었어요~ 좋은 사케가 있던데, 있다가 한 잔 어떠세요? ㅎㅎ',
-         '',
-         '',
-         '',
-         '',
-         '',
-         '',
-         '',
-         '',
-         '',
-         '',
-         ''
+         '러브 츄 할짝 츄~ 러브 츄 할짝 츄~ 사랑해요 주인님! 러브 츄 할짝 츄~ 러브 츄 할짝 츄~ 사랑해요 주인님~~~ 러브 할짝 츄!',
+         '청소~ 청소~ 랄라라~ 먼지를 털어서 때려 부수자~ 티클도 쓰레기도 남기지 않아~ 망해라~ 세계~ 지금이야말로 모든 것을 청소!',
+         '지금 이 순간, 이 곳에 있는 것을 소중히 여긴다면 반대로 나중에는 슬퍼지기도 하겠죠. 그래도 저는 그 감정을 후회라고는 부르지 않을 거예요. 주인님이 있으니까요!',
+         '넣었어... 넣었어요. 넣어버렸어요! 미약을! 이걸로 주인님의 몸은 제 거예요!',
+         '잘 준비해요! 드래곤은 기본적으로 졸리지 않는데, 이 세계에 오고부턴 잘 자요! 묘하게 자고 싶은 마음이 들어요..',
+         '분위기도 무르익었고 취기도 올랐으니~ 오늘의 메인이벤트! 저 토르와 주인님의 결혼식을 거행하겠습니다! 자, 주인님.. 사랑한다고 말해주세요!',
+         '마음이 이어진 다음은 몸이에요! 자, 주인님! 모든 걸 토르에게..'
          ];
 
 var kkk_msg =       ['ㅋㅋㅋㅋ'];
@@ -163,6 +152,35 @@ var dot_reply =    [
          '다음 기회가 있을거에요~',
          '그럴 수도 있죠!',
          '힘내세요!'
+         ];
+
+/* 코바야시 특별 명령어 */
+var koba_msg =       ['코바야시', '고바야시'];
+var koba_reply =    [
+         '어디선가 들었던..',
+         '그 이름을 들으니 가슴이 아파와요..',
+         '떠오르지 않아요..',
+         '누구였더라..',
+         '사랑해요.. 어라? 내가 무슨 말을..',
+         '주인님?',
+         '어딘가 아련한..',
+         '아..?',
+         '뭐라구요..?',
+         '이젠 안녕..'
+         ];
+
+var kanna_msg =       ['칸나'];
+var kanna_reply =    [
+         '완전 쩔지 않아?'
+         ];
+
+var elma_msg =       ['엘마'];
+var elma_reply =    [
+         '지금 어딨어요? 같이 운동해야하는데~',
+         '난 나쁜 생각도 안하고, 인간을 어떻게 할 마음도 없고, 그냥 교류를 한 것뿐인데! 엘마는 왜 그렇게 날 의심하는 건지!',
+         '정말로 고지식한 녀석이에요!',
+         '그래도 나쁜 녀석은 아니지만..',
+         '크림빵 10개에 나라를 팔 녀석!'
          ];
 
 /* 호출 명령어 */
@@ -282,6 +300,16 @@ function basic_response(msg, replier, req_msg, rsp_msg) {
 
 function basic_tohru_response(msg, replier, req_msg, rsp_msg, rsp_spe_msg, sender) {
    var rand = Math.floor(Math.random() * RAND_MAX);
+
+   if (sender.indexOf('승환') != -1) {
+       for (var i=0; i < req_msg.length; i++) {
+           if (msg.indexOf(req_msg[i]) != -1) {
+               java.lang.Thread.sleep(500);
+               replier.reply(rsp_spe_msg[rand % rsp_spe_msg.length]);
+               return 0;
+           }
+       }
+   }
 
    for (var i=0; i < req_msg.length; i++) {
       if (msg.indexOf(req_msg[i]) != -1) {
@@ -767,7 +795,7 @@ function help_response(msg, replier, req_msg) {
       if (msg.indexOf(req_msg[i]) != -1) {
          java.lang.Thread.sleep(500);
          replier.reply('/*\n * Tohru Bot\n * Version ' + BOT_VERSION + '\n */' +
-            '\n\n 「"단비" + "명령어"」 형태로 동작합니다.\n\n' +
+            '\n\n 「"토르" + "명령어"」 형태로 동작합니다.\n\n' +
             '명령어 목록은 아래와 같습니다.\n   - 도움말, -h, --help\n   - 환영하기\n   - 뭐해\n   - 날씨\n   - 아침, 점심, 저녁추천\n   - 라면추천\n   - 치킨추천\n   - 애니추천\n   - 오늘의 애니\n   - 공부하기\n   - 비트코인\n   - 칼로리\n   - 로또번호\n   - 대화요약\n\n' +
             '@github: git@github.com:wndk7720/Bot.git');
          return 0;
@@ -949,12 +977,19 @@ function call_bot_command_response(msg, sender, isGroupChat, replier) {
          if (recommend_ani_response(msg, replier, recommend_ani_msg) == 0) return 0;
          if (ramen_response(msg, replier, ramen_msg, ramen_content, ramen_sub_content) == 0) return 0;
          if (meal_response(msg, replier, chik_msg, chik_reply) == 0) return 0;
-         if (basic_response(msg, replier, what_msg, what_reply) == 0) return 0;
+         if (basic_tohru_response(msg, replier, what_msg, what_reply, what_spe_reply, sender) == 0) return 0;
          if (hogam_up_response(msg, replier, hogam_up_msg, sender) == 0) return 0;
          if (hogam_down_response(msg, replier, hogam_down_msg, sender) == 0) return 0;
          if (meal_response(msg, replier, meal_msg, meal_reply) == 0) return 0;
          if (lotto_response(msg, replier, lotto_msg) == 0) return 0;
          if (sampling_msg_response(msg, replier, sampling_msg, sampling_data) == 0) return 0;
+
+         if (basic_response(msg, replier, hello_msg, hello_reply) == 0) return 0;
+         if (basic_response(msg, replier, morning_msg, morning_reply) == 0) return 0;
+         if (basic_response(msg, replier, bye_msg, bye_reply) == 0) return 0;
+         if (basic_response(msg, replier, dot_msg, dot_reply) == 0) return 0;
+         if (basic_response(msg, replier, chool_msg, chool_reply) == 0) return 0;
+         if (basic_response(msg, replier, toi_msg, toi_reply) == 0) return 0;
       }
    }
    
@@ -969,14 +1004,17 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
    /* 우선 반응 명령어 */
    if (yok_response(msg, replier, yok_msg) == 0) return;
 
+   if (basic_response(msg, replier, koba_msg, koba_reply) == 0) return;
+   if (basic_response(msg, replier, kanna_msg, kanna_reply) == 0) return;
+   if (basic_response(msg, replier, elma_msg, elma_reply) == 0) return;
+
    /* 호출 명령어 */
    if (call_bot_command_response(msg, sender, isGroupChat, replier) == 0) return;
-   
+
    /* 샘플링용 메세지 저장 */
    sampling_data_store(msg, sender, isGroupChat);
 
    /* 기본적인 응답 */
-   if (basic_response(msg, replier, bot_msg, bot_reply) == 0) return;
    if (sometimes_basic_response(msg, replier, hello_msg, hello_reply) == 0) return;
    if (sometimes_basic_response(msg, replier, morning_msg, morning_reply) == 0) return;
    if (sometimes_basic_response(msg, replier, bye_msg, bye_reply) == 0) return;
@@ -985,7 +1023,8 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
    if (sometimes_basic_response(msg, replier, wow_msg, wow_reply) == 0) return;
    if (sometimes_basic_response(msg, replier, chool_msg, chool_reply) == 0) return;
    if (sometimes_basic_response(msg, replier, toi_msg, toi_reply) == 0) return;
-   
+   if (basic_tohru_response(msg, replier, bot_msg, bot_reply, bot_spe_reply, sender) == 0) return;
+
    /* 이벤트성 응답 */
    //if (ani_quiz_answer_response(msg, replier, ani_quiz_answer, sender) == 0) return;
    if (study_response(msg, replier, study_req, study_rsp) == 0) return;
