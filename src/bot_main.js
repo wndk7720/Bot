@@ -301,6 +301,7 @@ function basic_response(msg, replier, req_msg, rsp_msg) {
 function basic_tohru_response(msg, replier, req_msg, rsp_msg, rsp_spe_msg, sender) {
    var rand = Math.floor(Math.random() * RAND_MAX);
 
+   // special msg
    if (sender.indexOf('승환') != -1) {
        for (var i=0; i < req_msg.length; i++) {
            if (msg.indexOf(req_msg[i]) != -1) {
@@ -589,6 +590,12 @@ function hogam_up_response(msg, replier, req_msg, sender) {
    var exist_flag = 0;
    for (var i=0; i < req_msg.length; i++) {
       if (msg.indexOf(req_msg[i]) != -1) {
+         // special msg
+         if (sender.indexOf('승환') != -1) {
+            replier.reply("사랑해요ㅎㅎ (" + sender + "님의 호감도 : MAX)");
+            return 0;
+         }
+
          for (var j=0; j < hogam_sender.length; j++) {
             if (hogam_sender[j].indexOf(sender) != -1) {
                hogam_sender_value[j]++;
@@ -602,7 +609,7 @@ function hogam_up_response(msg, replier, req_msg, sender) {
             hogam_sender.push(sender);
             hogam_sender_value.push(1);
             
-            replier.reply("주인님~ 최고! (" + sender + "님의 호감도 : 1)");
+            replier.reply("최고에요! (" + sender + "님의 호감도 : 1)");
          }
          
          return 0;
@@ -617,12 +624,18 @@ function hogam_down_response(msg, replier, req_msg, sender) {
    var exist_flag = 0;
    for (var i=0; i < req_msg.length; i++) {
       if (msg.indexOf(req_msg[i]) != -1) {
+         // special msg
+         if (sender.indexOf('승환') != -1) {
+            replier.reply("다 이해해요ㅎㅎ (" + sender + "님의 호감도 : MAX)");
+            return 0;
+         }
+
          for (var j=0; j < hogam_sender.length; j++) {
             if (hogam_sender[j].indexOf(sender) != -1) {
                hogam_sender_value[j]--;
                exist_flag = 1;
                
-               replier.reply("... (" + hogam_sender[j] + "님의 호감도 : " + hogam_sender_value[j] + ")");
+               replier.reply("실망이에요 (" + hogam_sender[j] + "님의 호감도 : " + hogam_sender_value[j] + ")");
             }
          }
          
@@ -630,7 +643,7 @@ function hogam_down_response(msg, replier, req_msg, sender) {
             hogam_sender.push(sender);
             hogam_sender_value.push(-1);
             
-            replier.reply("... (" + sender + "님의 호감도 : -1)");
+            replier.reply("그런 말씀을 하시다니..  (" + sender + "님의 호감도 : -1)");
          }
          
          return 0;
