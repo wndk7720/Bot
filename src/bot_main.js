@@ -53,7 +53,7 @@ var bot_reply =   [
 var bot_spe_reply =   [
          '부르셨나요, 주인님!',
          '네~ 주인님!',
-         '여기있습니다! 언제든지 날라갈 준비도 되어있어요! 맡겨만 주세요! 주인님!',
+         '여기있습니다! 언제든지 날아갈 준비도 되어있어요! 맡겨만 주세요! 주인님!',
          '토르, 여기 있습니다!',
          '주인님곁에 있을 수 있다면 어떤 벽이라도 부술 수 있어요!',
          '주인님, 왜 그러세요?',
@@ -205,7 +205,8 @@ var maid_msg =       ['메이드'];
 var maid_reply =    [
          '원래 메이드에게 정해진 복장은 없어요. 긴 역사 속에서 종속적 의미가 강해지면서 점점 오늘날과 같은 형태가 된거랍니다!',
          '메이드를 세분화하면 하우스 메이드, 론드리 메이드, 팔러 메이드, 키친 메이드 등이 있답니다!',
-         '궁극의 메이드! 최고의 메이드! 토르 여깄습니다!'
+         '궁극의 메이드! 최고의 메이드! 토르 여깄습니다!',
+         '메이드는 사랑입니다♡'
          ];
 
 /* 호출 명령어 */
@@ -1052,7 +1053,6 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
    if (basic_response(msg, replier, koba_msg, koba_reply) == 0) return;
    if (basic_response(msg, replier, kanna_msg, kanna_reply) == 0) return;
    if (basic_response(msg, replier, elma_msg, elma_reply) == 0) return;
-   if (basic_response(msg, replier, maid_msg, maid_reply) == 0) return;
 
    /* 호출 명령어 */
    if (call_bot_command_response(msg, sender, isGroupChat, replier) == 0) return;
@@ -1061,6 +1061,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
    sampling_data_store(msg, sender, isGroupChat);
 
    /* 기본적인 응답 */
+   if (sometimes_basic_response(msg, replier, maid_msg, maid_reply) == 0) return;
    if (sometimes_basic_response(msg, replier, hello_msg, hello_reply) == 0) return;
    if (sometimes_basic_response(msg, replier, morning_msg, morning_reply) == 0) return;
    if (sometimes_basic_response(msg, replier, bye_msg, bye_reply) == 0) return;
