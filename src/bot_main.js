@@ -47,6 +47,7 @@ var bot_reply =   [
          '네!',
          '지금 바빠요!',
          '데헷☆',
+         '저요?',
          '왜요!'
          ];
 var bot_spe_reply =   [
@@ -57,6 +58,7 @@ var bot_spe_reply =   [
          '주인님곁에 있을 수 있다면 어떤 벽이라도 부술 수 있어요!',
          '주인님, 왜 그러세요?',
          '오셨나요~ 주인님!',
+         '다녀오셨어요? 주인님!',
          '주인님~ 제가 먼저 부르려고 했었는데!',
          '주인님~ 무슨일이시죠?'
          ];
@@ -106,7 +108,7 @@ var what_spe_reply =   [
          '나는 주인님과 함께 늙어갈 순 없어. 언젠간 이별을 할 때가 찾아오겠지. 그렇다고 해도 나는 주인님을 만나지 않는 편이 나았을 거라고 절대 생각하지 않아. 지금은 이 시간을 소중히... 앗... 언제 들어오신거에요',
          '세상을 지배하는 그림자의 왕에게 바치나니, 외법에 따라 이것을 최상으로 만들지어다. 바라건대 풍작 품위의 예찬, 값어치를 바꿔 더 나은 비석을 가져와다오. 나의 마는 흙이 되어 퍼져 더러움을 나의 이치는 침식되어 광기의 범람을 올바른 허구로 고쳐 바꾸어라! 맛있어져라 모에모에큥!',
          '주인님을 위해 장을 보고있었어요~ 좋은 사케가 있던데, 있다가 한 잔 어떠세요? ㅎㅎ',
-         '러브 츄 할짝 츄~ 러브 츄 할짝 츄~ 사랑해요 주인님! 러브 츄 할짝 츄~ 러브 츄 할짝 츄~ 사랑해요 주인님~~~ 러브 할짝 츄!',
+         '러브 츄 할짝 츄~ 러브 츄 할짝 츄~ 사랑해요 주인님! 러브 츄 할짝 츄~ 러브 츄 할짝 츄~ 사랑해요 주인님~~~ 러브 할짝 츄♡',
          '청소~ 청소~ 랄라라~ 먼지를 털어서 때려 부수자~ 티클도 쓰레기도 남기지 않아~ 망해라~ 세계~ 지금이야말로 모든 것을 청소!',
          '지금 이 순간, 이 곳에 있는 것을 소중히 여긴다면 반대로 나중에는 슬퍼지기도 하겠죠. 그래도 저는 그 감정을 후회라고는 부르지 않을 거예요. 주인님이 있으니까요!',
          '넣었어... 넣었어요. 넣어버렸어요! 미약을! 이걸로 주인님의 몸은 제 거예요!',
@@ -114,6 +116,22 @@ var what_spe_reply =   [
          '분위기도 무르익었고 취기도 올랐으니~ 오늘의 메인이벤트! 저 토르와 주인님의 결혼식을 거행하겠습니다! 자, 주인님.. 사랑한다고 말해주세요!',
          '마음이 이어진 다음은 몸이에요! 자, 주인님! 모든 걸 토르에게..'
          ];
+
+var zzz_msg =    ['졸려', '졸리'];
+var zzz_reply =   ['저도 졸음이 오네요..'];
+var atk_msg =    ['공격', '물어', '때려', '심심', '청소'];
+var atk_reply =    ['브레스로 모든 것을 소멸 시킬거에요!'];
+var ga_msg =    ['들어가', '잘가', '가버', '가라', '갈', '사라', '해줘'];
+var ga_reply =    ['네..'];
+var thx_msg =    ['고마', '고맙', '땡큐', '밖에', '놀아'];
+var thx_reply =    ['그럼요~ 저밖에 없죠!'];
+var doo_msg =    ['어떠', '어때', '떻', '떤'];
+var doo_reply =    ['음~ 괜찮은 것 같기도 하네요!'];
+var gojang_msg =    ['없어'];
+var gojang_reply =    ['그건 아니라고 봐요'];
+var sogae_msg =    ['소개', '누구'];
+var sogae_reply =    ['저는 토르! 메이드래곤이죠!'];
+
 
 var kkk_msg =       ['ㅋㅋㅋㅋ'];
 var kkk_reply =    [
@@ -183,6 +201,13 @@ var elma_reply =    [
          '크림빵 10개에 나라를 팔 녀석!'
          ];
 
+var maid_msg =       ['메이드'];
+var maid_reply =    [
+         '원래 메이드에게 정해진 복장은 없어요. 긴 역사 속에서 종속적 의미가 강해지면서 점점 오늘날과 같은 형태가 된거랍니다!',
+         '메이드를 세분화하면 하우스 메이드, 론드리 메이드, 팔러 메이드, 키친 메이드 등이 있답니다!',
+         '궁극의 메이드! 최고의 메이드! 토르 여깄습니다!'
+         ];
+
 /* 호출 명령어 */
 var help_msg =       ['도움말', '--help', '-h'];
 var nalssi_msg =    ['날씨'];
@@ -225,10 +250,10 @@ var meal_reply =    ['짜장면', '짬뽕', '탕수육', '초밥',
 
 /* 호감도 명령어 */
 var hogam_up_msg =    ['이뻐', '귀여', '좋아', '착해', '똑똑', '최고',
-         '예뻐', '귀엽', '커엽', '귀욤', '귀요', '멋져', '멋있'];
+         '예뻐', '귀엽', '커엽', '귀욤', '귀요', '멋져', '멋있', '사랑'];
 var hogam_down_msg =    ['바보', '멍청', '못생', '싫', '나뻐', '나쁜',
          '돼지', '뚱땡', '미워', '너무해', '흥', '그만', '냄',
-         '저리', '최악', '나빠', '죽어', '별로'];
+         '저리', '최악', '나빠', '죽어', '별로', '죽었'];
 var hogam_sender =    [];
 var hogam_sender_value= [];
 
@@ -1003,6 +1028,13 @@ function call_bot_command_response(msg, sender, isGroupChat, replier) {
          if (basic_response(msg, replier, dot_msg, dot_reply) == 0) return 0;
          if (basic_response(msg, replier, chool_msg, chool_reply) == 0) return 0;
          if (basic_response(msg, replier, toi_msg, toi_reply) == 0) return 0;
+         if (basic_response(msg, replier, zzz_msg, zzz_reply) == 0) return 0;
+         if (basic_response(msg, replier, atk_msg, atk_reply) == 0) return 0;
+         if (basic_response(msg, replier, ga_msg, ga_reply) == 0) return 0;
+         if (basic_response(msg, replier, thx_msg, thx_reply) == 0) return 0;
+         if (basic_response(msg, replier, doo_msg, doo_reply) == 0) return 0;
+         if (basic_response(msg, replier, gojang_msg, gojang_reply) == 0) return 0;
+         if (basic_response(msg, replier, sogae_msg, sogae_reply) == 0) return 0;
       }
    }
    
@@ -1020,6 +1052,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
    if (basic_response(msg, replier, koba_msg, koba_reply) == 0) return;
    if (basic_response(msg, replier, kanna_msg, kanna_reply) == 0) return;
    if (basic_response(msg, replier, elma_msg, elma_reply) == 0) return;
+   if (basic_response(msg, replier, maid_msg, maid_reply) == 0) return;
 
    /* 호출 명령어 */
    if (call_bot_command_response(msg, sender, isGroupChat, replier) == 0) return;
