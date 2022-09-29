@@ -217,7 +217,7 @@ var bomb_reply =    [
          '멸망시켜 버릴까요?'
          ];
 
-var sake_msg =       ['소주', '맥주', '위스키', '와인', '양주', '꼬냑', '고량', '칵테일', '쏘주', '쐬주'];
+var sake_msg =       ['소주', '맥주', '소쥬', '맥쥬', '위스키', '와인', '양주', '꼬냑', '고량', '칵테일', '쏘주', '쐬주'];
 var sake_reply =    [
          '톡방에서 술 냄새 나요!',
          '저도 술 좋아하지만! 술 이야기는 적당히!',
@@ -545,7 +545,7 @@ function more_sometimes_basic_response(msg, replier, req_msg, rsp_msg) {
    var sometimes_rand = Math.floor(Math.random() * RAND_MAX);
    var rand = Math.floor(Math.random() * RAND_MAX);
 
-   if (sometimes_rand > (RAND_MAX / 20)) {
+   if (sometimes_rand > (RAND_MAX / 10)) {
       return -1;
    }
    
