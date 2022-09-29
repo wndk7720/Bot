@@ -125,6 +125,8 @@ var ga_msg =    ['들어가', '잘가', '가버', '가라', '갈', '사라', '�
 var ga_reply =    ['네..'];
 var thx_msg =    ['고마', '고맙', '땡큐', '밖에', '놀아'];
 var thx_reply =    ['그럼요~ 저밖에 없죠!'];
+var sorry_msg =    ['미안', '죄송', '잘못', '용서'];
+var sorry_reply =    ['용서해드릴게요!'];
 var doo_msg =    ['어떠', '어때', '떻', '떤'];
 var doo_reply =    ['음~ 괜찮은 것 같기도 하네요!'];
 var gojang_msg =    ['없어'];
@@ -1066,6 +1068,7 @@ function call_bot_command_response(msg, sender, isGroupChat, replier) {
          if (basic_response(msg, replier, atk_msg, atk_reply) == 0) return 0;
          if (basic_response(msg, replier, ga_msg, ga_reply) == 0) return 0;
          if (basic_response(msg, replier, thx_msg, thx_reply) == 0) return 0;
+         if (basic_response(msg, replier, sorry_msg, sorry_reply) == 0) return 0;
          if (basic_response(msg, replier, doo_msg, doo_reply) == 0) return 0;
          if (basic_response(msg, replier, gojang_msg, gojang_reply) == 0) return 0;
          if (basic_response(msg, replier, sogae_msg, sogae_reply) == 0) return 0;
