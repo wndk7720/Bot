@@ -209,6 +209,19 @@ var maid_reply =    [
          '메이드는 사랑입니다♡'
          ];
 
+var bomb_msg =       ['실수', '힘들지', '지각', '늦을', '차별', '지마'];
+var bomb_reply =    [
+         '역시 인간은 어리석네요',
+         '멸망시켜 버릴까요?'
+         ];
+
+var sake_msg =       ['소주', '맥주', '위스키', '와인', '양주', '꼬냑', '고량', '칵테일', '쏘주', '쐬주'];
+var sake_reply =    [
+         '톡방에서 술 냄새 나요!',
+         '저도 술 좋아하지만! 술 이야기는 적당히!',
+         '적당히 마셔요..'
+         ];
+
 /* 호출 명령어 */
 var help_msg =       ['도움말', '--help', '-h'];
 var nalssi_msg =    ['날씨'];
@@ -511,6 +524,26 @@ function sometimes_basic_response(msg, replier, req_msg, rsp_msg) {
    var rand = Math.floor(Math.random() * RAND_MAX);
 
    if (sometimes_rand > (RAND_MAX / 5)) {
+      return -1;
+   }
+   
+   for (var i=0; i < req_msg.length; i++) {
+      if (msg.indexOf(req_msg[i]) != -1) {
+         java.lang.Thread.sleep(500);
+         replier.reply(rsp_msg[rand % rsp_msg.length]);
+         return 0;
+      }
+   }
+   
+   return -1;
+}
+
+
+function more_sometimes_basic_response(msg, replier, req_msg, rsp_msg) {
+   var sometimes_rand = Math.floor(Math.random() * RAND_MAX);
+   var rand = Math.floor(Math.random() * RAND_MAX);
+
+   if (sometimes_rand > (RAND_MAX / 20)) {
       return -1;
    }
    
@@ -1062,6 +1095,8 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
 
    /* 기본적인 응답 */
    if (sometimes_basic_response(msg, replier, maid_msg, maid_reply) == 0) return;
+   if (sometimes_basic_response(msg, replier, bomb_msg, bomb_reply) == 0) return;
+   if (more_sometimes_basic_response(msg, replier, sake_msg, sake_reply) == 0) return;
    if (sometimes_basic_response(msg, replier, hello_msg, hello_reply) == 0) return;
    if (sometimes_basic_response(msg, replier, morning_msg, morning_reply) == 0) return;
    if (sometimes_basic_response(msg, replier, bye_msg, bye_reply) == 0) return;
