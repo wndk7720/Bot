@@ -286,36 +286,32 @@ var sampling_msg =    ['요약'];
 var sampling_data =    [];
 var sampling_exception =    ['ㅋ', 'ㅎ', '이모티콘', '사진', '토르'];
 
-/* 2021 설연휴 자음퀴즈 이벤트 */
-/*
-var ani_quiz_msg = ['애니퀴즈'];
+/* 자음퀴즈 */
+var ani_quiz_msg = ['퀴즈'];
 var ani_quiz_problem = ['ㅁㄴㅂㄷㅂㅋㅋ', 'ㅅㅅㄱㅇㅂㄱㄹㅇ', 'ㅇㅍㅅ', 'ㄷㅅㄴㅌ', 'ㅅㅋㄹㅂ',
-                  'ㄴㄹㅎㄴㅇㅈㄴ', 'ㅊㅇㄷㅍㄱㄹㄹㄱ', 'ㄷㅇㅌㅇㄹㅇㅂ', 'ㅇㅅ', 'ㄱㅅㅅ', 
+                  'ㄴㄹㅎㄴㅇㅈㄴ', 'ㅊㅇㄷㅍㄱㄹㄹㄱ', 'ㄷㅇㅌㅇㄹㅇㅂ', 'ㅇㅅ', 'ㄱㅅㅅ',
                   'ㄷㄹㅇㄷㅍㄹㅋㅅ', 'ㄹㅈㅇㅍㄹㅅ', 'ㅇㅅㅇㄴㅂㄹㄷ', 'ㅂㄹㅋㄹㅂ', 'ㅈㅅㅎㅈ',
                   'ㅂㅇㅇㅅㅎㅁ', 'ㅎㅇㅇㅇㅈㅇㄴㅅ', 'ㅇㄱㅅㅇㄴㄴㄱㅇㅇㄱㅁㅇㅆㄷ', 'ㅇㅂㅇㅇㅊㅇㅇㅅㅇㄲㅇㅈㅅㅎㅈ',
-                  'ㅇㄹㄷㅇㄹㅅㅌㄷㅈㅇㅁㅇㅇㅅㄴㅇㅊㅂㅁㅇㅇㅅㅅㄴㄷㅎㅇㅇㄱ'];
-var ani_quiz_answer  = ['마녀배달부키키', '신세기에반게리온', '원피스', '데스노트', '스쿨럼블',
-                  '노래하는왕자님', '천원돌파그렌라간', '데이트어라이브', '일상', '기생수', 
-                  '달링인더프랑키스', '리즈와파랑새', '약속의네버랜드', '블랙클로버', '주술회전',
-                  '반요야샤히메', '하울의움직이는성', '울고싶은나는고양이가면을쓴다', '이별의아침에약속의꽃을장식하자',
-                  '예를들어라스트던전앞마을의소년이초반마을에서사는듯한이야기'];
-*/
-/* 2021 어린이날 기념 추억의 애니퀴즈 이벤트 */
-/*
-var ani_quiz_msg = ['애니퀴즈'];
-var ani_quiz_problem = ['ㄷㅂㅊㅅ', 'ㅅㅍㄷㅇㅂㄱ', 'ㄹㅋ', 'ㄷㅇㅇㅈㅅㅇㄹㅁ', 'ㄲㄹㄱㅅㅂㄷ',
+                  'ㅇㄹㄷㅇㄹㅅㅌㄷㅈㅇㅁㅇㅇㅅㄴㅇㅊㅂㅁㅇㅇㅅㅅㄴㄷㅎㅇㅇㄱ',
+                  'ㄷㅂㅊㅅ', 'ㅅㅍㄷㅇㅂㄱ', 'ㄹㅋ', 'ㄷㅇㅇㅈㅅㅇㄹㅁ', 'ㄲㄹㄱㅅㅂㄷ',
                   'ㅍㅇㅍㅍㄱ', 'ㅁㅅㅇㅅㅅ', 'ㅇㄷㅍㅊ', 'ㅁㅂㄱㅅㄹㅇㅇㅅ', 'ㅂㄴㅂㄴ',
                   'ㅅㅊㅇㅌㅈㄸㅂ', 'ㅂㄴㄹㅇㅈㅋㅁ', 'ㅎㄱㄹㅂㄱㄷㄹ', 'ㄱㅉㄱㅈ', 'ㄷㅈㅁㅇㄷㅂㅊ',
                   'ㄴㅅㅈㅊㅎㅁㅅ', 'ㅊㅅㅅㄴㄴㅌ', 'ㅈㅅㅇㅇㅅㄷㄱ', 'ㅂㄱㅅㄴㄴㅊㄱ', 'ㅂㄱㅂㄱㅎㅌㄹ',
                   'ㄷㄷㄷ', 'ㅃㄱㅁㅌㅊㅊ', 'ㄱㅅㄷㅈ', 'ㅂㅊㄷㅅㅁㄷㅅ', 'ㅅㅍㄱㅈ',
-                  'ㅇㄹㅋㅈㄹㅋ', 'ㅁㄹㅋㄴㅇㅎㅅ', 'ㅇㅂㄲㅂㅇㅇㄴㅇㅈㅇ', 'ㅈㅅㅇㅁㅂㅋㄹㅋㄹ', 'ㅎㅇㅁㅇㅂㄱ'];
-var ani_quiz_answer  = ['달빛천사', '스피드왕번개', '레카', '달의요정세일러문', '꾸러기수비대',
+                  'ㅇㄹㅋㅈㄹㅋ', 'ㅁㄹㅋㄴㅇㅎㅅ', 'ㅇㅂㄲㅂㅇㅇㄴㅇㅈㅇ', 'ㅈㅅㅇㅁㅂㅋㄹㅋㄹ', 'ㅎㅇㅁㅇㅂㄱ'
+                  ];
+var ani_quiz_answer  = ['마녀배달부키키', '신세기에반게리온', '원피스', '데스노트', '스쿨럼블',
+                  '노래하는왕자님', '천원돌파그렌라간', '데이트어라이브', '일상', '기생수',
+                  '달링인더프랑키스', '리즈와파랑새', '약속의네버랜드', '블랙클로버', '주술회전',
+                  '반요야샤히메', '하울의움직이는성', '울고싶은나는고양이가면을쓴다', '이별의아침에약속의꽃을장식하자',
+                  '예를들어라스트던전앞마을의소년이초반마을에서사는듯한이야기',
+                  '달빛천사', '스피드왕번개', '레카', '달의요정세일러문', '꾸러기수비대',
                   '파워퍼프걸', '미소의세상', '웨딩피치', '마법기사레이어스', '보노보노',
                   '사차원탐정똘비', '별나라요정코미', '황금로봇골드런', '괴짜가족', '디지몬어드벤쳐',
                   '녹색전차해모수', '천사소녀네티', '전설의용사다간', '보거스는내친구', '방가방가햄토리',
                   '다다다', '빨강망토차차', '구슬동자', '배추도사무도사', '슈퍼갤즈',
-                  '요리킹조리킹', '마루코는아홉살', '은비까비의옛날옛적에', '전설의마법쿠루쿠루', '하얀마음백구'];
-*/
+                  '요리킹조리킹', '마루코는아홉살', '은비까비의옛날옛적에', '전설의마법쿠루쿠루', '하얀마음백구'
+                  ];
 
 /* 금지어 */
 var yok_msg =       ['ㅅㅂ','시발','시빨','씨발','씨빠','씨빨','슈발','싀발','슈빨','쓔발',
@@ -412,44 +408,45 @@ var ani_quiz_index = 0;
 var ani_quiz_start = 0;
 var ani_quiz_answer_flag = 1;
 function ani_quiz_response(msg, replier, req_msg, ani_quiz_msg, ani_answer_msg) {
-   for (var i=0; i < req_msg.length; i++) {
-      if (msg.indexOf(req_msg[i]) != -1) {
-         if (ani_quiz_start == 0) {
-            ani_quiz_start = 1;
-            replier.reply("잠시후 애니퀴즈 이벤트가 있을 예정이다!!! 많이 참여해줘라!!!");
-            java.lang.Thread.sleep(ONE_TWO_THTREE_SEC * 1000);
-            for (ani_quiz_index=0; ani_quiz_index < ani_quiz_msg.length; ) {
-               ani_quiz_index++;
-               ani_quiz_answer_flag = 0;
-               replier.reply("애니퀴즈 이벤트☆ (" + ani_quiz_index + "/30)」\n\n" 
-                           + ani_quiz_msg[ani_quiz_index - 1] + "\n(띄어쓰기 없이 입력해주세요!)"); 
-               
-               java.lang.Thread.sleep(ONE_TWO_THTREE_SEC * 1000);
-               
-               if (ani_quiz_answer_flag == 0) {
-                  ani_quiz_answer_flag = 1;
-                  replier.reply("정답은 " + ani_answer_msg[ani_quiz_index - 1] + " 이었다!!!");
-               }
+    var rand = Math.floor(Math.random() * RAND_MAX);
+
+
+    for (var i=0; i < req_msg.length; i++) {
+        if (msg.indexOf(req_msg[i]) != -1) {
+            if (ani_quiz_start == 0) {
+                ani_quiz_start = 1;
+                ani_quiz_index = rand % ani_quiz_msg.length;
+                ani_quiz_answer_flag = 0;
+                replier.reply("맞춰보세요!\n\n"
+                    + ani_quiz_msg[ani_quiz_index] + "\n(띄어쓰기 없이 입력해주세요!)"); 
+
+                java.lang.Thread.sleep(ONE_TWO_THTREE_SEC * 1000);
+
+                if (ani_quiz_answer_flag == 0) {
+                    ani_quiz_answer_flag = 1;
+                    ani_quiz_start = 0;
+                    replier.reply("정답은 " + ani_answer_msg[ani_quiz_index] + " 이었습니다~");
+                }
+
             }
-            
-         }
-         else {
-            replier.reply("이미 퀴즈 이벤트 진행중이다!!!");
-         }
-         
-         return 0;
-      }
-   }
-   
-   return -1;
+            else {
+                replier.reply("이미 퀴즈 진행중이에요!");
+            }
+
+            return 0;
+        }
+    }
+
+    return -1;
 }
 
 function ani_quiz_answer_response(msg, replier, req_msg, sender) {
    if (ani_quiz_start) {
       if (ani_quiz_answer_flag == 0) {
-         if (msg.indexOf(req_msg[ani_quiz_index - 1]) != -1) {
-            replier.reply(sender +"님 정답!!!");
+         if (msg.indexOf(req_msg[ani_quiz_index]) != -1) {
+            replier.reply(sender +"님 정답입니다!");
             ani_quiz_answer_flag = 1;
+            ani_quiz_start = 0;
             return 0;
          }
       }
@@ -870,7 +867,7 @@ function help_response(msg, replier, req_msg) {
          java.lang.Thread.sleep(500);
          replier.reply('/*\n * Tohru Bot\n * Version ' + BOT_VERSION + '\n */' +
             '\n\n 「"토르" + "명령어"」 형태로 동작합니다.\n\n' +
-            '명령어 목록은 아래와 같습니다.\n   - 도움말, -h, --help\n   - 환영하기\n   - 뭐해\n   - 날씨\n   - 아침, 점심, 저녁추천\n   - 라면추천\n   - 치킨추천\n   - 애니추천\n   - 오늘의 애니\n   - 공부하기\n   - 비트코인\n   - 칼로리\n   - 로또번호\n   - 대화요약\n\n' +
+            '명령어 목록은 아래와 같습니다.\n   - 도움말, -h, --help\n   - 환영하기\n   - 뭐해\n   - 날씨\n   - 아침, 점심, 저녁추천\n   - 라면추천\n   - 치킨추천\n   - 애니추천\n   - 오늘의 애니\n   - 공부하기\n   - 비트코인\n   - 칼로리\n   - 로또번호\n   - 대화요약\n   - 퀴즈\n\n' +
             '@github: git@github.com:wndk7720/Bot.git');
          return 0;
       }
@@ -1039,7 +1036,7 @@ function call_bot_command_response(msg, sender, isGroupChat, replier) {
          if (study_req_rsp(msg, isGroupChat, replier, study_msg) == 0) return 0;
          if (study_check_response(msg, replier, study_check_msg) == 0) return 0;
          if (study_del_response(msg, replier, study_del_msg) == 0) return 0;
-         //if (ani_quiz_response(msg, replier, ani_quiz_msg, ani_quiz_problem, ani_quiz_answer) == 0) return 0;
+         if (ani_quiz_response(msg, replier, ani_quiz_msg, ani_quiz_problem, ani_quiz_answer) == 0) return 0;
          if (regards_response(msg, replier, regards_msg, regards_morning_reply, regards_daily_reply) == 0) return 0;
       }
 
@@ -1111,6 +1108,6 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
    if (basic_tohru_response(msg, replier, bot_msg, bot_reply, bot_spe_reply, sender) == 0) return;
 
    /* 이벤트성 응답 */
-   //if (ani_quiz_answer_response(msg, replier, ani_quiz_answer, sender) == 0) return;
+   if (ani_quiz_answer_response(msg, replier, ani_quiz_answer, sender) == 0) return;
    if (study_response(msg, replier, study_req, study_rsp) == 0) return;
 }
