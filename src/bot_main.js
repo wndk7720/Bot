@@ -556,6 +556,21 @@ function reinforce_response(msg, replier, req_msg) {
     java.lang.Thread.sleep(500);
     var rand_2 = Math.floor(Math.random() * REINFORCE_RAND_MAX);
 
+    if (reinforce_weapon_upgrade > 10) {
+        replier.reply("와..");
+        java.lang.Thread.sleep(2000);
+        replier.reply("3");
+        java.lang.Thread.sleep(1000);
+        replier.reply("2");
+        java.lang.Thread.sleep(1000);
+        replier.reply("1");
+        java.lang.Thread.sleep(1000);
+    }
+    else if (reinforce_weapon_upgrade > 5) {
+        replier.reply("두근두근..");
+        java.lang.Thread.sleep(2000);
+    }
+
     if (rand < (REINFORCE_RAND_MAX * reinforce_chance)) {
         reinforce_chance *= 0.9;
         reinforce_weapon_upgrade++;
