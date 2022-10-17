@@ -491,42 +491,44 @@ function gacha_response(msg, replier, req_msg) {
     /* 0 ~ (GACHA_RAND_MAX - 1) */
     var gacha_rand = Math.floor(Math.random() * GACHA_RAND_MAX);
 
-    if (gacha_rand > (GACHA_RAND_MAX * (0.5)) {
+    if (gacha_rand > (GACHA_RAND_MAX * (0.5))) {
         replier.reply(gacha_reply_1[rand % gacha_reply_1.length] + " 뽑았습니다!\n(일반: 50%)");
     }
-    else if (gacha_rand > (GACHA_RAND_MAX * (0.2)) {
+    else if (gacha_rand > (GACHA_RAND_MAX * (0.2))) {
         replier.reply(gacha_reply_2[rand % gacha_reply_2.length] + " 뽑았습니다!\n(고급: 30%)");
     }
-    else if (gacha_rand > (GACHA_RAND_MAX * (0.1)) {
+    else if (gacha_rand > (GACHA_RAND_MAX * (0.1))) {
         replier.reply(gacha_reply_3[rand % gacha_reply_3.length] + " 뽑았습니다!\n(희귀: 10%)");
     }
-    else if (gacha_rand > (GACHA_RAND_MAX * (0.05)) {
+    else if (gacha_rand > (GACHA_RAND_MAX * (0.05))) {
         replier.reply(gacha_reply_4[rand % gacha_reply_4.length] + " 뽑았습니다!\n(고대: 5%)");
     }
-    else if (gacha_rand > (GACHA_RAND_MAX * (0.02)) {
+    else if (gacha_rand > (GACHA_RAND_MAX * (0.02))) {
         replier.reply(gacha_reply_5[rand % gacha_reply_5.length] + " 뽑았습니다!\n(영웅: 3%)");
     }
-    else if (gacha_rand > (GACHA_RAND_MAX * (0.01)) {
+    else if (gacha_rand > (GACHA_RAND_MAX * (0.01))) {
         replier.reply(gacha_reply_6[rand % gacha_reply_6.length] + " 뽑았습니다!\n(유일: 1%)");
     }
-    else if (gacha_rand > (GACHA_RAND_MAX * (0.005)) {
+    else if (gacha_rand > (GACHA_RAND_MAX * (0.005))) {
         replier.reply(gacha_reply_7[rand % gacha_reply_7.length] + " 뽑았습니다!\n(유물: 0.5%)");
     }
-    else if (gacha_rand > (GACHA_RAND_MAX * (0.002)) {
+    else if (gacha_rand > (GACHA_RAND_MAX * (0.002))) {
         replier.reply(gacha_reply_8[rand % gacha_reply_8.length] + " 뽑았습니다!\n(경이: 0.3%)");
     }
-    else if (gacha_rand > (GACHA_RAND_MAX * (0.001)) {
+    else if (gacha_rand > (GACHA_RAND_MAX * (0.001))) {
         replier.reply(gacha_reply_9[rand % gacha_reply_9.length] + " 뽑았습니다!\n(서사: 0.1%)");
     }
-    else if (gacha_rand > (GACHA_RAND_MAX * (0.0003)) {
+    else if (gacha_rand > (GACHA_RAND_MAX * (0.0003))) {
         replier.reply(gacha_reply_10[rand % gacha_reply_10.length] + " 뽑았습니다!\n(전설: 0.07%)");
     }
-    else if (gacha_rand > (GACHA_RAND_MAX * (0.0001)) {
+    else if (gacha_rand > (GACHA_RAND_MAX * (0.0001))) {
         replier.reply(gacha_reply_11[rand % gacha_reply_11.length] + " 뽑았습니다!\n(신화: 0.02%)");
     }
     else {
         replier.reply(gacha_reply_12[rand % gacha_reply_12.length] + " 뽑았습니다!\n(태초: 0.01%)");
     }
+
+    return 0;
 }
 
 function lotto_response(msg, replier, req_msg) {
