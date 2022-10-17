@@ -488,7 +488,7 @@ function ani_quiz_answer_response(msg, replier, req_msg, sender) {
    return -1;
 }
 
-function check_msg_in_req(req_msg) {
+function check_msg(msg, req_msg) {
     for (var i=0; i < req_msg.length; i++) {
         if (msg.indexOf(req_msg[i]) != -1) {
             return 0;
@@ -499,7 +499,7 @@ function check_msg_in_req(req_msg) {
 }
 
 function gacha_response(msg, replier, req_msg) {
-    if (check_msg_in_req(req_msg) != 0) return -1;
+    if (check_msg(msg, req_msg) != 0) return -1;
 
     /* 0 ~ (GACHA_RAND_MAX - 1) */
     var gacha_rand = Math.floor(Math.random() * GACHA_RAND_MAX);
@@ -547,7 +547,7 @@ function gacha_response(msg, replier, req_msg) {
 }
 
 function reinforce_response(msg, replier, req_msg) {
-    if (check_msg_in_req(req_msg) != 0) return -1;
+    if (check_msg(msg, req_msg) != 0) return -1;
 
     /* 0 ~ (REINFORCE_RAND_MAX - 1) */
     var rand = Math.floor(Math.random() * REINFORCE_RAND_MAX);
@@ -557,7 +557,7 @@ function reinforce_response(msg, replier, req_msg) {
     if (rand < (REINFORCE_RAND_MAX * reinforce_chance)) {
         reinforce_chance *= 0.9;
         reinforce_weapon_upgrade++;
-        replier.reply(reinforce_weapon[reinforce_weapon_index] + " (+" + reinforce_weapon_upgrade + ") 강화에 성공했습니다!\n(다음 성공 확률: " + (reinforce_chance * 100) + "%)");
+        replier.reply(reinforce_weapon[reinforce_weapon_index] + " (+" + reinforce_weapon_upgrade + ") 강화에 성공했습니다!\n(다음 성공 확률: " + Math.floor(reinforce_chance * 100) + "%)");
     }
     else if (rand_2 < (REINFORCE_RAND_MAX * reinforce_chance)) {
         reinforce_weapon_upgrade--;
@@ -565,7 +565,7 @@ function reinforce_response(msg, replier, req_msg) {
             reinforce_chance = 1;
         }
 
-        replier.reply(reinforce_weapon[reinforce_weapon_index] + " (+" + reinforce_weapon_upgrade + ") 강화에 실패했습니다!\n(다음 성공 확률: " + (reinforce_chance * 100) + "%)");
+        replier.reply(reinforce_weapon[reinforce_weapon_index] + " (+" + reinforce_weapon_upgrade + ") 강화에 실패했습니다..\n(다음 성공 확률: " + Math.floor(reinforce_chance * 100) + "%)");
     }
     else {
         replier.reply(reinforce_weapon[reinforce_weapon_index] + " 깨져버렸습니다ㅠㅠ");
