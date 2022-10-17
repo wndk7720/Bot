@@ -341,7 +341,9 @@ var gacha_reply_11 = ['집사'];
 var gacha_reply_12 = ['아냐 포저'];
 
 var reinforce_msg = ['강화'];
-var reinforce_weapon = ['낡은 리볼버', '노가다 목장갑', '체리 마법봉', '일루시데이터', '도미네이터'];
+var reinforce_weapon = ['화장포', '노가다 목장갑', '체리 마법봉', '일루시데이터', '도미네이터',
+                        '묠니르', '간장, 막야', '레이징 하트', '비래골', '소드 커틀라스',
+                        '자칼', '초은하 다이그렌', '고잉 메리 호', '인피니티 건틀릿', '롱기누스의 창'];
 var reinforce_weapon_index = 0;
 var reinforce_weapon_upgrade = 0;
 var reinforce_chance = 1;
