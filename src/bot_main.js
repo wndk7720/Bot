@@ -488,12 +488,23 @@ function ani_quiz_answer_response(msg, replier, req_msg, sender) {
    return -1;
 }
 
+function check_msg_in_req(req_msg) {
+    for (var i=0; i < req_msg.length; i++) {
+        if (msg.indexOf(req_msg[i]) != -1) {
+            return 0;
+        }
+    }
+
+    return -1;
+}
+
 function gacha_response(msg, replier, req_msg) {
-    var rand = Math.floor(Math.random() * RAND_MAX);
-    java.lang.Thread.sleep(500);
+    if (check_msg_in_req(req_msg) != 0) return -1;
 
     /* 0 ~ (GACHA_RAND_MAX - 1) */
     var gacha_rand = Math.floor(Math.random() * GACHA_RAND_MAX);
+    java.lang.Thread.sleep(500);
+    var rand = Math.floor(Math.random() * RAND_MAX);
 
     if (gacha_rand > (GACHA_RAND_MAX * (0.5))) {
         replier.reply(gacha_reply_1[rand % gacha_reply_1.length] + " 뽑았습니다!\n(일반: 50%)");
@@ -536,6 +547,8 @@ function gacha_response(msg, replier, req_msg) {
 }
 
 function reinforce_response(msg, replier, req_msg) {
+    if (check_msg_in_req(req_msg) != 0) return -1;
+
     /* 0 ~ (REINFORCE_RAND_MAX - 1) */
     var rand = Math.floor(Math.random() * REINFORCE_RAND_MAX);
     java.lang.Thread.sleep(500);
