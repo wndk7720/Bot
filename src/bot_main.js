@@ -341,6 +341,10 @@ var gacha_reply_11 = ['집사'];
 var gacha_reply_12 = ['아냐 포저'];
 
 var reinforce_msg = ['강화'];
+var reinforce_weapon = ['낡은 리볼버', '노가다 목장갑', '체리 마법봉', '일루시데이터', '도미네이터'];
+var reinforce_weapon_index = 0;
+var reinforce_weapon_upgrade = 0;
+var reinforce_chance = 1;
 
 /* 금지어 */
 var yok_msg =       ['ㅅㅂ','시발','시빨','씨발','씨빠','씨빨','슈발','싀발','슈빨','쓔발',
@@ -526,6 +530,36 @@ function gacha_response(msg, replier, req_msg) {
     }
     else {
         replier.reply(gacha_reply_12[rand % gacha_reply_12.length] + " 뽑았습니다!\n(태초: 0.01%)");
+    }
+
+    return 0;
+}
+
+function reinforce_response(msg, replier, req_msg) {
+    /* 0 ~ (REINFORCE_RAND_MAX - 1) */
+    var rand = Math.floor(Math.random() * REINFORCE_RAND_MAX);
+    java.lang.Thread.sleep(500);
+    var rand_2 = Math.floor(Math.random() * REINFORCE_RAND_MAX);
+
+    if (rand < (REINFORCE_RAND_MAX * reinforce_chance)) {
+        reinforce_chance *= 0.9;
+        reinforce_weapon_upgrade++;
+        replier.reply(reinforce_weapon[reinforce_weapon_index] + " (+" + reinforce_weapon_upgrade + ") 강화에 성공했습니다!\n(다음 성공 확률: " + (reinforce_chance * 100) + "%)");
+    }
+    else if (rand_2 < (REINFORCE_RAND_MAX * reinforce_chance)) {
+        reinforce_weapon_upgrade--;
+        if (reinforce_weapon_upgrade == 0) {
+            reinforce_chance = 1;
+        }
+
+        replier.reply(reinforce_weapon[reinforce_weapon_index] + " (+" + reinforce_weapon_upgrade + ") 강화에 실패했습니다!\n(다음 성공 확률: " + (reinforce_chance * 100) + "%)");
+    }
+    else {
+        replier.reply(reinforce_weapon[reinforce_weapon_index] + " 깨져버렸습니다ㅠㅠ");
+
+        reinforce_chance = 1;
+        reinforce_weapon_upgrade = 0;
+        reinforce_weapon_index = rand % reinforce_weapon.length;
     }
 
     return 0;
