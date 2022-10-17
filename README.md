@@ -24,5 +24,8 @@
    - 칼로리
    - 로또번호
    - 요약
+   - 퀴즈
+   - 가챠
+   - 강화
 
 @github: git@github.com:wndk7720/Bot.git

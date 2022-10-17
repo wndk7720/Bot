@@ -14,6 +14,9 @@ const TEN_MIN_SEC = 600;
 const LOTTO_NUM_MAX = 6;
 const LOTTO_RAND_MAX = 45;
 
+const GACHA_RAND_MAX = 10000;
+const REINFORCE_RAND_MAX = 10000;
+
 const SAMPLING_THRESHOLD = 5;
 const SAMPLING_DATA_MAX = 100;
 
@@ -323,9 +326,25 @@ var ani_quiz_answer  = ['마녀배달부키키', '신세기에반게리온', '�
                   '아이의노랫소리를들려줘', '보쿠노피코', '도메스틱그녀', '새엄마가데려온딸이전여친이었다', '십이대전'
                   ];
 
+var gacha_msg = ['가챠'];
+var gacha_reply_1 = ['탐사수', '티슈', '쿠키', '바나나', '사발면', '야키토리'];
+var gacha_reply_2 = ['프로틴 스파클링', '제로콜라', '당근', '문 브레이커', '함정카드'];
+var gacha_reply_3 = ['나루토', '사쿠라', '사스케', '이타치', '히나타', '루피', '조로', '나미', '상디', '우솝'];
+var gacha_reply_4 = ['카마도 탄지로', '카마도 네즈코', '아가츠마 젠이츠', '하시비라 이노스케', '렌고쿠 쿄쥬로', '우즈이 텐겐', '코쵸우 시노부', '칸로지 미츠리', '이구로 오바나이', '히메지마 교메이', '토키토 무이치로', '토미오카 기유', '시나즈가와 사네미', '키부츠지 무잔'];
+var gacha_reply_5 = ['당근 무더기', '단비'];
+var gacha_reply_6 = ['바이올렛 에버가든'];
+var gacha_reply_7 = ['엑스칼리버'];
+var gacha_reply_8 = ['온천 티켓'];
+var gacha_reply_9 = ['메이드'];
+var gacha_reply_10 = ['메지로 맥퀸'];
+var gacha_reply_11 = ['집사'];
+var gacha_reply_12 = ['아냐 포저'];
+
+var reinforce_msg = ['강화'];
+
 /* 금지어 */
 var yok_msg =       ['ㅅㅂ','시발','시빨','씨발','씨빠','씨빨','슈발','싀발','슈빨','쓔발',
-         '쓔빨','씌발','싀빨','씌발','ㅆㅃ','ㅅㅃ','ㅆㅃ','ㅅㅍ','시팔','씨팔', 
+         '쓔빨','씌발','싀빨','씌발','ㅆㅃ','ㅅㅃ','ㅆㅃ','ㅅㅍ','시팔','씨팔',
          'ㅄ','ㅂㅅ','병신','븅신','또라이','미친놈','미친년','개새끼','뒤져','좆',
          'ㅅ1ㅂ','ㅅ@ㅂ','시이발','씨댕','개빡','시파','싀파','싀팔','싀바','꺼져',
          '꺼저','도라이','ㅈㄴ','존나'];
@@ -463,6 +482,51 @@ function ani_quiz_answer_response(msg, replier, req_msg, sender) {
    }
    
    return -1;
+}
+
+function gacha_response(msg, replier, req_msg) {
+    var rand = Math.floor(Math.random() * RAND_MAX);
+    java.lang.Thread.sleep(500);
+
+    /* 0 ~ (GACHA_RAND_MAX - 1) */
+    var gacha_rand = Math.floor(Math.random() * GACHA_RAND_MAX);
+
+    if (gacha_rand > (GACHA_RAND_MAX * (0.5)) {
+        replier.reply(gacha_reply_1[rand % gacha_reply_1.length] + " 뽑았습니다!\n(일반: 50%)");
+    }
+    else if (gacha_rand > (GACHA_RAND_MAX * (0.2)) {
+        replier.reply(gacha_reply_2[rand % gacha_reply_2.length] + " 뽑았습니다!\n(고급: 30%)");
+    }
+    else if (gacha_rand > (GACHA_RAND_MAX * (0.1)) {
+        replier.reply(gacha_reply_3[rand % gacha_reply_3.length] + " 뽑았습니다!\n(희귀: 10%)");
+    }
+    else if (gacha_rand > (GACHA_RAND_MAX * (0.05)) {
+        replier.reply(gacha_reply_4[rand % gacha_reply_4.length] + " 뽑았습니다!\n(고대: 5%)");
+    }
+    else if (gacha_rand > (GACHA_RAND_MAX * (0.02)) {
+        replier.reply(gacha_reply_5[rand % gacha_reply_5.length] + " 뽑았습니다!\n(영웅: 3%)");
+    }
+    else if (gacha_rand > (GACHA_RAND_MAX * (0.01)) {
+        replier.reply(gacha_reply_6[rand % gacha_reply_6.length] + " 뽑았습니다!\n(유일: 1%)");
+    }
+    else if (gacha_rand > (GACHA_RAND_MAX * (0.005)) {
+        replier.reply(gacha_reply_7[rand % gacha_reply_7.length] + " 뽑았습니다!\n(유물: 0.5%)");
+    }
+    else if (gacha_rand > (GACHA_RAND_MAX * (0.002)) {
+        replier.reply(gacha_reply_8[rand % gacha_reply_8.length] + " 뽑았습니다!\n(경이: 0.3%)");
+    }
+    else if (gacha_rand > (GACHA_RAND_MAX * (0.001)) {
+        replier.reply(gacha_reply_9[rand % gacha_reply_9.length] + " 뽑았습니다!\n(서사: 0.1%)");
+    }
+    else if (gacha_rand > (GACHA_RAND_MAX * (0.0003)) {
+        replier.reply(gacha_reply_10[rand % gacha_reply_10.length] + " 뽑았습니다!\n(전설: 0.07%)");
+    }
+    else if (gacha_rand > (GACHA_RAND_MAX * (0.0001)) {
+        replier.reply(gacha_reply_11[rand % gacha_reply_11.length] + " 뽑았습니다!\n(신화: 0.02%)");
+    }
+    else {
+        replier.reply(gacha_reply_12[rand % gacha_reply_12.length] + " 뽑았습니다!\n(태초: 0.01%)");
+    }
 }
 
 function lotto_response(msg, replier, req_msg) {
@@ -877,7 +941,7 @@ function help_response(msg, replier, req_msg) {
          java.lang.Thread.sleep(500);
          replier.reply('/*\n * Tohru Bot\n * Version ' + BOT_VERSION + '\n */' +
             '\n\n 「"토르" + "명령어"」 형태로 동작합니다.\n\n' +
-            '명령어 목록은 아래와 같습니다.\n   - 도움말, -h, --help\n   - 환영하기\n   - 뭐해\n   - 날씨\n   - 아침, 점심, 저녁추천\n   - 라면추천\n   - 치킨추천\n   - 애니추천\n   - 오늘의 애니\n   - 공부하기\n   - 비트코인\n   - 칼로리\n   - 로또번호\n   - 대화요약\n   - 퀴즈\n\n' +
+            '명령어 목록은 아래와 같습니다.\n   - 도움말, -h, --help\n   - 환영하기\n   - 뭐해\n   - 날씨\n   - 아침, 점심, 저녁추천\n   - 라면추천\n   - 치킨추천\n   - 애니추천\n   - 오늘의 애니\n   - 공부하기\n   - 비트코인\n   - 칼로리\n   - 로또번호\n   - 대화요약\n   - 퀴즈\n   - 가챠\n   - 강화\n\n' +
             '@github: git@github.com:wndk7720/Bot.git');
          return 0;
       }
@@ -1063,6 +1127,8 @@ function call_bot_command_response(msg, sender, isGroupChat, replier) {
          if (hogam_down_response(msg, replier, hogam_down_msg, sender) == 0) return 0;
          if (meal_response(msg, replier, meal_msg, meal_reply) == 0) return 0;
          if (lotto_response(msg, replier, lotto_msg) == 0) return 0;
+         if (gacha_response(msg, replier, gacha_msg) == 0) return 0;
+         if (reinforce_response(msg, replier, reinforce_msg) == 0) return 0;
          if (sampling_msg_response(msg, replier, sampling_msg, sampling_data) == 0) return 0;
 
          if (basic_response(msg, replier, hello_msg, hello_reply) == 0) return 0;
