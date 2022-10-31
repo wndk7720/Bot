@@ -20,6 +20,8 @@ const REINFORCE_RAND_MAX = 10000;
 const SAMPLING_THRESHOLD = 5;
 const SAMPLING_DATA_MAX = 100;
 
+const SAKE_THRESHOLD = 10;
+
 /* 기본 응답어 */
 var hello_msg =      ['안녕', '안뇽', '안냥', '하이', 'ㅎㅇ'];
 var hello_reply =   [
@@ -142,7 +144,6 @@ var kkk_msg =       ['ㅋㅋㅋㅋ'];
 var kkk_reply =    [
          'ㅋㅋㅋ',
          '같이 웃어요~',
-         '뭐가 그렇게 재밌어요!',
          'ㅋㅎㅋㅎㅋ',
          'ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ',
          'ㅋㅋㅋㅋㅋㅋㅋㅋ'
@@ -226,6 +227,8 @@ var sake_reply =    [
          '저도 술 좋아하지만! 술 이야기는 적당히!',
          '적당히 마셔요..'
          ];
+var sake_index = 0;
+var sake_total_index = 0;
 
 /* 호출 명령어 */
 var help_msg =       ['도움말', '--help', '-h'];
@@ -695,6 +698,37 @@ function more_sometimes_basic_response(msg, replier, req_msg, rsp_msg) {
    }
    
    return -1;
+}
+
+
+function sake_basic_response(msg, replier, req_msg, rsp_msg) {
+    var rand = Math.floor(Math.random() * RAND_MAX);
+
+
+    for (var i=0; i < req_msg.length; i++) {
+        if (msg.indexOf(req_msg[i]) != -1) {
+            sake_index++;
+
+            if (sake_index > SAKE_THRESHOLD) {
+                sake_index = 0;
+                sake_total_index = 0;
+
+                java.lang.Thread.sleep(500);
+                replier.reply(rsp_msg[rand % rsp_msg.length]);
+                return 0;
+            }
+        }
+    }
+
+    if (sake_total_index > SAKE_THRESHOLD) {
+        sake_total_index = 0;
+        if (sake_index > 0) {
+            sake_index--;
+        }
+    }
+    sake_total_index++;
+
+    return -1;
 }
 
 
@@ -1236,9 +1270,9 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
    sampling_data_store(msg, sender, isGroupChat);
 
    /* 기본적인 응답 */
+   if (sake_basic_response(msg, replier, sake_msg, sake_reply) == 0) return;
    if (sometimes_basic_response(msg, replier, maid_msg, maid_reply) == 0) return;
    if (sometimes_basic_response(msg, replier, bomb_msg, bomb_reply) == 0) return;
-   if (more_sometimes_basic_response(msg, replier, sake_msg, sake_reply) == 0) return;
    if (sometimes_basic_response(msg, replier, hello_msg, hello_reply) == 0) return;
    if (sometimes_basic_response(msg, replier, morning_msg, morning_reply) == 0) return;
    if (sometimes_basic_response(msg, replier, bye_msg, bye_reply) == 0) return;
