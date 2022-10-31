@@ -1,5 +1,5 @@
 # Tohru Bot
-### Version 22.10.01
+### Version 22.10.31
 
 - 운영환경 : 채팅 자동응답 봇
 - 언어 : javascript

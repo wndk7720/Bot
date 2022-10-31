@@ -1,4 +1,4 @@
-const BOT_VERSION = '22.10.01';
+const BOT_VERSION = '22.10.31';
 
 const RAND_MAX = 1000;
 const BOSS_GAME_RAND_MAX = 100;
