@@ -1,5 +1,5 @@
-# Danbi Bot
-### Version 22.06.15
+# Tohru Bot
+### Version 22.10.31
 
 - 운영환경 : 채팅 자동응답 봇
 - 언어 : javascript
@@ -8,7 +8,7 @@
 
 ### Command List
 
- 「"단비" + "명령어"」 형태로 동작한다!!!
+ 「"토르" + "명령어"」 형태로 동작합니다.
 
    - 도움말, -h, --help
    - 환영하기
@@ -24,5 +24,8 @@
    - 칼로리
    - 로또번호
    - 요약
+   - 퀴즈
+   - 가챠
+   - 강화
 
 @github: git@github.com:wndk7720/Bot.git
