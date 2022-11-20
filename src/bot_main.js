@@ -1165,23 +1165,33 @@ function recommend_ani_response(msg, replier, req_msg) {
          
          try {
             var url = "https://anissia.net/api/anime/list/" + page_rand;
-            var json = Utils.getWebText(url); 
+            var json = Utils.getWebText(url);
+/*
             json = json.replace(/(<([^>]+)>)/ig, "");
 
             json_start_index = json.indexOf('[');
             json_end_index = json.lastIndexOf(']') + 1;
             
             var tmp = json.substring(json_start_index, json_end_index);
+
             var datas = JSON.parse(tmp);
                      
             subject_rand = subject_rand % datas.length;
             var keywordData = datas[subject_rand];
-            var str = " - " + keywordData["subject"] + " (" + keywordData["genres"] + ")" + "\n   > 방영일 : " + keywordData["startDate"] + "\n   > " + keywordData["website"]; 
+            var str = " - " + keywordData["subject"] + " (" + keywordData["genres"] + ")" + "\n   > 방영일 : " + keywordData["startDate"] + "\n   > " + keywordData["website"];
+*/
             
-            if (subject_rand < (datas.length / 4)) {
+            var obj = JSON.parse(json);
+            var content = obj.content;
+            var data_len = obj.numberOfElements;
+            subject_rand = subject_rand % data_len;
+            var str = " - " + content[subject_rand].subject + " (" + content[subject_rand].genres + ")" + "\n   > 방영일 : " + content[subject_rand].startDate + "\n   > " + content[subject_rand].website;
+
+            
+            if (subject_rand < (data_len / 4)) {
                replier.reply("이거 재밌어요~\n\n" + str);  
             }
-            else if (subject_rand < (datas.length / 2)) {
+            else if (subject_rand < (data_len / 2)) {
                replier.reply("제가 요즘 보는 애니입니다!\n\n" + str);  
             }
             else {
