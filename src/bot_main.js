@@ -2,8 +2,8 @@ const BOT_VERSION = '22.10.31';
 
 const RAND_MAX = 1000;
 const BOSS_GAME_RAND_MAX = 100;
-const ANI_PAGE_RAND_MAX = 100;
-const ANI_RECOMMEND_RAND_MAX = 1000;
+const ANI_PAGE_RAND_MAX = 80;
+const ANI_RECOMMEND_RAND_MAX = 80;
 
 const TWO_HOUR_SEC = 7200;
 const ONE_HOUR_SEC = 3600;
@@ -1157,47 +1157,30 @@ function today_ani_response(msg, replier, req_msg) {
 function recommend_ani_response(msg, replier, req_msg) {
    var page_rand = Math.floor(Math.random() * ANI_PAGE_RAND_MAX);
    var subject_rand = Math.floor(Math.random() * ANI_RECOMMEND_RAND_MAX);
-   var json_start_index = -1;
-   var json_end_index = -1;
-   
+
    for (var i=0; i < req_msg.length; i++) {
       if (msg.indexOf(req_msg[i]) != -1) {
-         
          try {
             var url = "https://anissia.net/api/anime/list/" + page_rand;
             var json = Utils.getWebText(url);
-/*
             json = json.replace(/(<([^>]+)>)/ig, "");
 
-            json_start_index = json.indexOf('[');
-            json_end_index = json.lastIndexOf(']') + 1;
-            
-            var tmp = json.substring(json_start_index, json_end_index);
-
-            var datas = JSON.parse(tmp);
-                     
-            subject_rand = subject_rand % datas.length;
-            var keywordData = datas[subject_rand];
-            var str = " - " + keywordData["subject"] + " (" + keywordData["genres"] + ")" + "\n   > 방영일 : " + keywordData["startDate"] + "\n   > " + keywordData["website"];
-*/
-            
             var obj = JSON.parse(json);
             var content = obj.content;
-            var data_len = obj.numberOfElements;
+            var data_len = content.length;
             subject_rand = subject_rand % data_len;
+
             var str = " - " + content[subject_rand].subject + " (" + content[subject_rand].genres + ")" + "\n   > 방영일 : " + content[subject_rand].startDate + "\n   > " + content[subject_rand].website;
 
-            
             if (subject_rand < (data_len / 4)) {
                replier.reply("이거 재밌어요~\n\n" + str);  
             }
             else if (subject_rand < (data_len / 2)) {
-               replier.reply("제가 요즘 보는 애니입니다!\n\n" + str);  
+               replier.reply("제가 요즘 보는 애니입니다!\n\n" + str);
             }
             else {
                replier.reply("이런 애니어떠신가요?\n\n" + str);  
             }
-            
          } catch (e) {
             replier.reply("지금은 정신이 없어요ㅠㅠ");
          }
