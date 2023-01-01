@@ -563,6 +563,10 @@ function invest_game_response(msg, replier, req_msg) {
     var rand = Math.floor(Math.random() * RAND_MAX);
     var play_time = 0;
     var next_goods_index = 0;
+
+    invest_player = [];
+    invest_money = [];
+    invest_purchase = [];
     invest_goods_index = rand % invest_goods.length;
 
     /* introduction investment game */
@@ -571,6 +575,7 @@ function invest_game_response(msg, replier, req_msg) {
             + " - 명령어는 [토르 굿즈 N개 구매], [토르 굿즈 N개 판매] 로 가능합니다.\n"
             + " - 굿즈의 가격은 " + INVEST_SHIFT_TIME_MIN + "분마다 변경됩니다.\n"
             + " - 지금부터 " + INVEST_END_TIME_HOUR + "시간동안 진행됩니다.\n"
+            + " - 초기자금은 모두 " + INVEST_SEED_MONEY + "로 시작합니다.\n"
             + " - 행운을 빕니다."
             );
 
@@ -646,6 +651,13 @@ function find_invest_player(sender) {
     return player_index;
 }
 
+function find_num(msg) {
+    const regex = /[^0-9]/g;
+    var result = msg.replace(regex, "");
+    var number = parseInt(result);
+    return number;
+}
+
 function invest_game_purchase_response(msg, replier, req_msg, sender) {
     if (invest_game_start == 0) return -1;
     if (check_msg(msg, req_msg) != 0) return -1;
@@ -655,7 +667,7 @@ function invest_game_purchase_response(msg, replier, req_msg, sender) {
 
     if (check_msg(msg, invest_buy_msg) == 0) {
         player_index = find_invest_player(sender);
-        // goods_num = find_num(msg);
+        goods_num = find_num(msg);
     
         if (invest_money[player_index] < (invest_goods_price * goods_num)) {
             replier.reply("굿즈 구매 금액(" 
@@ -669,7 +681,7 @@ function invest_game_purchase_response(msg, replier, req_msg, sender) {
         invest_money[player_index] -= (invest_goods_price * goods_num);
         invest_purchase[player_index] += goods_num;
 
-        replier.reply(goods_num + "개 구매 완료했습니다."
+        replier.reply(goods_num + "개 구매 완료했습니다.\n"
                 + sender + "님 굿즈 갯수 현황: " 
                 + invest_purchase[player_index]
                 );
@@ -679,7 +691,7 @@ function invest_game_purchase_response(msg, replier, req_msg, sender) {
 
     if (check_msg(msg, invest_sell_msg) == 0) {
         player_index = find_invest_player(sender);
-        // goods_num = find_num(msg);
+        goods_num = find_num(msg);
 
         if (invest_purchase[player_index] < goods_num) {
             replier.reply("굿즈 판매 갯수(" 
@@ -693,7 +705,7 @@ function invest_game_purchase_response(msg, replier, req_msg, sender) {
         invest_purchase[player_index] -= goods_num;
         invest_money[player_index] += (invest_goods_price * goods_num);
 
-        replier.reply(goods_num + "개 판매 완료했습니다."
+        replier.reply(goods_num + "개 판매 완료했습니다.\n"
                 + sender + "님 자금 현황: " 
                 + invest_money[player_index]
                 );
