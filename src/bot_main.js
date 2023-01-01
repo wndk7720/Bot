@@ -378,6 +378,7 @@ var invest_goods_price = 1000;
 var invest_player = [];
 var invest_money = [];
 var invest_purchase = [];
+var invest_purchase_num = [];
 var invest_purchase_msg = ["굿즈"];
 var invest_buy_msg = ["구매", "산다", "사줘"];
 var invest_sell_msg = ["판매", "판다", "팔아"];
@@ -551,12 +552,13 @@ function shift_price(price) {
     }
     else {
         calc_price = price / 100;
-        calc_price *= (price_rand % 50);
 
         if (rand > (RAND_MAX / 2)) {
+            calc_price *= (price_rand % 100);
             price += calc_price;
         }
         else {
+            calc_price *= (price_rand % 50);
             price -= calc_price;
         }
     }
@@ -587,6 +589,7 @@ function invest_game_response(msg, replier, req_msg) {
     invest_player = [];
     invest_money = [];
     invest_purchase = [];
+    invest_purchase_num = [];
     invest_goods_index = rand % invest_goods.length;
 
     /* introduction investment game */
@@ -628,7 +631,10 @@ function invest_game_response(msg, replier, req_msg) {
                 + invest_goods_price + "원 (" 
                 + prev_percent + "%)\n"
                 + " - 기존 가격: " + prev_goods_price + "원" 
-                ); 
+                );
+        if (invest_goods_price < 300) {
+            replier.reply(" * 투자 주의! 상폐 위험!");
+        }
 
         if ((play_time + INVEST_SHIFT_TIME_MIN) >= (INVEST_END_TIME_HOUR * 60)) {
             replier.reply("곧 게임이 종료됩니다!\n"
@@ -646,7 +652,9 @@ function invest_game_response(msg, replier, req_msg) {
     var best_player_index = 0;
     for (var i=0; i < invest_player.length; i++) {
         invest_money[i] += (invest_purchase[i] * invest_goods_price);
-        result_msg += " - " + invest_player[i] + "님: " + invest_money[i] + "원\n";
+        result_msg += " - " + invest_player[i] + "님: " 
+                        + invest_money[i] + "원 (거래 횟수: " 
+                        + invest_purchase_num[i] + ")\n";
 
         if (best_price < invest_money[i]) {
             best_price = invest_money[i];
@@ -679,6 +687,7 @@ function find_invest_player(sender) {
         invest_player[player_index] = sender;
         invest_money[player_index] = INVEST_SEED_MONEY;
         invest_purchase[player_index] = 0;
+        invest_purchase_num[player_index] = 0;
     }
 
     return player_index;
@@ -716,6 +725,7 @@ function invest_game_purchase_response(msg, replier, req_msg, sender) {
             return 0;
         }
 
+        invest_purchase_num[player_index]++;
         invest_money[player_index] -= (invest_goods_price * goods_num);
         invest_purchase[player_index] += goods_num;
 
@@ -741,6 +751,7 @@ function invest_game_purchase_response(msg, replier, req_msg, sender) {
             return 0;
         }
 
+        invest_purchase_num[player_index]++;
         invest_purchase[player_index] -= goods_num;
         invest_money[player_index] += (invest_goods_price * goods_num);
 
