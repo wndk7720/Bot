@@ -701,7 +701,6 @@ function invest_game_purchase_response(msg, replier, req_msg, sender) {
 
         replier.reply(sender + "님 "
                 + goods_num + "개(시세: " + invest_goods_price + "원) 구매 완료했습니다.\n"
-                + invest_purchase[player_index]
                 + "자금 현황: " + invest_money[player_index] + "원\n"
                 + "굿즈 갯수 현황: " + invest_purchase[player_index] + "개"
                 );
