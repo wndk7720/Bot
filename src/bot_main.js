@@ -373,7 +373,7 @@ const INVEST_END_TIME_HOUR = 5;
 const INVEST_SHIFT_TIME_MIN = 20;
 const INVEST_SEED_MONEY = 20000;
 var invest_msg = ['투자게임', '투자 게임'];
-var invest_goods = ['우마무스메 피규어', '포켓몬 피규어', '버튜버 피규어', '앙스타 피규어'];
+var invest_goods = ['우마무스메 피규어', '포켓몬 피규어', '버튜버 피규어', '앙스타 피규어', '모노가타리 피규어'];
 var invest_goods_price = 1000;
 var invest_player = [];
 var invest_money = [];
@@ -536,17 +536,31 @@ function check_msg(msg, req_msg) {
 
 function shift_price(price) {
     var rand = Math.floor(Math.random() * RAND_MAX);
-	java.lang.Thread.sleep(1000);
+    java.lang.Thread.sleep(1000);
     var price_rand = Math.floor(Math.random() * RAND_MAX);
+    var calc_price;
 
-	if (rand > (RAND_MAX / 2)) {
-		price += price_rand;
-	}
-	else {
-		price -= price_rand;
-	}
+    if (price <= 1000) {
+        if (rand > (RAND_MAX / 2)) {
+            price += price_rand;
+        }
+        else {
+            price -= price_rand;
+        }
+    }
+    else {
+        calc_price = price / 100;
+        calc_price *= (price_rand % 50);
 
-	return price;
+        if (rand > (RAND_MAX / 2)) {
+            price += calc_price;
+        }
+        else {
+            price -= calc_price;
+        }
+    }
+
+    return price;
 }
 
 var invest_goods_index = 0;
@@ -575,13 +589,13 @@ function invest_game_response(msg, replier, req_msg) {
             + " - 명령어는 [토르 굿즈 N개 구매], [토르 굿즈 N개 판매] 로 가능합니다.\n"
             + " - 굿즈의 가격은 " + INVEST_SHIFT_TIME_MIN + "분마다 변경됩니다.\n"
             + " - 지금부터 " + INVEST_END_TIME_HOUR + "시간동안 진행됩니다.\n"
-            + " - 초기자금은 모두 " + INVEST_SEED_MONEY + "로 시작합니다.\n"
+            + " - 초기자금은 모두 " + INVEST_SEED_MONEY + "원으로 시작합니다.\n"
             + " - 행운을 빕니다."
             );
 
     /* playing investment game */
     while (play_time < (INVEST_END_TIME_HOUR * 60)) {
-        replier.reply("[현재 굿즈 가격]\n"
+        replier.reply("[굿즈 시세]\n"
                 + invest_goods[invest_goods_index] + ": " 
                 + invest_goods_price + "원입니다."); 
 
@@ -598,8 +612,7 @@ function invest_game_response(msg, replier, req_msg) {
                 invest_purchase[i] = 0;
             }
 
-            replier.reply("[현재 굿즈 가격]\n"
-                    + invest_goods[invest_goods_index]
+            replier.reply(invest_goods[invest_goods_index]
                     + "가 상장 폐지 되었습니다.\n"
                     + invest_goods[next_goods_index]
                     + " 매물이 새로 올라왔습니다.");
@@ -655,6 +668,11 @@ function find_num(msg) {
     const regex = /[^0-9]/g;
     var result = msg.replace(regex, "");
     var number = parseInt(result);
+
+    if (isNaN(number) == true) {
+        number = 1;
+    }
+
     return number;
 }
 
@@ -681,9 +699,11 @@ function invest_game_purchase_response(msg, replier, req_msg, sender) {
         invest_money[player_index] -= (invest_goods_price * goods_num);
         invest_purchase[player_index] += goods_num;
 
-        replier.reply(goods_num + "개 구매 완료했습니다.\n"
-                + sender + "님 굿즈 갯수 현황: " 
+        replier.reply(sender + "님 "
+                + goods_num + "개(시세: " + invest_goods_price + "원) 구매 완료했습니다.\n"
                 + invest_purchase[player_index]
+                + "자금 현황: " + invest_money[player_index] + "원\n"
+                + "굿즈 갯수 현황: " + invest_purchase[player_index] "개"
                 );
 
         return 0;
@@ -705,9 +725,10 @@ function invest_game_purchase_response(msg, replier, req_msg, sender) {
         invest_purchase[player_index] -= goods_num;
         invest_money[player_index] += (invest_goods_price * goods_num);
 
-        replier.reply(goods_num + "개 판매 완료했습니다.\n"
-                + sender + "님 자금 현황: " 
-                + invest_money[player_index]
+        replier.reply(sender + "님 "
+                + goods_num + "개(시세: " + invest_goods_price + "원) 판매 완료했습니다.\n"
+                + "자금 현황: " + invest_money[player_index] + "원\n"
+                + "굿즈 갯수 현황: " + invest_purchase[player_index] + "개"
                 );
 
         return 0;
