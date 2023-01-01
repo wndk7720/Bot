@@ -700,7 +700,7 @@ function invest_game_purchase_response(msg, replier, req_msg, sender) {
         invest_purchase[player_index] += goods_num;
 
         replier.reply(sender + "님 "
-                + goods_num + "개(시세: " + invest_goods_price + "원) 구매 완료했습니다.\n"
+                + goods_num + "개(시세: " + invest_goods_price + "원) 구매 완료.\n"
                 + "자금 현황: " + invest_money[player_index] + "원\n"
                 + "굿즈 갯수 현황: " + invest_purchase[player_index] + "개"
                 );
@@ -725,7 +725,7 @@ function invest_game_purchase_response(msg, replier, req_msg, sender) {
         invest_money[player_index] += (invest_goods_price * goods_num);
 
         replier.reply(sender + "님 "
-                + goods_num + "개(시세: " + invest_goods_price + "원) 판매 완료했습니다.\n"
+                + goods_num + "개(시세: " + invest_goods_price + "원) 판매 완료.\n"
                 + "자금 현황: " + invest_money[player_index] + "원\n"
                 + "굿즈 갯수 현황: " + invest_purchase[player_index] + "개"
                 );
