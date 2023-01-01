@@ -595,7 +595,7 @@ function invest_game_response(msg, replier, req_msg) {
 
     /* playing investment game */
     while (play_time < (INVEST_END_TIME_HOUR * 60)) {
-        replier.reply("[굿즈 시세]\n"
+        replier.reply("[굿즈 시세 현황]\n"
                 + invest_goods[invest_goods_index] + ": " 
                 + invest_goods_price + "원입니다."); 
 
@@ -703,7 +703,7 @@ function invest_game_purchase_response(msg, replier, req_msg, sender) {
                 + goods_num + "개(시세: " + invest_goods_price + "원) 구매 완료했습니다.\n"
                 + invest_purchase[player_index]
                 + "자금 현황: " + invest_money[player_index] + "원\n"
-                + "굿즈 갯수 현황: " + invest_purchase[player_index] "개"
+                + "굿즈 갯수 현황: " + invest_purchase[player_index] + "개"
                 );
 
         return 0;
