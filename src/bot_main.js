@@ -375,6 +375,7 @@ const INVEST_SEED_MONEY = 20000;
 var invest_msg = ['투자게임', '투자 게임'];
 var invest_goods = ['우마무스메 피규어', '포켓몬 피규어', '버튜버 피규어', '앙스타 피규어', '모노가타리 피규어'];
 var invest_goods_price = 1000;
+var invest_player_num = 0;
 var invest_player = [];
 var invest_money = [];
 var invest_purchase = [];
@@ -586,6 +587,7 @@ function invest_game_response(msg, replier, req_msg) {
     var prev_percent = 0;
 
     invest_goods_price = 1000;
+    invest_player_num = 0;
     invest_player = [];
     invest_money = [];
     invest_purchase = [];
@@ -683,7 +685,7 @@ function find_invest_player(sender) {
     }
 
     if (player_index < 0) {
-        player_index = invest_player.length;
+        player_index = invest_player_num++; // need lock
         invest_player[player_index] = sender;
         invest_money[player_index] = INVEST_SEED_MONEY;
         invest_purchase[player_index] = 0;
