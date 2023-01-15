@@ -369,8 +369,8 @@ var reinforce_weapon_index = 0;
 var reinforce_weapon_upgrade = 0;
 var reinforce_chance = 1;
 
-const INVEST_END_TIME_HOUR = 5;
-const INVEST_SHIFT_TIME_MIN = 20;
+const INVEST_END_TIME_HOUR = 8;
+const INVEST_SHIFT_TIME_MIN = 30;
 const INVEST_SEED_MONEY = 20000;
 var invest_msg = ['투자게임', '투자 게임'];
 var invest_goods = ['우마무스메 피규어', '포켓몬 피규어', '버튜버 피규어', '앙스타 피규어', '모노가타리 피규어'];
@@ -601,7 +601,8 @@ function invest_game_response(msg, replier, req_msg) {
             + " - 굿즈의 가격은 " + INVEST_SHIFT_TIME_MIN + "분마다 변경됩니다.\n"
             + " - 지금부터 " + INVEST_END_TIME_HOUR + "시간동안 진행됩니다.\n"
             + " - 초기자금은 모두 " + INVEST_SEED_MONEY + "원으로 시작합니다.\n"
-            + " - 행운을 빕니다."
+            + " - 거래 횟수가 1번이라도 있어야 참가처리가 됩니다.\n"
+            + " - 재미로만 즐겨주세요~ 행운을 빕니다!"
             );
 
     /* playing investment game */
