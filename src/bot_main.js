@@ -369,8 +369,8 @@ var reinforce_weapon_index = 0;
 var reinforce_weapon_upgrade = 0;
 var reinforce_chance = 1;
 
-const INVEST_END_TIME_HOUR = 8;
-const INVEST_SHIFT_TIME_MIN = 30;
+const INVEST_END_TIME_MIN = 15;
+const INVEST_SHIFT_TIME_MIN = 1;
 const INVEST_SEED_MONEY = 20000;
 var invest_msg = ['투자게임', '투자 게임'];
 var invest_goods = ['우마무스메 피규어', '포켓몬 피규어', '버튜버 피규어', '앙스타 피규어', '모노가타리 피규어'];
@@ -381,8 +381,9 @@ var invest_money = [];
 var invest_purchase = [];
 var invest_purchase_num = [];
 var invest_purchase_msg = ["굿즈"];
-var invest_buy_msg = ["구매", "산다", "사줘"];
-var invest_sell_msg = ["판매", "판다", "팔아"];
+var invest_buy_msg = ["구매", "산다", "사줘", "살게", "사겠", "매수"];
+var invest_sell_msg = ["판매", "판다", "팔아", "팔게", "팔겠", "매도"];
+var invest_status_msg = ["현황", "상황", "순위"];
 
 /* 금지어 */
 var yok_msg =       ['ㅅㅂ','시발','시빨','씨발','씨빠','씨빨','슈발','싀발','슈빨','쓔발',
@@ -597,16 +598,16 @@ function invest_game_response(msg, replier, req_msg) {
     /* introduction investment game */
     replier.reply("[천하제일 굿즈 투자 게임]\n"
             + " - 적당한 시기에 굿즈를 구매와 판매를 반복해서 부자가 되세요!\n"
-            + " - 명령어는 [토르 굿즈 N개 구매], [토르 굿즈 N개 판매] 로 가능합니다.\n"
+            + " - 명령어는 [토르 굿즈 N개 구매], [토르 굿즈 N개 판매], [토르 굿즈 순위] 로 가능합니다.\n"
             + " - 굿즈의 가격은 " + INVEST_SHIFT_TIME_MIN + "분마다 변경됩니다.\n"
-            + " - 지금부터 " + INVEST_END_TIME_HOUR + "시간동안 진행됩니다.\n"
+            + " - 지금부터 " + INVEST_END_TIME_MIN + "분동안 진행됩니다.\n"
             + " - 초기자금은 모두 " + INVEST_SEED_MONEY + "원으로 시작합니다.\n"
             + " - 거래 횟수가 1번이라도 있어야 참가처리가 됩니다.\n"
             + " - 재미로만 즐겨주세요~ 행운을 빕니다!"
             );
 
     /* playing investment game */
-    while (play_time < (INVEST_END_TIME_HOUR * 60)) {
+    while (play_time <= INVEST_END_TIME_MIN) {
         prev_goods_price = invest_goods_price;
         invest_goods_price = shift_price(invest_goods_price);
         if (invest_goods_price <= 0) {
@@ -639,10 +640,14 @@ function invest_game_response(msg, replier, req_msg) {
             replier.reply(" * 투자 주의! 상폐 위험!");
         }
 
-        if ((play_time + INVEST_SHIFT_TIME_MIN) >= (INVEST_END_TIME_HOUR * 60)) {
-            replier.reply("곧 게임이 종료됩니다!\n"
-                    + "남은 굿즈는 시세대로 처분되어 계산됩니다."
+        if ((play_time + INVEST_SHIFT_TIME_MIN) == INVEST_END_TIME_MIN) {
+            replier.reply("곧 게임이 종료됩니다! (최후의 1턴 남음!)\n"
+                    + "남은 굿즈는 다음 시세대로 처분되어 계산됩니다."
                     );
+        }
+
+        if ((play_time + INVEST_SHIFT_TIME_MIN) > INVEST_END_TIME_MIN) {
+            break;
         }
 
         java.lang.Thread.sleep(INVEST_SHIFT_TIME_MIN * 1000 * 60);
@@ -673,6 +678,19 @@ function invest_game_response(msg, replier, req_msg) {
     invest_game_start = 0;
 
     return 0;
+}
+
+function print_invest_status(replier) {
+    var result_msg = "\n";
+    for (var i=0; i < invest_player.length; i++) {
+        invest_money[i] += (invest_purchase[i] * invest_goods_price);
+        result_msg += " - " + invest_player[i] + "님: " 
+                        + invest_money[i] + "원\n";
+        }
+    }
+
+    replier.reply("[예상 자산 현황 (현시세 기준 판매시)]"
+            + result_msg);
 }
 
 function find_invest_player(sender) {
@@ -764,6 +782,11 @@ function invest_game_purchase_response(msg, replier, req_msg, sender) {
                 + " - 굿즈 갯수 현황: " + invest_purchase[player_index] + "개"
                 );
 
+        return 0;
+    }
+
+    if (check_msg(msg, invest_status_msg) == 0) {
+        print_invest_status(replier);
         return 0;
     }
 
@@ -1308,7 +1331,7 @@ function help_response(msg, replier, req_msg) {
          java.lang.Thread.sleep(500);
          replier.reply('/*\n * Tohru Bot\n * Version ' + BOT_VERSION + '\n */' +
             '\n\n 「"토르" + "명령어"」 형태로 동작합니다.\n\n' +
-            '명령어 목록은 아래와 같습니다.\n   - 도움말, -h, --help\n   - 환영하기\n   - 뭐해\n   - 날씨\n   - 아침, 점심, 저녁추천\n   - 라면추천\n   - 치킨추천\n   - 애니추천\n   - 오늘의 애니\n   - 공부하기\n   - 비트코인\n   - 칼로리\n   - 로또번호\n   - 대화요약\n   - 퀴즈\n   - 가챠\n   - 강화\n\n' +
+            '명령어 목록은 아래와 같습니다.\n   - 도움말, -h, --help\n   - 환영하기\n   - 뭐해\n   - 날씨\n   - 아침, 점심, 저녁추천\n   - 라면추천\n   - 치킨추천\n   - 애니추천\n   - 오늘의 애니\n   - 공부하기\n   - 비트코인\n   - 칼로리\n   - 로또번호\n   - 대화요약\n   - 퀴즈\n   - 가챠\n   - 강화\n   - 투자게임\n\n' +
             '@github: git@github.com:wndk7720/Bot.git');
          return 0;
       }
