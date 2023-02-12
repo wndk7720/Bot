@@ -394,7 +394,7 @@ function regards_response(msg, replier, req_msg, morning_msg, daily_msg) {
             }
          }
          else {
-            replier.reply("안녕하십니까!");
+            replier.reply("안녕하세요");
          }
          
          return 0;
@@ -829,7 +829,7 @@ function reinforce_response(msg, replier, req_msg) {
         replier.reply(reinforce_weapon[reinforce_weapon_index] + " (+" + reinforce_weapon_upgrade + ") 강화에 실패했습니다..\n(다음 성공 확률: " + Math.floor(reinforce_chance * 100) + "%)");
     }
     else {
-        replier.reply(reinforce_weapon[reinforce_weapon_index] + " 깨져버렸습니다ㅠㅠ");
+        replier.reply(reinforce_weapon[reinforce_weapon_index] + " 깨져버렸습니다..");
 
         reinforce_chance = 1;
         reinforce_weapon_upgrade = 0;
@@ -864,7 +864,7 @@ function lotto_response(msg, replier, req_msg) {
          }
          
          num.sort(function(a, b) {return a - b;});
-         replier.reply(num[0] +', '+ num[1] +', '+ num[2] +', '+ num[3] +', '+ num[4] +', '+ num[5] + ' 이 세계에서 가져온 번호 입니다!');
+         replier.reply(num[0] +', '+ num[1] +', '+ num[2] +', '+ num[3] +', '+ num[4] +', '+ num[5] + ' 로 추리해보았어요');
          return 0;
       }
    }
@@ -893,7 +893,7 @@ function meal_response(msg, replier, req_msg, rsp_main_msg) {
    for (var i=0; i < req_msg.length; i++) {
       if (msg.indexOf(req_msg[i]) != -1) {
          java.lang.Thread.sleep(500);
-         replier.reply(rsp_main_msg[main_rand % rsp_main_msg.length] + " 추천이요!");
+         replier.reply(rsp_main_msg[main_rand % rsp_main_msg.length] + " 추천합니다");
          return 0;
       }
    }
@@ -1140,7 +1140,7 @@ function study_req_rsp(msg, isGroupChat, replier, req_msg) {
             study_req.push(msg.substring(first_msg_start_index, first_msg_end_index));
             study_rsp.push(msg.substring(second_msg_start_index, second_msg_end_index));
             
-            replier.reply('명심하겠습니다!');
+            replier.reply('명심하겠습니다');
          }
          else {
             replier.reply('다시 말해주세요 ("공부하기 [배울 문장] [응답 문장]")');
@@ -1167,7 +1167,7 @@ function study_response(msg, replier, req_msg, rsp_msg) {
 
 
 function study_check_response(msg, replier, req_msg) {
-   var result = '기록된 내용은 아래와 같습니다!\n\n';
+   var result = '기록된 내용은 아래와 같습니다\n\n';
    
    for (var i=0; i < req_msg.length; i++) {
       if (msg.indexOf(req_msg[i]) != -1) {
@@ -1251,7 +1251,7 @@ function sampling_msg_response(msg, replier, req_msg, rsp_msg) {
 
          java.lang.Thread.sleep(500);
 
-         replier.reply("최근 대화를 요약해드릴게요!\n\n" + 
+         replier.reply("최근 대화를 요약해드릴게요\n\n" + 
          rsp_msg[rand_index] + "\n" + 
          rsp_msg[rand_index + 1] + "\n" +
          rsp_msg[rand_index + 2]);
@@ -1283,7 +1283,7 @@ function help_response(msg, replier, req_msg) {
 function nalssi_response(msg, replier, req_msg) {
    for (var i=0; i < req_msg.length; i++) {
       if (msg.indexOf(req_msg[i]) != -1) {
-         replier.reply("밑에서 확인할 수 있어요!\nhttps://www.google.com/search?q=날씨");   
+         replier.reply("밑에서 확인할 수 있어요\nhttps://www.google.com/search?q=날씨");   
          return 0;
       }
    }
@@ -1307,9 +1307,9 @@ function silsigan_response(msg, replier, req_msg) {
                var str = keywordData["rank"] + ". " + keywordData["keyword"]; 
                keywords.push(str);
             }
-            replier.reply("현재 인기 키워드입니다!\n\n" + keywords.join("\n")); 
+            replier.reply("현재 인기 키워드입니다\n\n" + keywords.join("\n")); 
          } catch (e) { 
-            replier.reply("못 알아 들었어요..ㅠ");
+            replier.reply("못 알아 들었어요..");
          } 
          
          return 0;
@@ -1335,7 +1335,7 @@ function meet_response(msg, replier, req_msg) {
 function yok_response(msg, replier, req_msg) {
    for (var i=0; i < req_msg.length; i++) {
       if (msg.indexOf(req_msg[i]) != -1) {
-         replier.reply("'" + req_msg[i] + "' 이런 말 쓰면 안돼요!");
+         replier.reply("'" + req_msg[i] + "' 이런 말 쓰면 범인입니다");
          return 0;
       }
    }
@@ -1370,9 +1370,9 @@ function today_ani_response(msg, replier, req_msg) {
                keywords.push(str);
             }
             
-            replier.reply("오늘 방영하는 애니 목록입니다!\n\n" + keywords.join("\n")); 
+            replier.reply("오늘 방영하는 애니 목록입니다\n\n" + keywords.join("\n")); 
          } catch (e) { 
-            replier.reply("못 알아들었어요..ㅠㅠ"); 
+            replier.reply("못 알아들었어요.."); 
          } 
          
          return 0;
@@ -1405,13 +1405,13 @@ function recommend_ani_response(msg, replier, req_msg) {
                replier.reply("이거 재밌어요~\n\n" + str);  
             }
             else if (subject_rand < (data_len / 2)) {
-               replier.reply("제가 요즘 보는 애니입니다!\n\n" + str);
+               replier.reply("제가 오늘 본 애니입니다\n\n" + str);
             }
             else {
                replier.reply("이런 애니어떠신가요?\n\n" + str);  
             }
          } catch (e) {
-            replier.reply("지금은 정신이 없어요ㅠㅠ");
+            replier.reply("지금은 너무 바빠요");
          }
 
          return 0;
