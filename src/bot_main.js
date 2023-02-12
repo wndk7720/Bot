@@ -320,7 +320,7 @@ var invest_buy_msg = ["구매", "산다", "사줘", "살게", "사겠", "매수"
 var invest_sell_msg = ["판매", "판다", "팔아", "팔게", "팔겠", "매도"];
 var invest_status_msg = ["현황", "상황", "순위"];
 
-const RAND_CMD_NUM = 6;
+const RAND_CMD_NUM = 30;
 var rand_cmd_msg = ['랜덤'];
 
 
@@ -474,13 +474,13 @@ function rand_cmd_response(msg, replier, req_msg) {
         invest_game_response(invest_msg[0], replier, invest_msg);
     } else if (rand < ((RAND_MAX / RAND_CMD_NUM) * 2)) {
         reinforce_response(reinforce_msg[0], replier, reinforce_msg);
-    } else if (rand < ((RAND_MAX / RAND_CMD_NUM) * 3)) {
-        ani_quiz_response(ani_quiz_msg[0], replier, ani_quiz_msg, ani_quiz_problem, ani_quiz_answer);
-    } else if (rand < ((RAND_MAX / RAND_CMD_NUM) * 4)) {
-        sampling_msg_response(sampling_msg[0], replier, sampling_msg, sampling_data);
     } else if (rand < ((RAND_MAX / RAND_CMD_NUM) * 5)) {
+        ani_quiz_response(ani_quiz_msg[0], replier, ani_quiz_msg, ani_quiz_problem, ani_quiz_answer);
+    } else if (rand < ((RAND_MAX / RAND_CMD_NUM) * 15)) {
+        sampling_msg_response(sampling_msg[0], replier, sampling_msg, sampling_data);
+    } else if (rand < ((RAND_MAX / RAND_CMD_NUM) * 25)) {
         recommend_ani_response(recommend_ani_msg[0], replier, recommend_ani_msg);
-    } else if (rand < ((RAND_MAX / RAND_CMD_NUM) * 6)) {
+    } else if (rand < ((RAND_MAX / RAND_CMD_NUM) * 30)) {
         lotto_response(lotto_msg[0], replier, lotto_msg);
     }
 
