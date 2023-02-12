@@ -43,29 +43,17 @@ var bye_reply =   [
          '굿밤이에요~'
          ]; 
 
-var bot_msg =   ['토르'];
-var bot_reply =   [
+var bot_msg =   ['쿄코'];
+var bot_reply = [
          '부르셨나요?',
          '무슨 일이시죠?',
-         '등장했습니다!',
+         '무슨 일 있나요?',
          '네?',
          '네!',
+         '맡겨만 주세요!',
          '지금 바빠요!',
-         '데헷☆',
          '저요?',
          '왜요!'
-         ];
-var bot_spe_reply =   [
-         '부르셨나요, 주인님!',
-         '네~ 주인님!',
-         '여기있습니다! 언제든지 날아갈 준비도 되어있어요! 맡겨만 주세요! 주인님!',
-         '토르, 여기 있습니다!',
-         '주인님곁에 있을 수 있다면 어떤 벽이라도 부술 수 있어요!',
-         '주인님, 왜 그러세요?',
-         '오셨나요~ 주인님!',
-         '다녀오셨어요? 주인님!',
-         '주인님~ 제가 먼저 부르려고 했었는데!',
-         '주인님~ 무슨일이시죠?'
          ];
 
 var regards_msg =   ['인사'];
@@ -78,75 +66,64 @@ var regards_morning_reply =   [
           '안녕하세요~'
           ];
 var regards_daily_reply =   [
-          '너무 졸릴 땐 한숨 자고 일어나세요~',
-          '오늘의 집청소는 깔끔하게 되가고 있어요!',
           '다들 뭐하세요?',
           '심심하네요..',
-          '졸려요..',
           '잠이 스르르 오고 있어요..',
           '저는 오늘같은 날씨가 참 좋단 말이죠',
           '밥은 드셨죠?',
           '혹시 저랑 놀아주실분 있나요?',
           '나른하네요~',
           '다들 바쁘시죠?',
-          '오늘은 집안일을 벌써 다 끝냈어요!',
           '뒹굴뒹굴~',
           '벌써 배고프네요..',
-          '오늘은 제대로 이쪽 세계 재료만 써서 만들거에요',
           '눈치게임 하실분 있나요? 1!',
           '오늘은 어떤 재밌는 일이 있을까요?'
           ];
 
 var what_msg =    ['뭐해', '뭐하', '뭐햐', '뭐행', '머해', '머하', '머행', '모해', '모하', '모행'];
 var what_reply =   [
-         '잘준비를 하고 있어요',
-         '만화를 보고 있어요~',
-         '코타츠안은 역시 최고에요..',
-         '청소하고 있어요!',
-         '공부하고 있어요!',
-         '요리하고 있어요!',
-         '저, 수행할 거예요!',
-         '대련중이에요!'
-         ];
-var what_spe_reply =   [
-         '이제 슬슬 제 꼬리구이를 먹어주실거라는 생각으로 요리를 하고있어요~ 꼬리가 무슨 맛이냐면요~ 달콤하고 크리미해요~',
-         '나는 주인님과 함께 늙어갈 순 없어. 언젠간 이별을 할 때가 찾아오겠지. 그렇다고 해도 나는 주인님을 만나지 않는 편이 나았을 거라고 절대 생각하지 않아. 지금은 이 시간을 소중히... 앗... 언제 들어오신거에요',
-         '세상을 지배하는 그림자의 왕에게 바치나니, 외법에 따라 이것을 최상으로 만들지어다. 바라건대 풍작 품위의 예찬, 값어치를 바꿔 더 나은 비석을 가져와다오. 나의 마는 흙이 되어 퍼져 더러움을 나의 이치는 침식되어 광기의 범람을 올바른 허구로 고쳐 바꾸어라! 맛있어져라 모에모에큥!',
-         '주인님을 위해 장을 보고있었어요~ 좋은 사케가 있던데, 있다가 한 잔 어떠세요? ㅎㅎ',
-         '러브 츄 할짝 츄~ 러브 츄 할짝 츄~ 사랑해요 주인님! 러브 츄 할짝 츄~ 러브 츄 할짝 츄~ 사랑해요 주인님~~~ 러브 할짝 츄♡',
-         '청소~ 청소~ 랄라라~ 먼지를 털어서 때려 부수자~ 티클도 쓰레기도 남기지 않아~ 망해라~ 세계~ 지금이야말로 모든 것을 청소!',
-         '지금 이 순간, 이 곳에 있는 것을 소중히 여긴다면 반대로 나중에는 슬퍼지기도 하겠죠. 그래도 저는 그 감정을 후회라고는 부르지 않을 거예요. 주인님이 있으니까요!',
-         '넣었어... 넣었어요. 넣어버렸어요! 미약을! 이걸로 주인님의 몸은 제 거예요!',
-         '잘 준비해요! 드래곤은 기본적으로 졸리지 않는데, 이 세계에 오고부턴 잘 자요! 묘하게 자고 싶은 마음이 들어요..',
-         '분위기도 무르익었고 취기도 올랐으니~ 오늘의 메인이벤트! 저 토르와 주인님의 결혼식을 거행하겠습니다! 자, 주인님.. 사랑한다고 말해주세요!',
-         '마음이 이어진 다음은 몸이에요! 자, 주인님! 모든 걸 토르에게..'
+         '범인은..',
+         '오늘 의뢰를 해결하고 있어요',
+         '이번 의뢰는 조금 어려운걸요',
+         '조용히 좀 있어보세요!',
+         '추리하고 있습니다',
+         '추리중입니다',
+         '추리중이에요',
+         '추리중이니 방해하지 마세요'
          ];
 
 var zzz_msg =    ['졸려', '졸리'];
-var zzz_reply =   ['저도 졸음이 오네요..'];
-var atk_msg =    ['공격', '물어', '때려', '심심', '청소', '해치', '가라'];
-var atk_reply =    ['브레스로 모든 것을 소멸 시킬거에요!'];
+var zzz_reply =   [
+        '저도 졸음이 오지만 참아야해요', 
+        '자버리면..', 
+        '참아요!', 
+        '찬물을 마셔요!', 
+        '볼 꼬집어요.. 강하게', 
+        '이 졸음을 이겨내지 못하면.. 지금까지 한 일이 헛되고 말아요..'
+        ];
 var ga_msg =    ['들어가', '잘가', '가버', '갈', '사라', '해줘'];
-var ga_reply =    ['네..'];
+var ga_reply =    ['들어가보겠습니다', '안녕히계세요', '싫어요!'];
 var thx_msg =    ['고마', '고맙', '땡큐', '밖에', '놀아'];
-var thx_reply =    ['그럼요~ 저밖에 없죠!'];
+var thx_reply =    ['별말씀을요', '천만에요!'];
 var sorry_msg =    ['미안', '죄송', '잘못', '용서'];
-var sorry_reply =    ['용서해드릴게요!'];
+var sorry_reply =    ['용서해드릴게요!', '괜찮아요!'];
 var doo_msg =    ['어떠', '어때', '떻', '떤'];
 var doo_reply =    ['음~ 괜찮은 것 같기도 하네요!'];
 var gojang_msg =    ['없어', '손', '발'];
 var gojang_reply =    ['그건 아니라고 봐요'];
 var sogae_msg =    ['소개', '누구'];
-var sogae_reply =    ['저는 토르! 메이드래곤이죠!'];
+var sogae_reply =    [
+        '처음 뵙겠습니다. 오키테가미 탐정 사무소의 오키테가미 쿄코라고 합니다.',
+        '처음 뵙겠습니다. 저는 탐정인 오키테가미 쿄코라고 합니다.',
+        '안녕하세요. 저의 이름은 오키테카미 쿄코. 탐정이죠.'
+        ];
 
 
 var kkk_msg =       ['ㅋㅋㅋㅋ'];
 var kkk_reply =    [
-         'ㅋㅋㅋ',
+         'ㅋㅋ',
          '같이 웃어요~',
-         'ㅋㅎㅋㅎㅋ',
-         'ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ',
-         'ㅋㅋㅋㅋㅋㅋㅋㅋ'
+         'ㅎㅎ'
          ];
 
 var chool_msg =       ['출근'];
@@ -166,66 +143,24 @@ var toi_reply =    [
    
 var wow_msg =       ['어우', '오오', '오우', 'ㅗㅜㅑ'];
 var wow_reply =    [
-         '우와!!!',
-         '오오오!!!',
-         '오우!!!!!!!!!!!!!'
+         '우와',
+         '오오',
+         '오우'
          ];
 
 var dot_msg =       ['....'];
 var dot_reply =    [
-         '다음 기회가 있을거에요~',
-         '그럴 수도 있죠!',
+         '제 생각엔 조금 머리를 식히는게 좋을 것 같아요',
+         '그럴수도 있겠죠',
          '힘내세요!'
          ];
 
 /* 코바야시 특별 명령어 */
-var koba_msg =       ['코바야시', '고바야시'];
-var koba_reply =    [
-         '어디선가 들었던..',
-         '그 이름을 들으니 가슴이 아파와요..',
-         '떠오르지 않아요..',
-         '누구였더라..',
-         '사랑해요.. 어라? 내가 무슨 말을..',
-         '주인님?',
-         '어딘가 아련한..',
-         '아..?',
-         '뭐라구요..?',
-         '이젠 안녕..'
-         ];
-
-var kanna_msg =       ['칸나'];
-var kanna_reply =    [
-         '완전 쩔지 않아?'
-         ];
-
-var elma_msg =       ['엘마'];
-var elma_reply =    [
-         '지금 어딨어요? 같이 운동해야하는데~',
-         '난 나쁜 생각도 안하고, 인간을 어떻게 할 마음도 없고, 그냥 교류를 한 것뿐인데! 엘마는 왜 그렇게 날 의심하는 건지!',
-         '정말로 고지식한 녀석이에요!',
-         '그래도 나쁜 녀석은 아니지만..',
-         '크림빵 10개에 나라를 팔 녀석!'
-         ];
-
-var maid_msg =       ['메이드'];
-var maid_reply =    [
-         '원래 메이드에게 정해진 복장은 없어요. 긴 역사 속에서 종속적 의미가 강해지면서 점점 오늘날과 같은 형태가 된거랍니다!',
-         '메이드를 세분화하면 하우스 메이드, 론드리 메이드, 팔러 메이드, 키친 메이드 등이 있답니다!',
-         '궁극의 메이드! 최고의 메이드! 토르 여깄습니다!',
-         '메이드는 사랑입니다♡'
-         ];
-
-var bomb_msg =       ['실수', '힘들지', '지각', '늦을', '차별', '지마'];
-var bomb_reply =    [
-         '역시 인간은 어리석네요',
-         '멸망시켜 버릴까요?'
-         ];
-
 var sake_msg =       ['소주', '맥주', '소쥬', '맥쥬', '위스키', '와인', '양주', '꼬냑', '고량', '칵테일', '쏘주', '쐬주'];
 var sake_reply =    [
-         '톡방에서 술 냄새 나요!',
-         '저도 술 좋아하지만! 술 이야기는 적당히!',
-         '적당히 마셔요..'
+         '@_@',
+         '이야기를 보아하니, 아무래도 범인은 주당!',
+         '술 마신다해도 심신미약으로 감형되지는 않을거에요!'
          ];
 var sake_index = 0;
 var sake_total_index = 0;
@@ -290,7 +225,7 @@ var study_rsp =    [];
 var sampling_index = 0;
 var sampling_msg =    ['요약'];
 var sampling_data =    [];
-var sampling_exception =    ['ㅋ', 'ㅎ', '이모티콘', '사진', '토르'];
+var sampling_exception =    ['ㅋ', 'ㅎ', '이모티콘', '사진', '쿄코'];
 
 /* 자음퀴즈 */
 var ani_quiz_msg = ['퀴즈'];
@@ -614,7 +549,7 @@ function invest_game_response(msg, replier, req_msg) {
     /* introduction investment game */
     replier.reply("[천하제일 굿즈 투자 게임]\n"
             + " - 적당한 시기에 굿즈를 구매와 판매를 반복해서 부자가 되세요!\n"
-            + " - 명령어는 [토르 굿즈 N개 구매], [토르 굿즈 N개 판매], [토르 굿즈 순위] 로 가능합니다.\n"
+            + " - 명령어는 [쿄코 굿즈 N개 구매], [쿄코 굿즈 N개 판매], [쿄코 굿즈 순위] 로 가능합니다.\n"
             + " - 굿즈의 가격은 " + INVEST_SHIFT_TIME_MIN + "분마다 변경됩니다.\n"
             + " - 지금부터 " + INVEST_END_TIME_MIN + "분동안 진행됩니다.\n"
             + " - 초기자금은 모두 " + INVEST_SEED_MONEY + "원으로 시작합니다.\n"
@@ -1388,7 +1323,7 @@ function silsigan_response(msg, replier, req_msg) {
 function meet_response(msg, replier, req_msg) {
    for (var i=0; i < req_msg.length; i++) {
       if (msg.indexOf(req_msg[i]) != -1) {
-         replier.reply("반가워요~ 저는 토르라고 합니다!\n\n닉네임은 이름/나이/최애캐 설정해주시고, 간단한 자기소개(입문작/최애작/최애캐/가장 최근에 본 애니) 한번만 더 부탁드립니다~");
+         replier.reply("반가워요~ 저는 망각탐정 쿄코라고 합니다!\n\n닉네임은 이름/나이/최애캐 설정해주시고, 간단한 자기소개(입문작/최애작/최애캐/가장 최근에 본 애니) 한번만 더 부탁드립니다~");
          return 0;
       }
    }
@@ -1528,7 +1463,6 @@ function call_bot_command_response(msg, sender, isGroupChat, replier) {
          if (basic_response(msg, replier, chool_msg, chool_reply) == 0) return 0;
          if (basic_response(msg, replier, toi_msg, toi_reply) == 0) return 0;
          if (basic_response(msg, replier, zzz_msg, zzz_reply) == 0) return 0;
-         if (basic_response(msg, replier, atk_msg, atk_reply) == 0) return 0;
          if (basic_response(msg, replier, ga_msg, ga_reply) == 0) return 0;
          if (basic_response(msg, replier, thx_msg, thx_reply) == 0) return 0;
          if (basic_response(msg, replier, sorry_msg, sorry_reply) == 0) return 0;
@@ -1549,9 +1483,6 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
    /* 우선 반응 명령어 */
    if (yok_response(msg, replier, yok_msg) == 0) return;
 
-   if (basic_response(msg, replier, koba_msg, koba_reply) == 0) return;
-   if (basic_response(msg, replier, kanna_msg, kanna_reply) == 0) return;
-   if (basic_response(msg, replier, elma_msg, elma_reply) == 0) return;
 
    /* 호출 명령어 */
    if (call_bot_command_response(msg, sender, isGroupChat, replier) == 0) return;
@@ -1561,8 +1492,6 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
 
    /* 기본적인 응답 */
    if (sake_basic_response(msg, replier, sake_msg, sake_reply) == 0) return;
-   if (sometimes_basic_response(msg, replier, maid_msg, maid_reply) == 0) return;
-   if (sometimes_basic_response(msg, replier, bomb_msg, bomb_reply) == 0) return;
    if (sometimes_basic_response(msg, replier, hello_msg, hello_reply) == 0) return;
    if (sometimes_basic_response(msg, replier, morning_msg, morning_reply) == 0) return;
    if (sometimes_basic_response(msg, replier, bye_msg, bye_reply) == 0) return;
