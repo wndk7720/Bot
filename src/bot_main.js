@@ -637,7 +637,6 @@ function print_invest_status(replier) {
         invest_money[i] += (invest_purchase[i] * invest_goods_price);
         result_msg += " - " + invest_player[i] + "님: " 
                         + invest_money[i] + "원\n";
-        }
     }
 
     replier.reply("[예상 자산 현황 (현시세 기준 판매시)]"
