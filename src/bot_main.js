@@ -1,4 +1,4 @@
-const BOT_VERSION = '23.01.01';
+const BOT_VERSION = '23.02.12';
 
 const RAND_MAX = 1000;
 const BOSS_GAME_RAND_MAX = 100;
@@ -411,19 +411,8 @@ function basic_response(msg, replier, req_msg, rsp_msg) {
    return -1;
 }
 
-function basic_tohru_response(msg, replier, req_msg, rsp_msg, rsp_spe_msg, sender) {
+function basic_tohru_response(msg, replier, req_msg, rsp_msg, sender) {
    var rand = Math.floor(Math.random() * RAND_MAX);
-
-   // special msg
-   if (sender.indexOf('승환') != -1) {
-       for (var i=0; i < req_msg.length; i++) {
-           if (msg.indexOf(req_msg[i]) != -1) {
-               java.lang.Thread.sleep(500);
-               replier.reply(rsp_spe_msg[rand % rsp_spe_msg.length]);
-               return 0;
-           }
-       }
-   }
 
    for (var i=0; i < req_msg.length; i++) {
       if (msg.indexOf(req_msg[i]) != -1) {
@@ -1139,12 +1128,6 @@ function hogam_up_response(msg, replier, req_msg, sender) {
    var exist_flag = 0;
    for (var i=0; i < req_msg.length; i++) {
       if (msg.indexOf(req_msg[i]) != -1) {
-         // special msg
-         if (sender.indexOf('승환') != -1) {
-            replier.reply("사랑해요ㅎㅎ (" + sender + "님의 호감도 : MAX)");
-            return 0;
-         }
-
          for (var j=0; j < hogam_sender.length; j++) {
             if (hogam_sender[j].indexOf(sender) != -1) {
                hogam_sender_value[j]++;
@@ -1173,12 +1156,6 @@ function hogam_down_response(msg, replier, req_msg, sender) {
    var exist_flag = 0;
    for (var i=0; i < req_msg.length; i++) {
       if (msg.indexOf(req_msg[i]) != -1) {
-         // special msg
-         if (sender.indexOf('승환') != -1) {
-            replier.reply("다 이해해요ㅎㅎ (" + sender + "님의 호감도 : MAX)");
-            return 0;
-         }
-
          for (var j=0; j < hogam_sender.length; j++) {
             if (hogam_sender[j].indexOf(sender) != -1) {
                hogam_sender_value[j]--;
@@ -1535,7 +1512,7 @@ function call_bot_command_response(msg, sender, isGroupChat, replier) {
          if (recommend_ani_response(msg, replier, recommend_ani_msg) == 0) return 0;
          if (ramen_response(msg, replier, ramen_msg, ramen_content, ramen_sub_content) == 0) return 0;
          if (meal_response(msg, replier, chik_msg, chik_reply) == 0) return 0;
-         if (basic_tohru_response(msg, replier, what_msg, what_reply, what_spe_reply, sender) == 0) return 0;
+         if (basic_tohru_response(msg, replier, what_msg, what_reply, sender) == 0) return 0;
          if (hogam_up_response(msg, replier, hogam_up_msg, sender) == 0) return 0;
          if (hogam_down_response(msg, replier, hogam_down_msg, sender) == 0) return 0;
          if (meal_response(msg, replier, meal_msg, meal_reply) == 0) return 0;
@@ -1594,7 +1571,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
    if (sometimes_basic_response(msg, replier, wow_msg, wow_reply) == 0) return;
    if (sometimes_basic_response(msg, replier, chool_msg, chool_reply) == 0) return;
    if (sometimes_basic_response(msg, replier, toi_msg, toi_reply) == 0) return;
-   if (basic_tohru_response(msg, replier, bot_msg, bot_reply, bot_spe_reply, sender) == 0) return;
+   if (basic_tohru_response(msg, replier, bot_msg, bot_reply, sender) == 0) return;
 
    /* 이벤트성 응답 */
    if (ani_quiz_answer_response(msg, replier, ani_quiz_answer, sender) == 0) return;
