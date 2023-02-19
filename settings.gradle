@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "kakao_szbot"
-include ':app'
+include ":app"

@@ -11,6 +11,9 @@ import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
 
+import com.kakao_szbot.cmd.MainCommandChecker;
+
+
 public class KakaoNotificationListener extends NotificationListenerService {
     public final static String TAG = "NotificationListener";
 
@@ -45,7 +48,18 @@ public class KakaoNotificationListener extends NotificationListenerService {
                 "\n text : " + text +
                 "\n subText: " + subText);
 
-        KakaoSendReply("hi", sbn);
+        if (text == null || title == null) {
+            Log.d(TAG, "text or title is null");
+            return;
+        }
+
+        String replyMessage = new MainCommandChecker().checkKakaoMessage(text.toString(), title);
+        if (replyMessage == null) {
+            Log.d(TAG, "replyMessage is null");
+            return;
+        }
+
+        KakaoSendReply(replyMessage, sbn);
     }
 
     public boolean KakaoSendReply(String replyMessage, StatusBarNotification sbn){
