@@ -11,10 +11,16 @@ public class MainCommandChecker {
         Log.d(TAG, "checkKakaoMessage ~ " + sender + ": " + msg);
         String replyMessage = null;
 
+
+        replyMessage = highPriorityMessage(msg, sender);
+        if (replyMessage != null) {
+            return replyMessage;
+        }
+
         if (msg.contains(CommandList.BOT_NAME)) {
             replyMessage = selectBotMessage(msg, sender);
         } else {
-            //replyMessage = selectNormalMessage(msg, sender);
+            replyMessage = selectNormalMessage(msg, sender);
         }
 
         return replyMessage;
@@ -38,8 +44,13 @@ public class MainCommandChecker {
         return replyMessage;
     }
 
+    private String highPriorityMessage(String msg, String sender) {
+        String replyMessage = new CommandBasic().slangMessage(msg, CommandList.SLANG_CMD);
+        return replyMessage;
+    }
+
     private int checkCommnadList(String msg, String[] list) {
-        for (int i=0; i < list.length; i++) {
+        for (int i = 0; i < list.length; i++) {
             if (msg.indexOf(list[i]) != -1) {
                 return 0;
             }
