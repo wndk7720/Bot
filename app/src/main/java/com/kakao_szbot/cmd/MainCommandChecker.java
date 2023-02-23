@@ -40,7 +40,15 @@ public class MainCommandChecker {
     }
 
     private String selectNormalMessage(String msg, String sender) {
-        String replyMessage = new CommandBasic().echoMessage(msg, sender);
+        String replyMessage = null;
+
+        for (int i = 0; i < CommandList.COMMON_BASIC_CMD.length; i++) {
+            if (checkCommnadList(msg, CommandList.COMMON_BASIC_CMD[i]) == 0) {
+                replyMessage = new CommandBasic().sometimesMessage(CommandList.COMMON_BASIC_MSG[i]);
+                break;
+            }
+        }
+
         return replyMessage;
     }
 
