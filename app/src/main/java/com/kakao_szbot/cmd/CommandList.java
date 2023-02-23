@@ -3,8 +3,17 @@ package com.kakao_szbot.cmd;
 public class CommandList {
     public final static int RAND_MAX = 10000;
     public final static String BOT_NAME = "쿄코";
+    public final static String BOT_VERSION = "23.02.23";
 
-    public static String[][] BASIC_CMD = {
+    public static String[][] BOT_BASIC_CMD = {
+            /* help cmd */
+            {
+                "도움말", "--help", "-h"
+            },
+            /* welcome cmd */
+            {
+                "환영"
+            },
             /* introduce cmd */
             {
                 "소개", "누구"
@@ -52,7 +61,18 @@ public class CommandList {
                 BOT_NAME
             },
     };
-    public static String[][] BASIC_MSG = {
+    public static String[][] BOT_BASIC_MSG = {
+            /* help msg */
+            {
+                "/*\n * Kyouko Bot\n * Version " + BOT_VERSION + "\n */" +
+                "\n\n 「쿄코 + 명령어」 형태로 동작합니다.\n\n" +
+                "명령어 목록은 아래와 같습니다.\n   - 도움말, -h, --help\n   - 환영하기\n   - 뭐해\n   - 날씨\n   - 아침, 점심, 저녁추천\n   - 라면추천\n   - 치킨추천\n   - 애니추천\n   - 오늘의 애니\n   - 공부하기\n   - 비트코인\n   - 칼로리\n   - 로또번호\n   - 대화요약\n   - 퀴즈\n   - 가챠\n   - 강화\n   - 투자게임\n\n" +
+                "@github: github.com/wndk7720/Bot.git"
+            },
+            /* welcome msg */
+            {
+                "반가워요~ 저는 망각탐정 쿄코라고 합니다!\n\n닉네임은 이름/나이/최애캐 설정해주시고, 간단한 자기소개(입문작/최애작/최애캐/가장 최근에 본 애니) 한번만 더 부탁드립니다~"
+            },
             /* introduce msg */
             {
                 "처음 뵙겠습니다. 오키테가미 탐정 사무소의 오키테가미 쿄코라고 합니다.",
@@ -124,6 +144,62 @@ public class CommandList {
                 "지금 바빠요!",
                 "저요?",
                 "왜요!"
+            },
+    };
+
+    public static String[][] COMMON_BASIC_CMD = {
+            /* smile cmd */
+            {
+                    "ㅋㅋㅋㅋ"
+            },
+            /* go to work cmd */
+            {
+                    "출근"
+            },
+            /* leave work cmd */
+            {
+                    "퇴근"
+            },
+            /* ohoh cmd */
+            {
+                    "어우", "오오", "오우", "ㅗㅜㅑ"
+            },
+            /* .... cmd */
+            {
+                    "...."
+            },
+    };
+
+    public static String[][] COMMON_BASIC_MSG = {
+            /* smile msg */
+            {
+                    "ㅋㅋ",
+                    "ㅎㅎ"
+            },
+            /* go to work msg */
+            {
+                    "다녀오세요~",
+                    "힘내세요!",
+                    "아자아자!",
+                    "듣기만해도 힘드네요.."
+            },
+            /* leave work msg */
+            {
+                    "고생했어요!",
+                    "수고하셨습니다~",
+                    "쉬러갑시다!"
+            },
+            /* ohoh msg */
+            {
+                    "우와",
+                    "오오",
+                    "오우"
+            },
+            /* .... msg */
+            {
+                    "제 생각엔 조금 머리를 식히는게 좋을 것 같아요",
+                    "그럴수도 있겠죠",
+                    "힘내세요!"
             },
     };
 

@@ -29,9 +29,9 @@ public class MainCommandChecker {
     private String selectBotMessage(String msg, String sender) {
         String replyMessage = null;
 
-        for (int i = 0; i < CommandList.BASIC_CMD.length; i++) {
-            if (checkCommnadList(msg, CommandList.BASIC_CMD[i]) == 0) {
-                replyMessage = new CommandBasic().basicMessage(CommandList.BASIC_MSG[i]);
+        for (int i = 0; i < CommandList.BOT_BASIC_CMD.length; i++) {
+            if (checkCommnadList(msg, CommandList.BOT_BASIC_CMD[i]) == 0) {
+                replyMessage = new CommandBasic().basicMessage(CommandList.BOT_BASIC_MSG[i]);
                 break;
             }
         }
