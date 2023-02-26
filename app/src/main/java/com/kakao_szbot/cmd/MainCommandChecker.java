@@ -29,10 +29,19 @@ public class MainCommandChecker {
     private String selectBotMessage(String msg, String sender) {
         String replyMessage = null;
 
+        if (checkCommnadList(msg, CommandList.COIN_CMD) == 0) {
+            try {
+                replyMessage = new CommandCrawling().coinMessage(msg, sender);
+                return replyMessage;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
         for (int i = 0; i < CommandList.BOT_BASIC_CMD.length; i++) {
             if (checkCommnadList(msg, CommandList.BOT_BASIC_CMD[i]) == 0) {
                 replyMessage = new CommandBasic().basicMessage(CommandList.BOT_BASIC_MSG[i]);
-                break;
+                return replyMessage;
             }
         }
 

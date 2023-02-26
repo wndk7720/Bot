@@ -53,13 +53,16 @@ public class KakaoNotificationListener extends NotificationListenerService {
             return;
         }
 
-        String replyMessage = new MainCommandChecker().checkKakaoMessage(text.toString(), title);
-        if (replyMessage == null) {
-            Log.d(TAG, "replyMessage is null");
-            return;
-        }
-
-        KakaoSendReply(replyMessage, sbn);
+        new Thread() {
+            public void run() {
+                String replyMessage = new MainCommandChecker().checkKakaoMessage(text.toString(), title);
+                if (replyMessage == null) {
+                    Log.d(TAG, "replyMessage is null");
+                    return;
+                }
+                KakaoSendReply(replyMessage, sbn);
+            }
+        }.start();
     }
 
     public boolean KakaoSendReply(String replyMessage, StatusBarNotification sbn){

@@ -148,6 +148,10 @@ public class CommandList {
     };
 
     public static String[][] COMMON_BASIC_CMD = {
+            /* sleep cmd */
+            {
+                    "졸려", "졸리"
+            },
             /* smile cmd */
             {
                     "ㅋㅋㅋㅋ"
@@ -171,6 +175,15 @@ public class CommandList {
     };
 
     public static String[][] COMMON_BASIC_MSG = {
+            /* sleep msg */
+            {
+                    "저도 졸음이 오지만 참아야해요",
+                    "자버리면 안돼..",
+                    "참아요!",
+                    "찬물을 마셔요!",
+                    "볼 꼬집어요.. 강하게",
+                    "이 졸음을 이겨내지 못하면.. 지금까지 한 일이 헛되고 말아요.."
+            },
             /* smile msg */
             {
                     "ㅋㅋ",
@@ -209,5 +222,12 @@ public class CommandList {
             "ㅄ","ㅂㅅ","ㅂ1ㅅ","병신","븅신","또라이","미친놈","미친넘","미친년",
             "개새끼","뒤져","좆","ㅅ1ㅂ","ㅅ@ㅂ","시이발","씨댕","개빡","시파",
             "싀파","싀팔","싀바","꺼져","꺼저","도라이","ㅈㄴ","존나","썅"
+    };
+
+    public static String[] COIN_CMD = {
+            "비트코인", "이더리움", "리플"
+    };
+    public static String[] COIN_MSG = {
+            "BTC", "ETH", "XRP"
     };
 }
