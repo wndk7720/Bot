@@ -1,8 +1,8 @@
 # Kyouko Bot
-### Version 23.022.12
+### Version 23.03.02
 
-- 운영환경 : 채팅 자동응답 봇
-- 언어 : javascript
+- 운영환경 : android
+- 언어 : java
 
 ---
 
@@ -21,13 +21,11 @@
    - 오늘의 애니
    - 공부하기
    - 비트코인
-   - 칼로리
    - 로또번호
    - 요약
    - 퀴즈
    - 가챠
    - 강화
    - 투자게임
-   - 랜덤
 
-@github: git@github.com:wndk7720/Bot.git
+@github: github.com/wndk7720/Bot.git
