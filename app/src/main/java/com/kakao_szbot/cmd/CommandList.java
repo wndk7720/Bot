@@ -2,8 +2,9 @@ package com.kakao_szbot.cmd;
 
 public class CommandList {
     public final static int RAND_MAX = 10000;
+    public final static int RAND_ANI_PAGE_MAX = 89;
     public final static String BOT_NAME = "쿄코";
-    public final static String BOT_VERSION = "23.02.23";
+    public final static String BOT_VERSION = "23.03.02";
 
     public static String[][] BOT_BASIC_CMD = {
             /* help cmd */
@@ -21,6 +22,15 @@ public class CommandList {
             /* dog cmd */
             {
                 "없어", "손", "발"
+            },
+            /* chicken msg */
+            {
+                "치킨추천", "치킨 추천"
+            },
+            /* meal cmd */
+            {
+                "아침추천", "점심추천", "저녁추천", "아침 추천", "점심 추천", "저녁 추천",
+                "뭐먹", "메뉴", "밥", "식사", "안주"
             },
             /* how cmd */
             {
@@ -66,13 +76,25 @@ public class CommandList {
             {
                 "/*\n * Kyouko Bot\n * Version " + BOT_VERSION + "\n */" +
                 "\n\n 「쿄코 + 명령어」 형태로 동작합니다.\n\n" +
-                "명령어 목록은 아래와 같습니다.\n   - 도움말, -h, --help\n   - 환영하기\n   - 뭐해\n   - 날씨\n   - 아침, 점심, 저녁추천\n   - 라면추천\n   - 치킨추천\n   - 애니추천\n   - 오늘의 애니\n   - 공부하기\n   - 비트코인\n   - 칼로리\n   - 로또번호\n   - 대화요약\n   - 퀴즈\n   - 가챠\n   - 강화\n   - 투자게임\n\n" +
-                "@github: github.com/wndk7720/Bot.git"
+                "명령어 목록은 아래와 같습니다.\n" +
+                "   - 도움말, -h, --help\n" +
+                "   - 환영하기\n   - 뭐해\n   - 날씨\n   - 아침, 점심, 저녁추천\n   - 라면추천\n" +
+                "   - 치킨추천\n   - 애니추천\n   - 오늘의 애니\n   - 공부하기\n   - 비트코인\n" +
+                "   - 로또번호\n   - 대화요약\n   - 퀴즈\n   - 가챠\n   - 강화\n   - 투자게임\n" +
+                "\n@github: github.com/wndk7720/Bot.git"
             },
             /* welcome msg */
             {
-                "반가워요~ 저는 망각탐정 쿄코라고 합니다!\n\n닉네임은 이름/나이/최애캐 설정해주시고, 간단한 자기소개(입문작/최애작/최애캐/가장 최근에 본 애니) 한번만 더 부탁드립니다~"
-            },
+                "반가워요~ 저는 망각탐정 쿄코라고 합니다!\n\n" +
+                "닉네임은 이름/출생연도/최애캐 설정해주시고,\n" +
+                "간단한 자기소개 한번만 더 부탁드립니다~\n" +
+                "(입문작/최애작/최애캐/가장 최근에 본 애니)\n\n" +
+                "[오픈채팅방 공지사항]\n" +
+                " - 톡방에선 어떤 이야기를 해도 좋지만, 예의를 갖추고 적당선에서 부탁드려요!\n" +
+                " - 서로간 합의되지 않은 반말은 금지입니다!\n" +
+                " - 번개는 누구나 열 수 있습니다! (일정 등록 및 확인)\n" +
+                " - 톡방에서 사진은 얼굴이 안나오게 올려주세요~"
+             },
             /* introduce msg */
             {
                 "처음 뵙겠습니다. 오키테가미 탐정 사무소의 오키테가미 쿄코라고 합니다.",
@@ -82,6 +104,26 @@ public class CommandList {
             /* dog msg */
             {
                 "그건 아니라고 봐요"
+            },
+            /* chicken msg */
+            {
+                "BBQ", "맘스터치", "BHC",
+                "페리카나", "굽네치킨", "네네치킨",
+                "노랑통닭", "교촌치킨", "멕시카나",
+                "부어치킨", "순수치킨",
+                "호식이 두마리 치킨", "처갓집",
+                "바른치킨", "멕시칸", "또래오래",
+                "깐부치킨", "치킨플러스", "KFC"
+            },
+            /* meal msg */
+            {
+                "짜장면", "짬뽕", "탕수육", "초밥",
+                "돈부리", "소바", "라면",
+                "돼지국밥", "삼겹살정식", "갈비탕", "비빔국수",
+                "스테이크", "햄버거", "피자", "파스타",
+                "만두", "카레", "훈제오리", "냉면",
+                "된장찌개", "닭도리탕", "김치찌개",
+                "불고기", "떡볶이", "순대국밥", "보쌈"
             },
             /* how msg */
             {
@@ -224,8 +266,36 @@ public class CommandList {
             "싀파","싀팔","싀바","꺼져","꺼저","도라이","ㅈㄴ","존나","썅"
     };
 
+    public static String[] RAMEN_CMD = {
+            "라면추천", "라면 추천"
+    };
+    public static String[][] RAMEN_CONTENTS_MSG = {
+            /* topping msg */
+            {
+                "계란", "파송송", "치즈", "참치", "삼겹살", "푸아그라", "슈바인학센",
+                "글라쉬나", "파전", "취두부", "홍어", "수르스트뢰밍", "멘보샤", "도마뱀",
+                "꽃", "향수", "태풍", "고추기름", "물 한사바리", "제로콜라", "장아찌"
+            },
+            /* ramen msg */
+            {
+                "신라면", "진라면", "안성탕면", "삼양라면", "너구리", "무파마", "남자라면",
+                "꼬꼬면", "진짬뽕", "맛짬뽕", "공화춘", "짜파게티", "짜왕", "팔도비빔면",
+                "불닭볶음면", "틈새라면"
+            },
+    };
+
     public static String[] WEATHER_CMD = {
             "날씨"
+    };
+
+    public static String[] RECOMMEND_ANI_CMD = {
+            "애니추천", "만화추천", "애니 추천", "만화 추천", "추천애니", "추천만화",
+            "추천 애니", "추천 만화"
+    };
+
+    public static String[] TODAY_ANI_CMD = {
+            "오늘의 애니", "오늘의애니", "오늘 애니", "오늘애니",
+            "오늘의 만화", "오늘의만화", "오늘 만화", "오늘만화"
     };
 
     public static String[] COIN_CMD = {
@@ -233,5 +303,33 @@ public class CommandList {
     };
     public static String[] COIN_SYMBOL = {
             "BTC", "ETH", "XRP"
+    };
+
+    public static String[] LOTTO_CMD = {
+            "로또", "lotto", "LOTTO"
+    };
+
+    public static String[] STUDY_CMD = {
+            "공부하기", "학습하기", "배우기"
+    };
+
+    public static String[] SAMPLING_CMD = {
+            "요약"
+    };
+
+    public static String[] QUIZ_CMD = {
+            "퀴즈"
+    };
+
+    public static String[] GACHA_CMD = {
+            "가챠"
+    };
+
+    public static String[] REINFORCE_CMD = {
+            "강화"
+    };
+
+    public static String[] INVEST_CMD = {
+            "투자게임", "투자 게임"
     };
 }

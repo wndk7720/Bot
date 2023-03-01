@@ -1,5 +1,8 @@
 package com.kakao_szbot;
 
+import static com.kakao_szbot.MainActivity.getAppContext;
+
+import android.app.Activity;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.RemoteInput;
@@ -12,10 +15,12 @@ import android.service.notification.StatusBarNotification;
 import android.util.Log;
 
 import com.kakao_szbot.cmd.MainCommandChecker;
+import com.kakao_szbot.csv.LibraryCSV;
 
 
 public class KakaoNotificationListener extends NotificationListenerService {
     public final static String TAG = "NotificationListener";
+    private static StatusBarNotification SBN;
 
     @Override
     public void onNotificationRemoved(StatusBarNotification sbn) {
@@ -29,6 +34,7 @@ public class KakaoNotificationListener extends NotificationListenerService {
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
         super.onNotificationPosted(sbn);
+
 
         if (!sbn.getPackageName().contains("com.kakao.talk")) return;
 
@@ -53,6 +59,10 @@ public class KakaoNotificationListener extends NotificationListenerService {
             return;
         }
 
+        LibraryCSV csv = new LibraryCSV();
+        csv.ChatWriteCSV("allChatMessage.scv", title, text.toString());
+        SBN = sbn;
+
         new Thread() {
             public void run() {
                 String replyMessage = new MainCommandChecker().checkKakaoMessage(text.toString(), title);
@@ -65,7 +75,7 @@ public class KakaoNotificationListener extends NotificationListenerService {
         }.start();
     }
 
-    public boolean KakaoSendReply(String replyMessage, StatusBarNotification sbn){
+    public static boolean KakaoSendReply(String replyMessage, StatusBarNotification sbn) {
         if (replyMessage == null) return false;
 
         Intent intent = new Intent();
@@ -91,11 +101,15 @@ public class KakaoNotificationListener extends NotificationListenerService {
                     bundle.putCharSequence(remoteInputs[i].getResultKey(), replyMessage);
                 }
                 RemoteInput.addResultsToIntent(remoteInputs, intent, bundle);
-                a.actionIntent.send((Context) this, 0, intent);
+                a.actionIntent.send((Context) getAppContext(), 0, intent);
             } catch (PendingIntent.CanceledException e) {
                 e.printStackTrace();
             }
         }
         return true;
+    }
+
+    public static StatusBarNotification getSbn() {
+        return SBN;
     }
 }
