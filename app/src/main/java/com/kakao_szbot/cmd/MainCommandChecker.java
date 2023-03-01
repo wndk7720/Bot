@@ -29,13 +29,17 @@ public class MainCommandChecker {
     private String selectBotMessage(String msg, String sender) {
         String replyMessage = null;
 
-        if (checkCommnadList(msg, CommandList.COIN_CMD) == 0) {
-            try {
+        try {
+            if (checkCommnadList(msg, CommandList.COIN_CMD) == 0) {
                 replyMessage = new CommandCrawling().coinMessage(msg, sender);
                 return replyMessage;
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+            if (checkCommnadList(msg, CommandList.WEATHER_CMD) == 0) {
+                replyMessage = new CommandCrawling().weatherMessage(msg, sender);
+                return replyMessage;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         for (int i = 0; i < CommandList.BOT_BASIC_CMD.length; i++) {

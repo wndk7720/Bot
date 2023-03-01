@@ -224,10 +224,14 @@ public class CommandList {
             "싀파","싀팔","싀바","꺼져","꺼저","도라이","ㅈㄴ","존나","썅"
     };
 
+    public static String[] WEATHER_CMD = {
+            "날씨"
+    };
+
     public static String[] COIN_CMD = {
             "비트코인", "이더리움", "리플"
     };
-    public static String[] COIN_MSG = {
+    public static String[] COIN_SYMBOL = {
             "BTC", "ETH", "XRP"
     };
 }
