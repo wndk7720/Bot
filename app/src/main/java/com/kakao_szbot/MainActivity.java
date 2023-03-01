@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.kakao_szbot.cmd.CommandLovePoint;
 import com.kakao_szbot.cmd.CommandStudy;
 
 import java.util.Set;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         PackageName = getPackageName();
 
         new CommandStudy().loadStudyMessage();
+        new CommandLovePoint().loadLovePointList();
 
         permissionGrantred();
         setContentView(R.layout.activity_main);

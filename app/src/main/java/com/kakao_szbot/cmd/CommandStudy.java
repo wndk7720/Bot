@@ -1,6 +1,8 @@
 package com.kakao_szbot.cmd;
 
 
+import android.util.Log;
+
 import com.kakao_szbot.csv.LibraryCSV;
 
 import java.util.ArrayList;
@@ -33,7 +35,7 @@ public class CommandStudy {
 
             if (Collections.frequency(STUDY_CMD_LIST, study_cmd) == 0) {
                 LibraryCSV csv = new LibraryCSV();
-                csv.StudyWriteCSV("studyCommand.csv", study_cmd, study_msg);
+                csv.WriteCSV("studyCommand.csv", study_cmd, study_msg);
 
                 STUDY_CMD_LIST.add(study_cmd);
                 STUDY_MSG_LIST.add(study_msg);
@@ -45,6 +47,54 @@ public class CommandStudy {
         }
         else {
             result = "다시 말해주세요 (공부하기 [배울 문장] [응답 문장])";
+        }
+
+        return result;
+    }
+
+    public String forgotStudyMessage(String msg) {
+        String result = null;
+
+        int first_msg_start_index = msg.indexOf('[') + 1;
+        int first_msg_end_index = msg.indexOf(']');
+        if ((first_msg_start_index != -1 && first_msg_end_index != -1) &&
+                (first_msg_start_index < first_msg_end_index)) {
+
+            String study_cmd = msg.substring(first_msg_start_index, first_msg_end_index);
+
+            if (Collections.frequency(STUDY_CMD_LIST, study_cmd) == 0) {
+                result = "공부한적 없는 명령어에요";
+            } else {
+                LibraryCSV csv = new LibraryCSV();
+                csv.deleteStudyCSV("studyCommand.csv", study_cmd);
+
+                int index = STUDY_CMD_LIST.indexOf(study_cmd);
+                STUDY_CMD_LIST.remove(index);
+                STUDY_MSG_LIST.remove(index);
+
+                result = "잊어버렸습니다";
+            }
+
+        } else {
+            result = "다시 말해주세요 (잊어버려 [잊을 문장])";
+        }
+
+
+        return result;
+    }
+
+    public String getStudyMessage() {
+        String result = null;
+
+        if (STUDY_CMD_LIST.size() == 0) {
+            result = "공부목록이 텅 비었습니다";
+            return result;
+        }
+
+        result = "공부한 목록은 아래와 같습니다\n";
+        for (int i = 0; i < STUDY_CMD_LIST.size(); i++) {
+            result += "\n - " + STUDY_CMD_LIST.get(i);
+            result += " : " + STUDY_MSG_LIST.get(i);
         }
 
         return result;

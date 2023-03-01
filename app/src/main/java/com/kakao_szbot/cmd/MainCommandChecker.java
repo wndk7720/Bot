@@ -58,6 +58,14 @@ public class MainCommandChecker {
                 replyMessage = new CommandStudy().studyMessage(msg);
                 return replyMessage;
             }
+            if (checkCommnadList(msg, CommandList.STUDY_FORGOT_CMD) == 0) {
+                replyMessage = new CommandStudy().forgotStudyMessage(msg);
+                return replyMessage;
+            }
+            if (checkCommnadList(msg, CommandList.STUDY_LIST_CMD) == 0) {
+                replyMessage = new CommandStudy().getStudyMessage();
+                return replyMessage;
+            }
             if (checkCommnadList(msg, CommandList.SAMPLING_CMD) == 0) {
                 replyMessage = new CommandSampling().samplingMessage(msg);
                 return replyMessage;
@@ -76,6 +84,14 @@ public class MainCommandChecker {
             }
             if (checkCommnadList(msg, CommandList.INVEST_CMD) == 0) {
                 replyMessage = new CommandInvest().investMessage(msg);
+                return replyMessage;
+            }
+            if (checkCommnadList(msg, CommandLovePoint.POINT_UP_CMD) == 0) {
+                replyMessage = new CommandLovePoint().upLovePointMessage(msg, sender);
+                return replyMessage;
+            }
+            if (checkCommnadList(msg, CommandLovePoint.POINT_DOWM_CMD) == 0) {
+                replyMessage = new CommandLovePoint().downLovePointMessage(msg, sender);
                 return replyMessage;
             }
         } catch (Exception e) {

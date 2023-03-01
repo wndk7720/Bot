@@ -313,6 +313,14 @@ public class CommandList {
             "공부하기", "학습하기", "배우기"
     };
 
+    public static String[] STUDY_FORGOT_CMD = {
+            "잊어버려"
+    };
+
+    public static String[] STUDY_LIST_CMD = {
+            "공부목록"
+    };
+
     public static String[] SAMPLING_CMD = {
             "요약"
     };

@@ -15,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -23,6 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 
 public class LibraryCSV {
@@ -93,7 +95,7 @@ public class LibraryCSV {
         }
     }
 
-    public void StudyWriteCSV(String fileName, String cmd, String msg) {
+    public void WriteCSV(String fileName, String cmd, String msg) {
         Context context = getAppContext();
 
         try {
@@ -124,8 +126,8 @@ public class LibraryCSV {
             while ((line = br.readLine()) != null) {
                 if (result == null)
                     result = line + "\n";
-
-                result += line + "\n";
+                else
+                    result += line + "\n";
             }
 
             br.close();
@@ -135,6 +137,80 @@ public class LibraryCSV {
         }
 
         return result;
+    }
+
+    public void deleteStudyCSV(String fileName, String cmd) {
+        Context context = getAppContext();
+
+        try {
+            File file = new File(context.getFilesDir(), fileName);
+            if (!file.exists()) {
+                return;
+            }
+            Scanner scanner = new Scanner(file);
+            StringBuilder modifiedData = new StringBuilder();
+
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] values = line.split(",");
+                if (values[0].equals(cmd)) {
+                    // Modify the value if it meets the criteria
+                    continue;
+                }
+                // Append the modified data to the StringBuilder
+                modifiedData.append(String.join(",", values));
+                modifiedData.append("\n");
+            }
+            scanner.close();
+
+            // Write the modified data to a new file or overwrite the original file
+            FileWriter writer = new FileWriter(file);
+            writer.write(modifiedData.toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void LovePointWriteCSV(String fileName, String sender, int point) {
+        Context context = getAppContext();
+
+        try {
+            File file = new File(context.getFilesDir(), fileName);
+            if (!file.exists()) {
+                WriteCSV(fileName, sender, String.valueOf(point));
+                return;
+            }
+            Scanner scanner = new Scanner(file);
+            StringBuilder modifiedData = new StringBuilder();
+            int foundSender = 0;
+
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] values = line.split(",");
+                if (values[0].equals(sender)) {
+                    // Modify the value if it meets the criteria
+                    values[1] = String.valueOf(point);
+                    foundSender = 1;
+                }
+                // Append the modified data to the StringBuilder
+                modifiedData.append(String.join(",", values));
+                modifiedData.append("\n");
+            }
+            scanner.close();
+
+            // Write the modified data to a new file or overwrite the original file
+            FileWriter writer = new FileWriter(file);
+            writer.write(modifiedData.toString());
+            writer.close();
+
+            if (foundSender == 0) {
+                WriteCSV(fileName, sender, String.valueOf(point));
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public String ReadResCSV(String fileName) throws IOException {
