@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.kakao_szbot.cmd.CommandStudy;
 
@@ -39,6 +41,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"));
             return false;
         }
+    }
+
+    /** Called when the user touches the button */
+    public void permissionButton(View view) {
+        startActivity(new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"));
     }
 
     public static Context getAppContext() {
