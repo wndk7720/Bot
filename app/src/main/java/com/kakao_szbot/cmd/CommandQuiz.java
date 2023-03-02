@@ -74,7 +74,7 @@ public class CommandQuiz {
                         while (true) {
                             Thread.sleep(100);
 
-                            if (count++ > 100)
+                            if (count++ > 10000)
                                 break;
 
                             if (ani_quiz_answer_flag == 1)

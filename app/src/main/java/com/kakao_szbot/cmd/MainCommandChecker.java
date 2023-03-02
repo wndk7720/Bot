@@ -86,6 +86,10 @@ public class MainCommandChecker {
                 replyMessage = new CommandInvest().investMessage(msg);
                 return replyMessage;
             }
+            if (checkCommnadList(msg, CommandInvest.INVEST_PURCHASE_CMD) == 0) {
+                replyMessage = new CommandInvest().investPurchaseMessage(msg, sender);
+                return replyMessage;
+            }
             if (checkCommnadList(msg, CommandLovePoint.POINT_UP_CMD) == 0) {
                 replyMessage = new CommandLovePoint().upLovePointMessage(msg, sender);
                 return replyMessage;
@@ -136,7 +140,7 @@ public class MainCommandChecker {
         return replyMessage;
     }
 
-    private int checkCommnadList(String msg, String[] list) {
+    static int checkCommnadList(String msg, String[] list) {
         for (int i = 0; i < list.length; i++) {
             if (msg.indexOf(list[i]) != -1) {
                 return 0;

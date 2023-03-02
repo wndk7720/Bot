@@ -42,15 +42,15 @@ public class CommandLovePoint {
         }
 
         if (randPoint > RAND_POINT_MAX * 0.95 || lovePoint > LOVE_POINT_THRESHOLD) {
-            result = "♡♡♡♡♡♡ (Unbelievable!!!)\n - " + sender + "님의 호감도 : " + lovePoint + ")";
+            result = "♡♡♡♡♡♡ (Unbelievable!!! +" + randPoint + ")\n - " + sender + "님의 호감도 : " + lovePoint;
         } else if (randPoint > RAND_POINT_MAX * 0.75) {
-            result = "너무너무 멋져요!! (Excellent!!)\n - " + sender + "님의 호감도 : " + lovePoint + ")";
+            result = "너무너무 멋져요!! (Excellent!! +" + randPoint + ")\n - " + sender + "님의 호감도 : " + lovePoint;
         } else if (randPoint > RAND_POINT_MAX * 0.5) {
-            result = "최고에요! (Very Good!)\n - " + sender + "님의 호감도 : " + lovePoint + ")";
+            result = "최고에요! (Very Good! +" + randPoint + ")\n - " + sender + "님의 호감도 : " + lovePoint;
         } else if (randPoint > RAND_POINT_MAX * 0.25) {
-            result = "고맙습니다ㅎㅎ (Good)\n - " + sender + "님의 호감도 : " + lovePoint + ")";
+            result = "고맙습니다ㅎㅎ (Good +" + randPoint + ")\n - " + sender + "님의 호감도 : " + lovePoint;
         } else {
-            result = "고마워요~ (Normal)\n - " + sender + "님의 호감도 : " + lovePoint + ")";
+            result = "고마워요~ (Normal +" + randPoint + ")\n - " + sender + "님의 호감도 : " + lovePoint;
         }
 
         LibraryCSV csv = new LibraryCSV();
@@ -76,15 +76,15 @@ public class CommandLovePoint {
         }
 
         if (randPoint > RAND_POINT_MAX * 0.95 || lovePoint < -LOVE_POINT_THRESHOLD) {
-            result = "구축해주겠어 이 세상에서.. (Unbelievable!!!)\n - " + sender + "님의 호감도 : " + lovePoint + ")";
+            result = "구축해주겠어 이 세상에서.. (Unbelievable!!! -" + randPoint + ")\n - " + sender + "님의 호감도 : " + lovePoint;
         } else if (randPoint > RAND_POINT_MAX * 0.75) {
-            result = "다신 저 볼 생각하지 마세요 (Excellent!!)\n - " + sender + "님의 호감도 : " + lovePoint + ")";
+            result = "다신 저 볼 생각하지 마세요 (Excellent!! -" + randPoint + ")\n - " + sender + "님의 호감도 : " + lovePoint;
         } else if (randPoint > RAND_POINT_MAX * 0.5) {
-            result = "... (Very Good!)\n - " + sender + "님의 호감도 : " + lovePoint + ")";
+            result = "... (Very Good! -" + randPoint + ")\n - " + sender + "님의 호감도 : " + lovePoint;
         } else if (randPoint > RAND_POINT_MAX * 0.25) {
-            result = "실망이에요 (Good)\n - " + sender + "님의 호감도 : " + lovePoint + ")";
+            result = "실망이에요 (Good -" + randPoint + ")\n - " + sender + "님의 호감도 : " + lovePoint;
         } else {
-            result = "그런 말씀을 하시다니.. (Normal)\n - " + sender + "님의 호감도 : " + lovePoint + ")";
+            result = "그런 말씀을 하시다니.. (Normal -" + randPoint + ")\n - " + sender + "님의 호감도 : " + lovePoint;
         }
 
         LibraryCSV csv = new LibraryCSV();
@@ -98,7 +98,7 @@ public class CommandLovePoint {
         String allData = csv.ReadCSV("lovePointList.csv");
         if (allData == null)
             return;
-        
+
         String[] parts = allData.split("\n");
         for (String part : parts) {
             String[] data = part.split(",");

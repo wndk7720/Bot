@@ -77,15 +77,16 @@ public class LibraryCSV {
 
         try {
             Date currentDate = new Date();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+            SimpleDateFormat fileDateFormat = new SimpleDateFormat("yyyyMMdd");
+            SimpleDateFormat chatDateFormat = new SimpleDateFormat("HH:mm:ss");
 
-            fileName += "_" + dateFormat.format(currentDate);
+            fileName += "_" + fileDateFormat.format(currentDate);
 
             File file = new File(context.getFilesDir(), fileName);
             FileOutputStream fos = new FileOutputStream(file, true);
             OutputStreamWriter osw = new OutputStreamWriter(fos);
 
-            String line = title + "," + text + "\n";
+            String line = chatDateFormat.format(currentDate) + "," + title + "," + text + "\n";
             osw.write(line);
 
             osw.close();
