@@ -1,5 +1,5 @@
 # Kyouko Bot
-### Version 23.03.02
+### Version 23.03.04
 
 - 운영환경 : android
 - 언어 : java
@@ -27,5 +27,6 @@
    - 가챠
    - 강화
    - 투자게임
+   - 주사위
 
 @github: github.com/wndk7720/Bot.git
