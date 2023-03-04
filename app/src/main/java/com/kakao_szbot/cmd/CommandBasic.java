@@ -4,6 +4,7 @@ package com.kakao_szbot.cmd;
 import static com.kakao_szbot.lib.CommonLibrary.findNum;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class CommandBasic {
@@ -14,10 +15,10 @@ public class CommandBasic {
         return msg;
     }
 
-    public String basicMessage(String[] responseMessage) {
+    public String basicMessage(List<String> responseMessage) {
         Random random = new Random();
         int rand = random.nextInt(CommandList.RAND_MAX);
-        return responseMessage[rand % responseMessage.length];
+        return responseMessage.get(rand % responseMessage.size());
     }
 
     public String sometimesMessage(String[] responseMessage) {

@@ -1,12 +1,27 @@
 package com.kakao_szbot.cmd;
 
+import android.util.Log;
+
+import com.kakao_szbot.lib.FileLibrary;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class CommandList {
-    public final static int RAND_MAX = 10000;
-    public final static int RAND_ANI_PAGE_MAX = 89;
+    public final static String TAG = "CommandList";
+
     public final static String BOT_NAME = "쿄코";
     public final static String BOT_VERSION = "23.03.04";
 
-    public static String[][] BOT_BASIC_CMD = {
+    public final static int RAND_MAX = 10000;
+    public final static int RAND_ANI_PAGE_MAX = 89;
+
+    public static List<String>[] BOT_BASIC_CMD;
+    public static List<String>[] BOT_BASIC_MSG;
+
+    public static String[][] BOT_BASIC_DEFAULT_CMD = {
             /* help cmd */
             {
                 "도움말", "--help", "-h"
@@ -19,59 +34,12 @@ public class CommandList {
             {
                 "소개", "누구"
             },
-            /* dog cmd */
-            {
-                "없어", "손", "발"
-            },
-            /* chicken msg */
-            {
-                "치킨추천", "치킨 추천"
-            },
-            /* meal cmd */
-            {
-                "아침추천", "점심추천", "저녁추천", "아침 추천", "점심 추천", "저녁 추천",
-                "뭐먹", "메뉴", "밥", "식사", "안주", "야식"
-            },
-            /* how cmd */
-            {
-                "어떠", "어때", "떻", "떤"
-            },
-            /* sorry cmd */
-            {
-                "미안", "죄송", "잘못", "용서"
-            },
-            /* thank cmd */
-            {
-                "고마", "고맙", "땡큐", "밖에", "놀아"
-            },
-            /* sleep cmd */
-            {
-                "졸려", "졸리"
-            },
-            /* what cmd */
-            {
-                "뭐해", "뭐하", "뭐햐", "뭐행", "머해",
-                "머하", "머행", "모해", "모하", "모행"
-            },
-            /* bye cmd */
-            {
-                "잘자", "ㅂㅂ", "굿나잇", "바이", "ㅂ2", "ㅂㅇ",
-                "들어가", "잘가", "가버", "갈", "사라", "해줘"
-            },
-            /* morning cmd */
-            {
-                "좋은아침", "좋은 아침", "굿모닝", "ㄱㅁㄴ"
-            },
-            /* hello cmd */
-            {
-                "안녕", "안뇽", "안냥", "하이", "ㅎㅇ"
-            },
             /* default cmd */
             {
                 BOT_NAME
             },
     };
-    public static String[][] BOT_BASIC_MSG = {
+    public static String[][] BOT_BASIC_DEFAULT_MSG = {
             /* help msg */
             {
                 "/*\n * Kyouko Bot\n * Version " + BOT_VERSION + "\n */" +
@@ -101,81 +69,6 @@ public class CommandList {
                 "처음 뵙겠습니다. 오키테가미 탐정 사무소의 오키테가미 쿄코라고 합니다.",
                 "처음 뵙겠습니다. 저는 탐정인 오키테가미 쿄코라고 합니다.",
                 "안녕하세요. 저의 이름은 오키테카미 쿄코. 탐정이죠."
-            },
-            /* dog msg */
-            {
-                "그건 아니라고 봐요"
-            },
-            /* chicken msg */
-            {
-                "BBQ", "맘스터치", "BHC",
-                "페리카나", "굽네치킨", "네네치킨",
-                "노랑통닭", "교촌치킨", "멕시카나",
-                "부어치킨", "순수치킨",
-                "호식이 두마리 치킨", "처갓집",
-                "바른치킨", "멕시칸", "또래오래",
-                "깐부치킨", "치킨플러스", "KFC"
-            },
-            /* meal msg */
-            {
-                "짜장면", "짬뽕", "탕수육", "초밥",
-                "돈부리", "소바", "라면",
-                "돼지국밥", "삼겹살정식", "갈비탕", "비빔국수",
-                "스테이크", "햄버거", "피자", "파스타",
-                "만두", "카레", "훈제오리", "냉면",
-                "된장찌개", "닭도리탕", "김치찌개",
-                "불고기", "떡볶이", "순대국밥", "보쌈"
-            },
-            /* how msg */
-            {
-                "음~", "글쎄요..", "좋네요"
-            },
-            /* sorry msg */
-            {
-                "용서해드릴게요!", "괜찮아요!"
-            },
-            /* thank msg */
-            {
-                "별말씀을요", "천만에요!"
-            },
-            /* sleep msg */
-            {
-                "저도 졸음이 오지만 참아야해요",
-                "자버리면 안돼..",
-                "참아요!",
-                "찬물을 마셔요!",
-                "볼 꼬집어요.. 강하게",
-                "이 졸음을 이겨내지 못하면.. 지금까지 한 일이 헛되고 말아요.."
-            },
-            /* what msg */
-            {
-                "범인을 추리중입니다.. 범인은..",
-                "오늘 의뢰를 해결하고 있어요",
-                "조용히 좀 있어보세요!",
-                "추리하고 있습니다",
-                "추리중입니다",
-                "추리중이에요",
-                "추리중이니 방해하지 마세요"
-            },
-            /* bye msg */
-            {
-                "주무세요~",
-                "잘자요!",
-                "굿밤이에요~",
-                "들어가보겠습니다",
-                "안녕히계세요",
-                "싫어요!"
-            },
-            /* morning msg */
-            {
-                "좋은아침입니다~",
-                "굿모닝이요!",
-                "아침이네요~"
-            },
-            /* hello msg */
-            {
-                "안녕하세요!",
-                "안녕하세요~"
             },
             /* default msg */
             {
@@ -345,4 +238,59 @@ public class CommandList {
     public static String[] DICE_CMD = {
             "주사위", "다이스", "dice"
     };
+
+    public int loadBotBasicCommand() {
+        FileLibrary csv = new FileLibrary();
+        String allData = null;
+        try {
+            allData = csv.ReadAssetsCSV("basic_command.csv");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (allData == null)
+            return -1;
+
+
+        String[] parts = allData.split("\r\n");
+        BOT_BASIC_CMD = new ArrayList[(parts.length / 2) + BOT_BASIC_DEFAULT_CMD.length];
+        BOT_BASIC_MSG = new ArrayList[(parts.length / 2) + BOT_BASIC_DEFAULT_MSG.length];
+
+        /* CSV Command Load */
+        int cmd_index = 0;
+        for (String part : parts) {
+            String[] data = part.split(",");
+
+            if (cmd_index % 2 == 0) {
+                BOT_BASIC_CMD[cmd_index] = new ArrayList<String>();
+                for (int j = 0; j < data.length; j++) {
+                    BOT_BASIC_CMD[cmd_index].add(data[j]);
+                }
+            } else {
+                BOT_BASIC_MSG[cmd_index] = new ArrayList<String>();
+                for (int j = 0; j < data.length; j++) {
+                    BOT_BASIC_MSG[cmd_index].add(data[j]);
+                }
+
+                cmd_index++;
+            }
+        }
+
+        /* Default Command Load */
+        for (int i = 0; i < BOT_BASIC_DEFAULT_CMD.length; i++) {
+            BOT_BASIC_CMD[cmd_index] = new ArrayList<String>();
+            for (int j = 0; j < BOT_BASIC_DEFAULT_CMD[i].length; j++) {
+                BOT_BASIC_CMD[cmd_index].add(BOT_BASIC_DEFAULT_CMD[i][j]);
+            }
+
+            BOT_BASIC_MSG[cmd_index] = new ArrayList<String>();
+            for (int j = 0; j < BOT_BASIC_DEFAULT_MSG[i].length; j++) {
+                BOT_BASIC_MSG[cmd_index].add(BOT_BASIC_DEFAULT_MSG[i][j]);
+            }
+
+            cmd_index++;
+        }
+
+        return 0;
+    }
 }

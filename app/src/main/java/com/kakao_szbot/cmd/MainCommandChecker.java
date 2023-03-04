@@ -3,6 +3,8 @@ package com.kakao_szbot.cmd;
 import android.content.Context;
 import android.util.Log;
 
+import java.util.List;
+
 
 public class MainCommandChecker {
     public final static String TAG = "CommandChecker";
@@ -107,7 +109,7 @@ public class MainCommandChecker {
         }
 
         for (int i = 0; i < CommandList.BOT_BASIC_CMD.length; i++) {
-            if (checkCommnadList(msg, CommandList.BOT_BASIC_CMD[i]) == 0) {
+            if (checkCommnadArrayList(msg, CommandList.BOT_BASIC_CMD[i]) == 0) {
                 replyMessage = new CommandBasic().basicMessage(CommandList.BOT_BASIC_MSG[i]);
                 return replyMessage;
             }
@@ -147,6 +149,16 @@ public class MainCommandChecker {
     static int checkCommnadList(String msg, String[] list) {
         for (int i = 0; i < list.length; i++) {
             if (msg.indexOf(list[i]) != -1) {
+                return 0;
+            }
+        }
+
+        return -1;
+    }
+
+    static int checkCommnadArrayList(String msg, List<String> list) {
+        for (int i = 0; i < list.size(); i++) {
+            if (msg.indexOf(list.get(i)) != -1) {
                 return 0;
             }
         }
