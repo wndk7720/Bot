@@ -3,10 +3,7 @@ package com.kakao_szbot.cmd;
 import static com.kakao_szbot.KakaoNotificationListener.KakaoSendReply;
 import static com.kakao_szbot.KakaoNotificationListener.getSbn;
 
-import android.util.Log;
-
-import com.kakao_szbot.R;
-import com.kakao_szbot.csv.LibraryCSV;
+import com.kakao_szbot.lib.FileLibrary;
 
 import java.io.IOException;
 import java.util.Random;
@@ -49,7 +46,7 @@ public class CommandQuiz {
             ani_quiz_start = 1;
             ani_quiz_answer_flag = 0;
 
-            LibraryCSV csv = new LibraryCSV();
+            FileLibrary csv = new FileLibrary();
             String allData = csv.ReadAssetsCSV("ani_quiz.csv");
             if (allData == null)
                 return null;

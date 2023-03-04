@@ -1,4 +1,4 @@
-package com.kakao_szbot.csv;
+package com.kakao_szbot.lib;
 
 import static com.kakao_szbot.MainActivity.getAppContext;
 import static com.kakao_szbot.MainActivity.getAppPackageName;
@@ -8,8 +8,6 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.util.Log;
-
-import com.kakao_szbot.cmd.CommandList;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -22,12 +20,10 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-import java.util.Random;
 import java.util.Scanner;
 
 
-public class LibraryCSV {
+public class FileLibrary {
     public final static String TAG = "LibraryCSV";
 
 

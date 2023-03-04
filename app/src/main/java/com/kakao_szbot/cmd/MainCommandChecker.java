@@ -82,6 +82,10 @@ public class MainCommandChecker {
                 replyMessage = new CommandReinforce().reinforceMessage(msg);
                 return replyMessage;
             }
+            if (checkCommnadList(msg, CommandList.DICE_CMD) == 0) {
+                replyMessage = new CommandBasic().diceMessage(msg);
+                return replyMessage;
+            }
             if (checkCommnadList(msg, CommandList.INVEST_CMD) == 0) {
                 replyMessage = new CommandInvest().investMessage(msg);
                 return replyMessage;

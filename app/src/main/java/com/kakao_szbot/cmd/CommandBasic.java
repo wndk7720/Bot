@@ -1,7 +1,7 @@
 package com.kakao_szbot.cmd;
 
 
-import android.util.Log;
+import static com.kakao_szbot.lib.CommonLibrary.findNum;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -90,5 +90,17 @@ public class CommandBasic {
         responseMessage += "]";
 
         return responseMessage;
+    }
+
+    public String diceMessage(String msg) {
+        String result = null;
+        int maxNum = findNum(msg);
+        if (maxNum == 0) maxNum = 6;
+
+        Random random = new Random();
+        int randNum = random.nextInt(maxNum) + 1;
+        result = "주사위 결과는 " + randNum + " 입니다!";
+
+        return result;
     }
 }

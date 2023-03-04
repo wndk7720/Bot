@@ -2,7 +2,6 @@ package com.kakao_szbot;
 
 import static com.kakao_szbot.MainActivity.getAppContext;
 
-import android.app.Activity;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.RemoteInput;
@@ -15,7 +14,7 @@ import android.service.notification.StatusBarNotification;
 import android.util.Log;
 
 import com.kakao_szbot.cmd.MainCommandChecker;
-import com.kakao_szbot.csv.LibraryCSV;
+import com.kakao_szbot.lib.FileLibrary;
 
 
 public class KakaoNotificationListener extends NotificationListenerService {
@@ -59,7 +58,7 @@ public class KakaoNotificationListener extends NotificationListenerService {
             return;
         }
 
-        LibraryCSV csv = new LibraryCSV();
+        FileLibrary csv = new FileLibrary();
         csv.ChatWriteCSV("allChatMessage.scv", title, text.toString());
         SBN = sbn;
 

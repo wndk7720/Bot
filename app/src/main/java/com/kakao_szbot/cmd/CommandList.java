@@ -4,7 +4,7 @@ public class CommandList {
     public final static int RAND_MAX = 10000;
     public final static int RAND_ANI_PAGE_MAX = 89;
     public final static String BOT_NAME = "쿄코";
-    public final static String BOT_VERSION = "23.03.02";
+    public final static String BOT_VERSION = "23.03.04";
 
     public static String[][] BOT_BASIC_CMD = {
             /* help cmd */
@@ -81,6 +81,7 @@ public class CommandList {
                 "   - 환영하기\n   - 뭐해\n   - 날씨\n   - 아침, 점심, 저녁추천\n   - 라면추천\n" +
                 "   - 치킨추천\n   - 애니추천\n   - 오늘의 애니\n   - 공부하기\n   - 비트코인\n" +
                 "   - 로또번호\n   - 대화요약\n   - 퀴즈\n   - 가챠\n   - 강화\n   - 투자게임\n" +
+                "   - 주사위\n" +
                 "\n@github: github.com/wndk7720/Bot.git"
             },
             /* welcome msg */
@@ -180,7 +181,7 @@ public class CommandList {
             {
                 "부르셨나요?",
                 "무슨 일이시죠?",
-                "무슨 일 있나요?",
+                "네, 외람되지만",
                 "네?",
                 "네!",
                 "지금 바빠요!",
@@ -253,7 +254,7 @@ public class CommandList {
             /* .... msg */
             {
                     "제 생각엔 조금 머리를 식히는게 좋을 것 같아요",
-                    "그럴수도 있겠죠",
+                    "그럴수도 있죠",
                     "힘내세요!"
             },
     };
@@ -339,5 +340,9 @@ public class CommandList {
 
     public static String[] INVEST_CMD = {
             "투자게임", "투자 게임"
+    };
+
+    public static String[] DICE_CMD = {
+            "주사위", "다이스", "dice"
     };
 }

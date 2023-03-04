@@ -1,9 +1,7 @@
 package com.kakao_szbot.cmd;
 
 
-import android.util.Log;
-
-import com.kakao_szbot.csv.LibraryCSV;
+import com.kakao_szbot.lib.FileLibrary;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,7 +32,7 @@ public class CommandStudy {
             String study_msg = msg.substring(second_msg_start_index, second_msg_end_index);
 
             if (Collections.frequency(STUDY_CMD_LIST, study_cmd) == 0) {
-                LibraryCSV csv = new LibraryCSV();
+                FileLibrary csv = new FileLibrary();
                 csv.WriteCSV("studyCommand.csv", study_cmd, study_msg);
 
                 STUDY_CMD_LIST.add(study_cmd);
@@ -65,7 +63,7 @@ public class CommandStudy {
             if (Collections.frequency(STUDY_CMD_LIST, study_cmd) == 0) {
                 result = "공부한적 없는 명령어에요";
             } else {
-                LibraryCSV csv = new LibraryCSV();
+                FileLibrary csv = new FileLibrary();
                 csv.deleteStudyCSV("studyCommand.csv", study_cmd);
 
                 int index = STUDY_CMD_LIST.indexOf(study_cmd);
@@ -101,7 +99,7 @@ public class CommandStudy {
     }
 
     public void loadStudyMessage() {
-        LibraryCSV csv = new LibraryCSV();
+        FileLibrary csv = new FileLibrary();
         String allData = csv.ReadCSV("studyCommand.csv");
         if (allData == null)
             return;

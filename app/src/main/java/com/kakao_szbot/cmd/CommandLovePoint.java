@@ -1,8 +1,6 @@
 package com.kakao_szbot.cmd;
 
-import android.util.Log;
-
-import com.kakao_szbot.csv.LibraryCSV;
+import com.kakao_szbot.lib.FileLibrary;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -53,7 +51,7 @@ public class CommandLovePoint {
             result = "고마워요~ (Normal +" + randPoint + ")\n - " + sender + "님의 호감도 : " + lovePoint;
         }
 
-        LibraryCSV csv = new LibraryCSV();
+        FileLibrary csv = new FileLibrary();
         csv.LovePointWriteCSV("lovePointList.csv", sender, lovePoint);
 
         return result;
@@ -87,14 +85,14 @@ public class CommandLovePoint {
             result = "그런 말씀을 하시다니.. (Normal -" + randPoint + ")\n - " + sender + "님의 호감도 : " + lovePoint;
         }
 
-        LibraryCSV csv = new LibraryCSV();
+        FileLibrary csv = new FileLibrary();
         csv.LovePointWriteCSV("lovePointList.csv", sender, lovePoint);
 
         return result;
     }
 
     public void loadLovePointList() {
-        LibraryCSV csv = new LibraryCSV();
+        FileLibrary csv = new FileLibrary();
         String allData = csv.ReadCSV("lovePointList.csv");
         if (allData == null)
             return;

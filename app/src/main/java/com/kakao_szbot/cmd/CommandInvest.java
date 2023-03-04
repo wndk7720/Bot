@@ -3,8 +3,8 @@ package com.kakao_szbot.cmd;
 import static com.kakao_szbot.KakaoNotificationListener.KakaoSendReply;
 import static com.kakao_szbot.KakaoNotificationListener.getSbn;
 import static com.kakao_szbot.cmd.MainCommandChecker.checkCommnadList;
+import static com.kakao_szbot.lib.CommonLibrary.findNum;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -140,7 +140,7 @@ public class CommandInvest {
                     + " - 기존 가격: " + prev_goods_price + "원 " + emoji;
             KakaoSendReply(result, getSbn());
             if (invest_goods_price < 300) {
-                result = " * 투자 주의! 상폐 위험!";
+                result = " * 투자 주의! 상폐 위험!\n   But, 대 상승 확률 업!";
                 KakaoSendReply(result, getSbn());
             }
 
@@ -199,18 +199,7 @@ public class CommandInvest {
         return result;
     }
 
-    private int findNum(String msg) {
-        String result = msg.replaceAll("[^0-9]", "");
-        int number = 1;
 
-        try {
-            number = Integer.parseInt(result);
-        } catch (NumberFormatException e) {
-            number = 1;
-        }
-
-        return number;
-    }
 
     private int findInvestPlayer(String sender) {
         int player_index = -1;
@@ -242,6 +231,7 @@ public class CommandInvest {
         if (checkCommnadList(msg, INVEST_BUY_CMD) == 0) {
             player_index = findInvestPlayer(sender);
             goods_num = findNum(msg);
+            if (goods_num == 0) goods_num = 1;
 
             if (invest_money.get(player_index) < (invest_goods_price * goods_num)) {
                 result = sender + "님 "
@@ -265,6 +255,7 @@ public class CommandInvest {
         if (checkCommnadList(msg, INVEST_SELL_CMD) == 0) {
             player_index = findInvestPlayer(sender);
             goods_num = findNum(msg);
+            if (goods_num == 0) goods_num = 1;
 
             if (invest_purchase.get(player_index) < goods_num) {
                 result = sender + "님 "
