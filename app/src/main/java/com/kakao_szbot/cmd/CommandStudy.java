@@ -64,7 +64,7 @@ public class CommandStudy {
                 result = "공부한적 없는 명령어에요";
             } else {
                 FileLibrary csv = new FileLibrary();
-                csv.deleteStudyCSV("studyCommand.csv", study_cmd);
+                csv.deleteLineCSV("studyCommand.csv", study_cmd);
 
                 int index = STUDY_CMD_LIST.indexOf(study_cmd);
                 STUDY_CMD_LIST.remove(index);
@@ -76,7 +76,6 @@ public class CommandStudy {
         } else {
             result = "다시 말해주세요 (잊어버려 [잊을 문장])";
         }
-
 
         return result;
     }

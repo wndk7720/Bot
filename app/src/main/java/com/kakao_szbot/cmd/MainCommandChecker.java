@@ -92,16 +92,20 @@ public class MainCommandChecker {
                 replyMessage = new CommandInvest().investMessage(msg);
                 return replyMessage;
             }
+            if (checkCommnadList(msg, CommandList.LOVE_LIST_CMD) == 0) {
+                replyMessage = new CommandLovePoint().printLovePointList();
+                return replyMessage;
+            }
             if (checkCommnadList(msg, CommandInvest.INVEST_PURCHASE_CMD) == 0) {
                 replyMessage = new CommandInvest().investPurchaseMessage(msg, sender);
                 return replyMessage;
             }
-            if (checkCommnadList(msg, CommandLovePoint.POINT_UP_CMD) == 0) {
-                replyMessage = new CommandLovePoint().upLovePointMessage(msg, sender);
-                return replyMessage;
-            }
             if (checkCommnadList(msg, CommandLovePoint.POINT_DOWM_CMD) == 0) {
                 replyMessage = new CommandLovePoint().downLovePointMessage(msg, sender);
+                return replyMessage;
+            }
+            if (checkCommnadList(msg, CommandLovePoint.POINT_UP_CMD) == 0) {
+                replyMessage = new CommandLovePoint().upLovePointMessage(msg, sender);
                 return replyMessage;
             }
         } catch (Exception e) {

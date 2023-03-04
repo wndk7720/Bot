@@ -136,7 +136,7 @@ public class FileLibrary {
         return result;
     }
 
-    public void deleteStudyCSV(String fileName, String cmd) {
+    public void deleteLineCSV(String fileName, String cmd) {
         Context context = getAppContext();
 
         try {
