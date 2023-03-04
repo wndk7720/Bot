@@ -72,6 +72,10 @@ public class MainCommandChecker {
                 replyMessage = new CommandSampling().samplingMessage(msg);
                 return replyMessage;
             }
+            if (checkCommnadList(msg, CommandList.QUIZ_POINT_CMD) == 0) {
+                replyMessage = new CommandQuiz().printQuizPointList();
+                return replyMessage;
+            }
             if (checkCommnadList(msg, CommandList.QUIZ_CMD) == 0) {
                 replyMessage = new CommandQuiz().quizMessage(msg);
                 return replyMessage;

@@ -58,7 +58,7 @@ public class CommandLovePoint {
         }
 
         FileLibrary csv = new FileLibrary();
-        csv.LovePointWriteCSV("lovePointList.csv", sender, lovePoint);
+        csv.writePointCSV("lovePointList.csv", sender, lovePoint);
 
         return result;
     }
@@ -92,7 +92,7 @@ public class CommandLovePoint {
         }
 
         FileLibrary csv = new FileLibrary();
-        csv.LovePointWriteCSV("lovePointList.csv", sender, lovePoint);
+        csv.writePointCSV("lovePointList.csv", sender, lovePoint);
 
         return result;
     }
@@ -120,27 +120,7 @@ public class CommandLovePoint {
                     + map.get(key);
         }
 
-        result = "[호감도 명예의 전당]" + result_msg;
-        return result;
-    }
-
-    public String deleLovePointListMessage(String msg) {
-        String result = null;
-
-        int first_msg_start_index = msg.indexOf('[') + 1;
-        int first_msg_end_index = msg.indexOf(']');
-        if ((first_msg_start_index != -1 && first_msg_end_index != -1) &&
-                (first_msg_start_index < first_msg_end_index)) {
-
-            String study_cmd = msg.substring(first_msg_start_index, first_msg_end_index);
-            FileLibrary csv = new FileLibrary();
-            csv.deleteLineCSV("lovePointList.csv", study_cmd);
-
-            result = "잊어버렸습니다";
-        } else {
-            result = "다시 말해주세요 (호감잊어 [잊을 사람])";
-        }
-
+        result = "[" + CommandList.BOT_NAME + "의 호감도 현황]" + result_msg;
         return result;
     }
 

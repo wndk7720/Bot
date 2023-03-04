@@ -169,7 +169,7 @@ public class FileLibrary {
         }
     }
 
-    public void LovePointWriteCSV(String fileName, String sender, int point) {
+    public void writePointCSV(String fileName, String sender, int point) {
         Context context = getAppContext();
 
         try {

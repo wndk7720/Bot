@@ -6,6 +6,12 @@ import static com.kakao_szbot.KakaoNotificationListener.getSbn;
 import com.kakao_szbot.lib.FileLibrary;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class CommandQuiz {
@@ -15,6 +21,8 @@ public class CommandQuiz {
     public static String ani_quiz_name;
     public static int ani_quiz_start = 0;
     public static int ani_quiz_answer_flag = 1;
+
+    private static Map<String, Integer> player = new HashMap<>();
 
 
     public static String convertToConsonants(String word) {
@@ -71,7 +79,7 @@ public class CommandQuiz {
                         while (true) {
                             Thread.sleep(100);
 
-                            if (count++ > 10000)
+                            if (count++ > (TEN_MIN_PER_SEC * 10))
                                 break;
 
                             if (ani_quiz_answer_flag == 1)
@@ -105,14 +113,61 @@ public class CommandQuiz {
         if (ani_quiz_start != 0) {
             if (ani_quiz_answer_flag == 0) {
                 if (msg.indexOf(ani_quiz_name) != -1) {
-                    result = sender +"님 정답입니다!";
                     ani_quiz_answer_flag = 1;
                     ani_quiz_start = 0;
+
+                    if (player.containsKey(sender)) {
+                        player.put(sender, player.get(sender) + 1);
+                    } else {
+                        player.put(sender, 1);
+                    }
+
+                    FileLibrary csv = new FileLibrary();
+                    csv.writePointCSV("quizPointList.csv", sender, player.get(sender));
+
+                    result = sender + "님 정답입니다!\n" +
+                            " - 누적 점수 : " + player.get(sender);
+
                     return result;
                 }
             }
         }
 
         return result;
+    }
+
+    public String printQuizPointList() {
+        String result = null;
+        String result_msg = "";
+
+        List<String> keySet = new ArrayList<>(player.keySet());
+        keySet.sort(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return player.get(o1).compareTo(player.get(o2));
+            }
+        });
+        keySet.sort((o1, o2) -> player.get(o2).compareTo(player.get(o1)));
+
+        for (String key : keySet) {
+            result_msg += "\n - " + key + "님의 점수: "
+                    + player.get(key);
+        }
+
+        result = "[애니 퀴즈 명예의 전당]" + result_msg;
+        return result;
+    }
+
+    public void loadQuizPointList() {
+        FileLibrary csv = new FileLibrary();
+        String allData = csv.ReadCSV("quizPointList.csv");
+        if (allData == null)
+            return;
+
+        String[] parts = allData.split("\n");
+        for (String part : parts) {
+            String[] data = part.split(",");
+            player.put(data[0], Integer.parseInt(data[1]));
+        }
     }
 }
