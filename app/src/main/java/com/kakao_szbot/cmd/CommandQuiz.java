@@ -2,6 +2,9 @@ package com.kakao_szbot.cmd;
 
 import static com.kakao_szbot.KakaoNotificationListener.KakaoSendReply;
 import static com.kakao_szbot.KakaoNotificationListener.getSbn;
+import static com.kakao_szbot.lib.CommonLibrary.patternIndexOf;
+
+import android.util.Log;
 
 import com.kakao_szbot.lib.FileLibrary;
 
@@ -16,7 +19,7 @@ import java.util.Random;
 
 public class CommandQuiz {
     public final static String TAG = "CommandQuiz";
-    private static int TEN_MIN_PER_SEC = 600;
+    private static int TEN_MIN_PER_SEC = 1800;
 
     public static String ani_quiz_name;
     public static int ani_quiz_start = 0;
@@ -116,6 +119,10 @@ public class CommandQuiz {
                     ani_quiz_answer_flag = 1;
                     ani_quiz_start = 0;
 
+                    String resultSender = sender;
+                    int patternIndex = patternIndexOf(sender, "[0-9`~!@#$%^&*()-_=+\\|\\[\\]{};:'\",.<>/? ]");
+                    if (patternIndex != 0) sender = sender.substring(0, patternIndex);
+
                     if (player.containsKey(sender)) {
                         player.put(sender, player.get(sender) + 1);
                     } else {
@@ -125,7 +132,7 @@ public class CommandQuiz {
                     FileLibrary csv = new FileLibrary();
                     csv.writePointCSV("quizPointList.csv", sender, player.get(sender));
 
-                    result = sender + "님 정답입니다!\n" +
+                    result = resultSender + "님 정답입니다!\n" +
                             " - 누적 점수 : " + player.get(sender);
 
                     return result;
