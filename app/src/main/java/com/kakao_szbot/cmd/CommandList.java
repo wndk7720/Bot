@@ -246,6 +246,10 @@ public class CommandList {
             "호감도"
     };
 
+    public static String[] GPT_CMD = {
+            "GPT", "gpt", "Gpt", "지피티", "쥐피티"
+    };
+
     public static String[] DEV_DEBUG_CSV_CMD = {
             "개발자_전용"
     };
@@ -268,11 +272,11 @@ public class CommandList {
         BOT_BASIC_MSG = new ArrayList[(parts.length / 2) + BOT_BASIC_DEFAULT_MSG.length];
 
         /* CSV Command Load */
-        int cmd_index = 0;
+        int cmd_index = 0, line_index = 0;;
         for (String part : parts) {
             String[] data = part.split(",");
 
-            if (cmd_index % 2 == 0) {
+            if (line_index % 2 == 0) {
                 BOT_BASIC_CMD[cmd_index] = new ArrayList<String>();
                 for (int j = 0; j < data.length; j++) {
                     BOT_BASIC_CMD[cmd_index].add(data[j]);
@@ -285,6 +289,8 @@ public class CommandList {
 
                 cmd_index++;
             }
+
+            line_index++;
         }
 
         /* Default Command Load */

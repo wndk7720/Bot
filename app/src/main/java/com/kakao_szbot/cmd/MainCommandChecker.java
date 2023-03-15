@@ -100,6 +100,12 @@ public class MainCommandChecker {
                 replyMessage = new CommandLovePoint().printLovePointList();
                 return replyMessage;
             }
+            /*
+            if (checkCommnadList(msg, CommandList.GPT_CMD) == 0) {
+                replyMessage = new CommandGPT().gptMessage(msg, sender);
+                return replyMessage;
+            }
+            */
             if (checkCommnadList(msg, CommandInvest.INVEST_PURCHASE_CMD) == 0) {
                 replyMessage = new CommandInvest().investPurchaseMessage(msg, sender);
                 return replyMessage;
