@@ -16,14 +16,13 @@ import okhttp3.Response;
 
 public class CommandGPT {
     public final static String TAG = "CommandGPT";
-    private static final String API_KEY = "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";
-    private static final int MAX_TOKEN = 100;
+    private static final String API_KEY = "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";
+    private static final int MAX_TOKEN = 130;
 
 
     public String gptMessage(String msg, String sender) {
         int start_index = msg.indexOf("GPT") + 4;
-        if (start_index < 0)
-            start_index = msg.indexOf("gpt") + 4;
+        if (start_index < 0) start_index = msg.indexOf("gpt") + 4;
 
         String requestMsg = msg.substring(start_index, msg.length());
         Log.d(TAG, "requestMsg: " + requestMsg);
@@ -31,7 +30,7 @@ public class CommandGPT {
         try {
             return generateText(requestMsg, MAX_TOKEN);
         } catch (Exception e) {
-            return "아쉽게 ChatGPT가 고장났답니다 데헷☆";
+            return "아쉽게 ChatGPT가 고장났답니다. 데헷☆";
         }
     }
 
@@ -54,6 +53,17 @@ public class CommandGPT {
         JSONArray jsonChoices = jsonObject.getJSONArray("choices");
         String result = jsonChoices.getJSONObject(0).getString("text");
         result = result.replaceAll("\n", "");
+
+        int last_index = result.lastIndexOf(".");
+        if (last_index < 0) last_index = result.lastIndexOf("!");
+        if (last_index < 0) last_index = result.lastIndexOf("?");
+        if (last_index < 0) last_index = result.lastIndexOf("~");
+
+        if (last_index < 0) {
+            result = result + "...";
+        } else {
+            result = result.substring(0, last_index + 1);
+        }
 
         return result;
     }
