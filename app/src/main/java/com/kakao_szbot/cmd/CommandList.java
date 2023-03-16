@@ -49,7 +49,7 @@ public class CommandList {
                 "   - 환영하기\n   - 뭐해\n   - 날씨\n   - 아침, 점심, 저녁추천\n   - 라면추천\n" +
                 "   - 치킨추천\n   - 애니추천\n   - 오늘의 애니\n   - 공부하기, 잊어버려\n   - 비트코인\n" +
                 "   - 로또번호\n   - 대화요약\n   - 퀴즈, 퀴즈순위\n   - 가챠\n   - 강화\n   - 투자게임\n" +
-                "   - 주사위\n   - 호감도\n" +
+                "   - 주사위\n   - 호감도\n   - GPT\n" +
                 "\n@github: github.com/wndk7720/Bot.git"
             },
             /* welcome msg */
@@ -247,7 +247,7 @@ public class CommandList {
     };
 
     public static String[] GPT_CMD = {
-            "GPT", "gpt", "Gpt", "지피티", "쥐피티"
+            "GPT", "gpt"
     };
 
     public static String[] DEV_DEBUG_CSV_CMD = {
