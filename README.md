@@ -29,5 +29,6 @@
    - 투자게임
    - 주사위
    - 호감도
+   - GPT
 
 @github: github.com/wndk7720/Bot.git
