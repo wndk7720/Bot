@@ -52,17 +52,24 @@ public class CommandGPT {
         JSONObject jsonObject = new JSONObject(responseStr);
         JSONArray jsonChoices = jsonObject.getJSONArray("choices");
         String result = jsonChoices.getJSONObject(0).getString("text");
-        result = result.replaceAll("\n", "");
+        result = makePrettyText(result);
+
+        return result;
+    }
+
+    private String makePrettyText(String result) {
+        int start_index = result.indexOf("\n\n");
+        if (start_index >= 0) {
+            result = result.substring(start_index + 2, result.length());
+        }
 
         int last_index = result.lastIndexOf(".");
         if (last_index < 0) last_index = result.lastIndexOf("!");
         if (last_index < 0) last_index = result.lastIndexOf("?");
         if (last_index < 0) last_index = result.lastIndexOf("~");
 
-        if (last_index < 0) {
+        if (result.length() != (last_index + 1)) {
             result = result + "...";
-        } else {
-            result = result.substring(0, last_index + 1);
         }
 
         return result;
