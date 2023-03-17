@@ -63,6 +63,14 @@ public class CommandGPT {
             result = result.substring(start_index + 2, result.length());
         }
 
+        for (int i = 0; i < result.length(); i++) {
+            if (result.indexOf("\n") == 0) {
+                result = result.substring(1, result.length());
+            } else {
+                break;
+            }
+        }
+
         int last_index = result.lastIndexOf(".");
         if (last_index < 0) last_index = result.lastIndexOf("!");
         if (last_index < 0) last_index = result.lastIndexOf("?");
