@@ -16,7 +16,7 @@ import okhttp3.Response;
 
 public class CommandGPT {
     public final static String TAG = "CommandGPT";
-    private static final String API_KEY = "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";
+    private static final String API_KEY = "";
     private static final int MAX_TOKEN = 130;
 
 
