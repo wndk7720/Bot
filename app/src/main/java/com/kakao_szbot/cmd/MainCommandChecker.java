@@ -32,6 +32,10 @@ public class MainCommandChecker {
         String replyMessage = null;
 
         try {
+            if (checkCommnadList(msg, CommandList.GPT_CMD) == 0) {
+                replyMessage = new CommandGPT().gptMessage(msg, sender);
+                return replyMessage;
+            }
             if (checkCommnadList(msg, CommandList.RAMEN_CMD) == 0) {
                 replyMessage = new CommandBasic().ramenMessage(msg);
                 return replyMessage;
@@ -100,10 +104,6 @@ public class MainCommandChecker {
                 replyMessage = new CommandLovePoint().printLovePointList();
                 return replyMessage;
             }
-            if (checkCommnadList(msg, CommandList.GPT_CMD) == 0) {
-                replyMessage = new CommandGPT().gptMessage(msg, sender);
-                return replyMessage;
-            }
             if (checkCommnadList(msg, CommandInvest.INVEST_PURCHASE_CMD) == 0) {
                 replyMessage = new CommandInvest().investPurchaseMessage(msg, sender);
                 return replyMessage;
@@ -116,16 +116,26 @@ public class MainCommandChecker {
                 replyMessage = new CommandLovePoint().upLovePointMessage(msg, sender);
                 return replyMessage;
             }
+            for (int i = 0; i < (CommandList.BOT_BASIC_CMD.length - 1); i++) {
+                if (checkCommnadArrayList(msg, CommandList.BOT_BASIC_CMD[i]) == 0) {
+                    replyMessage = new CommandBasic().basicMessage(CommandList.BOT_BASIC_MSG[i]);
+                    return replyMessage;
+                }
+            }
+            replyMessage = new CommandGPT().gptDefaultMessage(msg, sender);
+            if (replyMessage != null) {
+                return replyMessage;
+            }
+            for (int i = (CommandList.BOT_BASIC_CMD.length - 1); i < CommandList.BOT_BASIC_CMD.length; i++) {
+                if (checkCommnadArrayList(msg, CommandList.BOT_BASIC_CMD[i]) == 0) {
+                    replyMessage = new CommandBasic().basicMessage(CommandList.BOT_BASIC_MSG[i]);
+                    return replyMessage;
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        for (int i = 0; i < CommandList.BOT_BASIC_CMD.length; i++) {
-            if (checkCommnadArrayList(msg, CommandList.BOT_BASIC_CMD[i]) == 0) {
-                replyMessage = new CommandBasic().basicMessage(CommandList.BOT_BASIC_MSG[i]);
-                return replyMessage;
-            }
-        }
 
         return replyMessage;
     }

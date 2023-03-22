@@ -16,15 +16,34 @@ import okhttp3.Response;
 
 public class CommandGPT {
     public final static String TAG = "CommandGPT";
-    private static final String API_KEY = "";
+    private static final String API_KEY = "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";
     private static final int MAX_TOKEN = 130;
 
 
     public String gptMessage(String msg, String sender) {
-        int start_index = msg.indexOf("GPT") + 4;
-        if (start_index < 0) start_index = msg.indexOf("gpt") + 4;
+        int start_index = msg.indexOf("GPT");
+        if (start_index < 0) start_index = msg.indexOf("gpt");
 
-        String requestMsg = msg.substring(start_index, msg.length());
+        String requestMsg = msg.substring(start_index + 4, msg.length());
+        Log.d(TAG, "requestMsg: " + requestMsg);
+
+        try {
+            return generateText(requestMsg, MAX_TOKEN);
+        } catch (Exception e) {
+            return "아쉽게 ChatGPT가 고장났답니다. 데헷☆";
+        }
+    }
+
+    public String gptDefaultMessage(String msg, String sender) {
+        if (msg.contains(" ") == false) {
+            return null;
+        }
+
+        String requestMsg = msg.replace("쿄코", "");
+        String emptyCheckMsg = requestMsg.replaceAll("[^ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9]", "");
+        if (emptyCheckMsg.length() == 0) {
+            return null;
+        }
         Log.d(TAG, "requestMsg: " + requestMsg);
 
         try {

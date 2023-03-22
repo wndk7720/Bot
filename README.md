@@ -1,5 +1,5 @@
 # Kyouko Bot
-### Version 23.03.17
+### Version 23.03.23
 
 - 운영환경 : android
 - 언어 : java

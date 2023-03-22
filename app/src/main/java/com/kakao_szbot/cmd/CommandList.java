@@ -13,7 +13,7 @@ public class CommandList {
     public final static String TAG = "CommandList";
 
     public final static String BOT_NAME = "쿄코";
-    public final static String BOT_VERSION = "23.03.17";
+    public final static String BOT_VERSION = "23.03.23";
 
     public final static int RAND_MAX = 10000;
     public final static int RAND_ANI_PAGE_MAX = 89;
