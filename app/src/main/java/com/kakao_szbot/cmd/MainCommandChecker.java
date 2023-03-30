@@ -122,7 +122,7 @@ public class MainCommandChecker {
                     return replyMessage;
                 }
             }
-            replyMessage = new CommandGPT().gptDefaultMessage(msg, sender);
+            replyMessage = new CommandGPT().gptBotMessage(msg, sender);
             if (replyMessage != null) {
                 return replyMessage;
             }
@@ -155,6 +155,10 @@ public class MainCommandChecker {
             return replyMessage;
 
         replyMessage = new CommandQuiz().answerQuizMessage(msg, sender);
+        if (replyMessage != null)
+            return replyMessage;
+
+        replyMessage = new CommandGPT().gptSometimesMessage(msg, sender);
         if (replyMessage != null)
             return replyMessage;
 

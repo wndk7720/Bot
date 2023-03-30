@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Random;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -18,6 +19,10 @@ public class CommandGPT {
     public final static String TAG = "CommandGPT";
     private static final String API_KEY = "";
     private static final int MAX_TOKEN = 130;
+    private static int SOMETIMES_RATIO = 0;
+    private static final int SOMETIMES_THRESHOLD = 100;
+    public static String[] sometimes_exception =
+            {"ㅋ", "ㅎ", "이모티콘", "사진", CommandList.BOT_NAME};
 
 
     public String gptMessage(String msg, String sender) {
@@ -35,6 +40,34 @@ public class CommandGPT {
     }
 
     public String gptDefaultMessage(String msg, String sender) {
+        try {
+            return generateText(msg, MAX_TOKEN);
+        } catch (Exception e) {
+            return "아쉽게 ChatGPT가 고장났답니다. 데헷☆";
+        }
+    }
+
+    public String gptSometimesMessage(String msg, String sender) {
+        for (int i=0; i < sometimes_exception.length; i++) {
+            if (msg.indexOf(sometimes_exception[i]) == 0) {
+                return null;
+            }
+        }
+
+        SOMETIMES_RATIO++;
+        if (SOMETIMES_RATIO > SOMETIMES_THRESHOLD) {
+            Random random = new Random();
+            int rand = random.nextInt(CommandList.RAND_MAX);
+            if (rand < SOMETIMES_RATIO) {
+                SOMETIMES_RATIO = 0;
+                return gptDefaultMessage(msg, sender);
+            }
+        }
+
+        return null;
+    }
+
+    public String gptBotMessage(String msg, String sender) {
         if (msg.contains(" ") == false) {
             return null;
         }
@@ -46,11 +79,7 @@ public class CommandGPT {
         }
         Log.d(TAG, "requestMsg: " + requestMsg);
 
-        try {
-            return generateText(requestMsg, MAX_TOKEN);
-        } catch (Exception e) {
-            return "아쉽게 ChatGPT가 고장났답니다. 데헷☆";
-        }
+        return gptDefaultMessage(requestMsg, sender);
     }
 
     private String generateText(String prompt, int maxTokens) throws IOException, JSONException {
