@@ -90,7 +90,7 @@ public class CommandCrawling {
     }
 
     public String recommendAniMessage(String msg, String sender) throws Exception {
-        String url = "https://anissia.net/api/anime/list/";
+        String url = "https://api.anissia.net/anime/list/";
         String result = null;
         Random random = new Random();
 
@@ -114,7 +114,7 @@ public class CommandCrawling {
     }
 
     public String todayAniMessage(String msg, String sender) throws Exception {
-        String url = "https://anissia.net/api/anime/schedule/";
+        String url = "https://api.anissia.net/anime/schedule/";
         Date date = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);

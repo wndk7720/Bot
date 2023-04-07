@@ -19,7 +19,7 @@ import java.util.Random;
 
 public class CommandQuiz {
     public final static String TAG = "CommandQuiz";
-    private static int TEN_MIN_PER_SEC = 1800;
+    private static int FIFTEEN_MIN_PER_SEC = 900;
 
     public static String ani_quiz_name;
     public static int ani_quiz_start = 0;
@@ -35,13 +35,20 @@ public class CommandQuiz {
                 'ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ',
                 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'
         }; // The list of initial consonants
+        Random random = new Random();
+        int rand;
 
         StringBuilder result = new StringBuilder();
         for (char ch : word.toCharArray()) {
             if (ch >= '가' && ch <= '힣') { // Check if the character is a Hangul syllable
                 int index = ch - BASE_CODE; // Calculate the index of the syllable
                 int chosungIndex = index / CHOSUNG_INTERVAL; // Calculate the index of the initial consonant
-                result.append(CHOSUNG_LIST[chosungIndex]); // Add the initial consonant to the result
+                rand = random.nextInt(CommandList.RAND_MAX);
+                if (rand > (CommandList.RAND_MAX / 7)) {
+                    result.append(CHOSUNG_LIST[chosungIndex]); // Add the initial consonant to the result
+                } else {
+                    result.append('■'); // Add the initial consonant to the result
+                }
             } else {
                 result.append(ch); // Add non-Hangul characters to the result as is
             }
@@ -71,7 +78,7 @@ public class CommandQuiz {
 
             result = "맞춰보세요!\n\n"
                     + ani_quiz_name_consonants +
-                    "\n(띄어쓰기 없이 입력해주세요!)";
+                    "\n(띄어쓰기 없이 입력해주세요! 15분뒤 정답 공개!)";
 
             new Thread() {
                 public void run() {
@@ -82,7 +89,7 @@ public class CommandQuiz {
                         while (true) {
                             Thread.sleep(100);
 
-                            if (count++ > (TEN_MIN_PER_SEC * 10))
+                            if (count++ > (FIFTEEN_MIN_PER_SEC * 10))
                                 break;
 
                             if (ani_quiz_answer_flag == 1)
