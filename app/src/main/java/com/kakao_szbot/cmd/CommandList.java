@@ -13,7 +13,7 @@ public class CommandList {
     public final static String TAG = "CommandList";
 
     public final static String BOT_NAME = "쿄코";
-    public final static String BOT_VERSION = "23.04.07";
+    public final static String BOT_VERSION = "23.04.16";
 
     public final static int RAND_MAX = 10000;
     public final static int RAND_ANI_PAGE_MAX = 89;
@@ -46,12 +46,12 @@ public class CommandList {
                 "\n\n 「쿄코 + 명령어」 형태로 동작합니다.\n\n" +
                 "명령어 목록은 아래와 같습니다.\n" +
                 "   - 도움말, -h, --help\n" +
-                "   - 환영하기\n   - 뭐해\n   - 날씨\n   - 라면추천\n" +
+                "   - 환영하기\n   - 날씨\n   - 라면추천\n" +
                 "   - 애니추천\n   - 오늘의 애니\n   - 공부하기, 잊어버려\n" +
                 "   - 로또번호\n   - 대화요약\n   - 퀴즈, 퀴즈순위\n   - 가챠\n   - 강화\n   - 투자게임\n" +
-                "   - 주사위\n   - 호감도\n   - GPT\n" +
+                "   - 주사위\n   - GPT\n" +
                 "\n@github: github.com/wndk7720/Bot.git"
-                    // "   - 아침, 점심, 저녁추천   - 치킨추천   - 비트코인
+                    // "   - 뭐해   - 아침, 점심, 저녁추천   - 치킨추천   - 비트코인   - 호감도
             },
             /* welcome msg */
             {
