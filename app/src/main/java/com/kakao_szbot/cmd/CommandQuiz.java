@@ -20,6 +20,7 @@ import java.util.Random;
 public class CommandQuiz {
     public final static String TAG = "CommandQuiz";
     private static int FIFTEEN_MIN_PER_SEC = 900;
+    private static int BLIND_FREQUENCY = 7;
 
     public static String ani_quiz_name;
     public static int ani_quiz_start = 0;
@@ -36,18 +37,26 @@ public class CommandQuiz {
                 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'
         }; // The list of initial consonants
         Random random = new Random();
-        int rand;
+        int rand = random.nextInt(CommandList.RAND_MAX);
+        int i = 0;
+
+        rand %= BLIND_FREQUENCY;
+        rand %= word.length();
 
         StringBuilder result = new StringBuilder();
         for (char ch : word.toCharArray()) {
             if (ch >= '가' && ch <= '힣') { // Check if the character is a Hangul syllable
                 int index = ch - BASE_CODE; // Calculate the index of the syllable
                 int chosungIndex = index / CHOSUNG_INTERVAL; // Calculate the index of the initial consonant
-                rand = random.nextInt(CommandList.RAND_MAX);
-                if (rand > (CommandList.RAND_MAX / 7)) {
+
+                if (i != rand) {
                     result.append(CHOSUNG_LIST[chosungIndex]); // Add the initial consonant to the result
                 } else {
                     result.append('■'); // Add the initial consonant to the result
+                }
+
+                if ((++i % BLIND_FREQUENCY) == 0) {
+                    i = 0;
                 }
             } else {
                 result.append(ch); // Add non-Hangul characters to the result as is
