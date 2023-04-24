@@ -270,11 +270,14 @@ public class CommandList {
 
 
         String[] parts = allData.split("\r\n");
-        BOT_BASIC_CMD = new ArrayList[(parts.length / 2) + BOT_BASIC_DEFAULT_CMD.length];
-        BOT_BASIC_MSG = new ArrayList[(parts.length / 2) + BOT_BASIC_DEFAULT_MSG.length];
+        int parts_length = 0; // parts.length
+        BOT_BASIC_CMD = new ArrayList[(parts_length / 2) + BOT_BASIC_DEFAULT_CMD.length];
+        BOT_BASIC_MSG = new ArrayList[(parts_length / 2) + BOT_BASIC_DEFAULT_MSG.length];
 
         /* CSV Command Load */
-        int cmd_index = 0, line_index = 0;;
+
+        int cmd_index = 0, line_index = 0;
+        /*
         for (String part : parts) {
             String[] data = part.split(",");
 
@@ -294,6 +297,7 @@ public class CommandList {
 
             line_index++;
         }
+        */
 
         /* Default Command Load */
         for (int i = 0; i < BOT_BASIC_DEFAULT_CMD.length; i++) {

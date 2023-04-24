@@ -117,17 +117,20 @@ public class MainCommandChecker {
                 replyMessage = new CommandLovePoint().upLovePointMessage(msg, sender);
                 return replyMessage;
             }
+            */
+
             for (int i = 0; i < (CommandList.BOT_BASIC_CMD.length - 1); i++) {
                 if (checkCommnadArrayList(msg, CommandList.BOT_BASIC_CMD[i]) == 0) {
                     replyMessage = new CommandBasic().basicMessage(CommandList.BOT_BASIC_MSG[i]);
                     return replyMessage;
                 }
             }
-            */
+
             replyMessage = new CommandGPT().gptBotMessage(msg, sender);
             if (replyMessage != null) {
                 return replyMessage;
             }
+
             for (int i = (CommandList.BOT_BASIC_CMD.length - 1); i < CommandList.BOT_BASIC_CMD.length; i++) {
                 if (checkCommnadArrayList(msg, CommandList.BOT_BASIC_CMD[i]) == 0) {
                     replyMessage = new CommandBasic().basicMessage(CommandList.BOT_BASIC_MSG[i]);
