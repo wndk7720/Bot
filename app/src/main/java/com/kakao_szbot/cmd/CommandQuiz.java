@@ -25,11 +25,12 @@ public class CommandQuiz {
     public static String ani_quiz_name;
     public static int ani_quiz_start = 0;
     public static int ani_quiz_answer_flag = 1;
+    public static int total_quiz_point = 0;
 
     private static Map<String, Integer> player = new HashMap<>();
 
 
-    public static String convertToConsonants(String word) {
+    public static String convertToConsonants(String word, int hard_mode) {
         final int BASE_CODE = 44032; // The base code of Hangul syllables
         final int CHOSUNG_INTERVAL = 588; // The interval between initial consonants
         final char[] CHOSUNG_LIST = {
@@ -38,10 +39,14 @@ public class CommandQuiz {
         }; // The list of initial consonants
         Random random = new Random();
         int rand = random.nextInt(CommandList.RAND_MAX);
+        int blind_index;
         int i = 0;
 
-        rand %= BLIND_FREQUENCY;
-        rand %= word.length();
+        blind_index = rand % BLIND_FREQUENCY;
+        blind_index %= word.length();
+        if (hard_mode == 1 && blind_index == 0) {
+            blind_index++;
+        }
 
         StringBuilder result = new StringBuilder();
         for (char ch : word.toCharArray()) {
@@ -49,10 +54,10 @@ public class CommandQuiz {
                 int index = ch - BASE_CODE; // Calculate the index of the syllable
                 int chosungIndex = index / CHOSUNG_INTERVAL; // Calculate the index of the initial consonant
 
-                if (i != rand) {
-                    result.append(CHOSUNG_LIST[chosungIndex]); // Add the initial consonant to the result
+                if (i == blind_index || (hard_mode == 1 && i == 0)) {
+                    result.append('■');
                 } else {
-                    result.append('■'); // Add the initial consonant to the result
+                    result.append(CHOSUNG_LIST[chosungIndex]); // Add the initial consonant to the result
                 }
 
                 if ((++i % BLIND_FREQUENCY) == 0) {
@@ -83,11 +88,24 @@ public class CommandQuiz {
 
             String[] parts = allData.split("\r\n");
             ani_quiz_name = parts[rand % parts.length];
-            ani_quiz_name_consonants = convertToConsonants(ani_quiz_name);
 
-            result = "맞춰보세요!\n\n"
-                    + ani_quiz_name_consonants +
-                    "\n(띄어쓰기 없이 입력해주세요! 15분뒤 정답 공개!)";
+            rand = random.nextInt(CommandList.RAND_MAX);
+            int hard_mode = 0;
+            if (ani_quiz_name.length() > 2 && rand < (CommandList.RAND_MAX / 4)) {
+                hard_mode = 1;
+            }
+
+            ani_quiz_name_consonants = convertToConsonants(ani_quiz_name, hard_mode);
+
+            if (hard_mode == 0) {
+                result = "맞춰보세요!\n\n"
+                        + ani_quiz_name_consonants +
+                        "\n(띄어쓰기 없이 입력해주세요! 15분뒤 정답 공개!)";
+            } else {
+                result = "하드모드 발동! 맞춰보시죠!\n\n"
+                        + ani_quiz_name_consonants +
+                        "\n(띄어쓰기 없이 입력해주세요! 15분뒤 정답 공개!)";
+            }
 
             new Thread() {
                 public void run() {
@@ -139,6 +157,7 @@ public class CommandQuiz {
                     int patternIndex = patternIndexOf(sender, "[0-9`~!@#$%^&*()-_=+\\|\\[\\]{};:'\",.<>/? ]");
                     if (patternIndex != 0) sender = sender.substring(0, patternIndex);
 
+                    total_quiz_point++;
                     if (player.containsKey(sender)) {
                         player.put(sender, player.get(sender) + 1);
                     } else {
@@ -150,6 +169,24 @@ public class CommandQuiz {
 
                     result = resultSender + "님 정답입니다!\n" +
                             " - 누적 점수 : " + player.get(sender);
+
+                    if (player.get(sender) > (total_quiz_point / 2)) {
+                        result += "/" + total_quiz_point + " (점수 독점 상태)\n   > 다른 분들에게도 기회를 주세요!";
+                    } else if (player.get(sender) < 10) {
+                        // null grade
+                    } else if (player.get(sender) < 20) {
+                        result += " (칭호 :\uD83E\uDD49)";
+                    } else if (player.get(sender) < 30) {
+                        result += " (칭호 :\uD83E\uDD48)";
+                    } else if (player.get(sender) < 40) {
+                        result += " (칭호 :\uD83E\uDD47)";
+                    } else if (player.get(sender) < 50) {
+                        result += " (칭호 :\uD83C\uDFC5)";
+                    } else if (player.get(sender) < 60) {
+                        result += " (칭호 :\uD83C\uDF96)";
+                    } else {
+                        result += " (칭호 :\uD83C\uDFC6)";
+                    }
 
                     return result;
                 }
@@ -177,7 +214,8 @@ public class CommandQuiz {
                     + player.get(key);
         }
 
-        result = "[애니 퀴즈 명예의 전당]" + result_msg;
+        result = "[애니 퀴즈 명예의 전당]\n * 총 점수 : " + total_quiz_point + "\n"
+                + result_msg;
         return result;
     }
 
@@ -191,6 +229,9 @@ public class CommandQuiz {
         for (String part : parts) {
             String[] data = part.split(",");
             player.put(data[0], Integer.parseInt(data[1]));
+            total_quiz_point += Integer.parseInt(data[1]);
         }
+
+        Log.d(TAG, "퀴즈 총 점수 : " + total_quiz_point);
     }
 }
