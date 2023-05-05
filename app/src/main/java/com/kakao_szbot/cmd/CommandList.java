@@ -13,10 +13,10 @@ public class CommandList {
     public final static String TAG = "CommandList";
 
     public final static String BOT_NAME = "쿄코";
-    public final static String BOT_VERSION = "23.04.16";
+    public final static String BOT_VERSION = "23.05.05";
 
     public final static int RAND_MAX = 10000;
-    public final static int RAND_ANI_PAGE_MAX = 89;
+    public final static int RAND_ANI_MAX = 2500;
 
     public static List<String>[] BOT_BASIC_CMD;
     public static List<String>[] BOT_BASIC_MSG;

@@ -90,19 +90,21 @@ public class CommandCrawling {
     }
 
     public String recommendAniMessage(String msg, String sender) throws Exception {
-        String url = "https://api.anissia.net/anime/list/";
+        String url = "https://api.anissia.net/anime/animeNo/";
         String result = null;
         Random random = new Random();
 
-        int pageRand = random.nextInt(CommandList.RAND_ANI_PAGE_MAX);
-        result = getContentURL(url + pageRand);
+        int noRand = random.nextInt(CommandList.RAND_ANI_MAX);
+        result = getContentURL(url + noRand);
         JSONObject content = new JSONObject(result);
 
+        /*
         JSONArray array =  content.getJSONArray("content");
         int arrayLength = array.length();
         int aniRand = random.nextInt(arrayLength);
+        */
 
-        JSONObject object = array.getJSONObject(aniRand);
+        JSONObject object = content.getJSONObject("data");
 
         result = "이런 애니 어떠신가요?\n\n";
         result += " - " + object.getString("subject");
@@ -122,7 +124,8 @@ public class CommandCrawling {
         String result = null;
 
         result = getContentURL(url + dayOfWeek);
-        JSONArray jsonArray = new JSONArray(result);
+        JSONObject jsonResult = new JSONObject(result);
+        JSONArray jsonArray = jsonResult.getJSONArray("data");
 
         result = "오늘 방영하는 애니 목록입니다\n";
         for (int i = 0; i < jsonArray.length(); i++) {
