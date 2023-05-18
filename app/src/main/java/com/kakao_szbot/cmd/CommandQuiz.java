@@ -172,20 +172,40 @@ public class CommandQuiz {
 
                     if (player.get(sender) > (total_quiz_point / 2)) {
                         result += "/" + total_quiz_point + " (점수 독점 상태)\n   > 다른 분들에게도 기회를 주세요!";
+                    } else if (player.get(sender) < 2) {
+                        result += " (칭호 :\uD83D\uDC23)";
+                    } else if (player.get(sender) < 3) {
+                        result += " (칭호 :\uD83D\uDC24)";
+                    } else if (player.get(sender) < 4) {
+                        result += " (칭호 :\uD83D\uDC25)";
+                    } else if (player.get(sender) < 5) {
+                        result += " (칭호 :\uD83C\uDF31)";
                     } else if (player.get(sender) < 10) {
-                        // null grade
+                        result += " (칭호 :\uD83C\uDF3F)";
+                    } else if (player.get(sender) < 15) {
+                        result += " (칭호 :\uD83C\uDF40)";
                     } else if (player.get(sender) < 20) {
-                        result += " (칭호 :\uD83E\uDD49)";
+                        result += " (칭호 :\uD83C\uDF37)";
+                    } else if (player.get(sender) < 25) {
+                        result += " (칭호 :\uD83C\uDF3A)";
                     } else if (player.get(sender) < 30) {
-                        result += " (칭호 :\uD83E\uDD48)";
+                        result += " (칭호 :\uD83E\uDEB7)";
                     } else if (player.get(sender) < 40) {
-                        result += " (칭호 :\uD83E\uDD47)";
+                        result += " (칭호 :\uD83E\uDD49)";
                     } else if (player.get(sender) < 50) {
-                        result += " (칭호 :\uD83C\uDFC5)";
+                        result += " (칭호 :\uD83E\uDD48)";
                     } else if (player.get(sender) < 60) {
+                        result += " (칭호 :\uD83E\uDD47)";
+                    } else if (player.get(sender) < 70) {
+                        result += " (칭호 :\uD83C\uDFC5)";
+                    } else if (player.get(sender) < 80) {
                         result += " (칭호 :\uD83C\uDF96)";
-                    } else {
+                    } else if (player.get(sender) < 90) {
                         result += " (칭호 :\uD83C\uDFC6)";
+                    } else if (player.get(sender) < 100) {
+                        result += " (칭호 :\uD83D\uDDFD)";
+                    } else {
+                        result += " (칭호 :\uD83D\uDC79)";
                     }
 
                     return result;
