@@ -25,7 +25,7 @@ public class CommandGPT {
     private static final String API_KEY = "";
     private static final int MAX_TOKEN = 130;
     private static int SOMETIMES_RATIO = 0;
-    private static final int SOMETIMES_THRESHOLD = 200;
+    private static final int SOMETIMES_THRESHOLD = 300;
     public static String[] sometimes_exception =
             {"ㅋ", "ㅎ", "이모티콘", "사진", CommandList.BOT_NAME};
 

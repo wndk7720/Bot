@@ -150,16 +150,16 @@ public class MainCommandChecker {
 
         new CommandSampling().storeSamplingMessage(msg);
 
+        replyMessage = new CommandQuiz().answerQuizMessage(msg, sender);
+        if (replyMessage != null)
+            return replyMessage;
+
         for (int i = 0; i < CommandList.COMMON_BASIC_CMD.length; i++) {
             if (checkCommnadList(msg, CommandList.COMMON_BASIC_CMD[i]) == 0) {
                 replyMessage = new CommandBasic().sometimesMessage(CommandList.COMMON_BASIC_MSG[i]);
                 break;
             }
         }
-        if (replyMessage != null)
-            return replyMessage;
-
-        replyMessage = new CommandQuiz().answerQuizMessage(msg, sender);
         if (replyMessage != null)
             return replyMessage;
 
