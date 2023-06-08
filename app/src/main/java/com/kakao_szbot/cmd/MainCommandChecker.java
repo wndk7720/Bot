@@ -9,10 +9,14 @@ import java.util.List;
 public class MainCommandChecker {
     public final static String TAG = "CommandChecker";
 
-    public String checkKakaoMessage(String msg, String sender) {
+    public String checkKakaoMessage(String msg, String sender, String room) {
         Log.d(TAG, "checkKakaoMessage ~ " + sender + ": " + msg);
         String replyMessage = null;
 
+        replyMessage = specialRoomMessage(msg, sender, room);
+        if (replyMessage != null) {
+            return replyMessage;
+        }
 
         replyMessage = highPriorityMessage(msg, sender);
         if (replyMessage != null) {
@@ -174,6 +178,20 @@ public class MainCommandChecker {
 
     private String highPriorityMessage(String msg, String sender) {
         String replyMessage = new CommandBasic().slangMessage(msg, CommandList.SLANG_CMD);
+        return replyMessage;
+    }
+
+    private String specialRoomMessage(String msg, String sender, String room) {
+        String replyMessage = null;
+
+        if (room.indexOf("고독") != -1) {
+            if (msg.indexOf("이모티콘") != -1 || msg.indexOf("사진") != -1) {
+                return null;
+            }
+
+            replyMessage = "채팅 금지입니다.. 사진 또는 이모티콘만 올려주세요..";
+        }
+
         return replyMessage;
     }
 
