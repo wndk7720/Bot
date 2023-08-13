@@ -53,8 +53,8 @@ public class KakaoNotificationListener extends NotificationListenerService {
                 "\n text : " + text +
                 "\n subText: " + subText);
 
-        if (text == null || title == null || subText == null) {
-            Log.d(TAG, "text or title or subText is null");
+        if (text == null || title == null) {
+            Log.d(TAG, "text or title is null");
             return;
         }
 
@@ -64,10 +64,19 @@ public class KakaoNotificationListener extends NotificationListenerService {
 
         new Thread() {
             public void run() {
-                String replyMessage = new MainCommandChecker().checkKakaoMessage(text.toString(), title, subText.toString());
-                if (replyMessage == null) {
-                    Log.d(TAG, "replyMessage is null");
-                    return;
+                String replyMessage;
+                if (subText == null) {
+                    replyMessage = new MainCommandChecker().checkPersonalKakaoMessage(text.toString(), title);
+                    if (replyMessage == null) {
+                        Log.d(TAG, "replyMessage is null");
+                        return;
+                    }
+                } else {
+                    replyMessage = new MainCommandChecker().checkKakaoMessage(text.toString(), title, subText.toString());
+                    if (replyMessage == null) {
+                        Log.d(TAG, "replyMessage is null");
+                        return;
+                    }
                 }
                 KakaoSendReply(replyMessage, sbn);
             }

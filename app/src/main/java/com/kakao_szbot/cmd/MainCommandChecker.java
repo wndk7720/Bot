@@ -13,15 +13,31 @@ public class MainCommandChecker {
         Log.d(TAG, "checkKakaoMessage ~ " + sender + ": " + msg);
         String replyMessage = null;
 
+        /*
         replyMessage = specialRoomMessage(msg, sender, room);
         if (replyMessage != null) {
             return replyMessage;
         }
+        */
 
         replyMessage = highPriorityMessage(msg, sender);
         if (replyMessage != null) {
             return replyMessage;
         }
+
+        if (msg.contains(CommandList.BOT_NAME)) {
+            replyMessage = selectBotMessage(msg, sender);
+        } else {
+            replyMessage = selectNormalMessage(msg, sender);
+        }
+
+        return replyMessage;
+    }
+
+    public String checkPersonalKakaoMessage(String msg, String sender) {
+        Log.d(TAG, "checkKakaoMessage ~ " + sender + ": " + msg);
+        String replyMessage = null;
+
 
         if (msg.contains(CommandList.BOT_NAME)) {
             replyMessage = selectBotMessage(msg, sender);
