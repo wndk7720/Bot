@@ -210,6 +210,30 @@ public class FileLibrary {
         }
     }
 
+    public void WriteSurvivalCSV(String fileName, String player, String survant, int health, int rock, int paper, int scissors) {
+        Context context = getAppContext();
+
+        try {
+            File file = new File(context.getFilesDir(), fileName);
+            FileOutputStream fos = new FileOutputStream(file, true);
+            OutputStreamWriter osw = new OutputStreamWriter(fos);
+
+            String line = player + "," +
+                    survant + "," +
+                    String.valueOf(health) + "," +
+                    String.valueOf(rock) + "," +
+                    String.valueOf(paper) + "," +
+                    String.valueOf(scissors) + "," +
+                    "null,null,null\n";
+            osw.write(line);
+
+            osw.close();
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public String ReadResCSV(String fileName) throws IOException {
         // Get a reference to the application's resources
         Resources res = getAppResources();

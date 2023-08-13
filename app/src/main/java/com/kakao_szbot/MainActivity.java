@@ -14,6 +14,7 @@ import com.kakao_szbot.cmd.CommandList;
 import com.kakao_szbot.cmd.CommandLovePoint;
 import com.kakao_szbot.cmd.CommandQuiz;
 import com.kakao_szbot.cmd.CommandStudy;
+import com.kakao_szbot.cmd.CommandSurvival;
 
 import java.util.Set;
 
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         new CommandStudy().loadStudyMessage();
         new CommandLovePoint().loadLovePointList();
         new CommandQuiz().loadQuizPointList();
+        new CommandSurvival().loadSurvivalData();
 
         permissionGrantred();
         setContentView(R.layout.activity_main);

@@ -35,16 +35,10 @@ public class MainCommandChecker {
     }
 
     public String checkPersonalKakaoMessage(String msg, String sender) {
-        Log.d(TAG, "checkKakaoMessage ~ " + sender + ": " + msg);
+        Log.d(TAG, "checkPersonalKakaoMessage ~ " + sender + ": " + msg);
         String replyMessage = null;
 
-
-        if (msg.contains(CommandList.BOT_NAME)) {
-            replyMessage = selectBotMessage(msg, sender);
-        } else {
-            replyMessage = selectNormalMessage(msg, sender);
-        }
-
+        replyMessage = new CommandSurvival().mainSurvivalCommand(msg, sender);
         return replyMessage;
     }
 
