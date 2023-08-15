@@ -2,6 +2,7 @@ package com.kakao_szbot.cmd;
 
 import static com.kakao_szbot.KakaoNotificationListener.KakaoSendReply;
 import static com.kakao_szbot.KakaoNotificationListener.getSbn;
+import static com.kakao_szbot.cmd.MainCommandChecker.checkCommnadList;
 import static com.kakao_szbot.lib.CommonLibrary.patternIndexOf;
 import static com.kakao_szbot.lib.CommonLibrary.patternLastIndexOf;
 
@@ -19,7 +20,16 @@ import java.util.Random;
 
 public class CommandSurvival {
     public final static String TAG = "CommandSurvival";
-    private static String SURVIVAL_DATA_BASE = "survivalData.csv";
+
+    public static String[] SURVIVAL_SUMMON_CMD = {
+            "소환"
+    };
+
+    public static String[] SURVIVAL_SKILL_CMD = {
+            "스킬"
+    };
+
+    private static String SURVIVAL_DATA_BASE = "survvialData.csv";
     public static int total_survant_num = 0;
 
     public static List<String> player = new ArrayList<String>();
@@ -33,6 +43,12 @@ public class CommandSurvival {
     public static List<String> attack_scissors_name = new ArrayList<String>();
 
 
+    public String defaultMessage() {
+        String replyMessage = "[2023 추석 이벤트 - 성배전쟁]\n" +
+                " - 본 이벤트는 성배전쟁(Fate 시리즈)을 컨셉으로 기획되었습니다.\n";
+        return replyMessage;
+    }
+
     public String summonSurvent(String sender) {
         int patternIndex = 0;
         String player = null, survant = null;
@@ -44,12 +60,12 @@ public class CommandSurvival {
         patternIndex = patternLastIndexOf(sender, "[0-9`~!@#$%^&*()-_=+\\|\\[\\]{};:'\",.<>/? ]");
         Log.d(TAG, "patternLastIndexOf : " + patternIndex);
         if (patternIndex != 0) survant = sender.substring(patternIndex, sender.length());
-        else return "소환에 실패하였습니다. 개발자에게 문의 바랍니다.";
+        else return "소환에 실패하였습니다. 개발자에게 문의 바랍니다.\n(프로필 형식을 안맞춰서 실패했을 가능성이 많습니다!)";
 
         FileLibrary csv = new FileLibrary();
         csv.WriteSurvivalCSV(SURVIVAL_DATA_BASE, player, survant, 5, 1, 1, 1);
 
-        String ment = "\" 서번트 " + survant + ", 소환에 응해 찾아왔습니다. " + player + "님 당신이 나의 마스터입니까? \"";
+        String ment = "\" 서번트 「" + survant + "」, 소환에 응해 찾아왔습니다. " + player + "님 당신이 나의 마스터입니까? \"";
         KakaoSendReply(ment, getSbn());
         String result = "[성배 전쟁 참전 신청 완료]\n" +
                 " - 서번트 : " + survant + "\n" +
@@ -65,7 +81,11 @@ public class CommandSurvival {
     }
 
     public String mainSurvivalCommand(String msg, String sender) {
-        return summonSurvent(sender);
+        if (checkCommnadList(msg, SURVIVAL_SUMMON_CMD) == 0) {
+            return summonSurvent(sender);
+        }
+
+        return defaultMessage();
     }
 
     public void loadSurvivalData() {
