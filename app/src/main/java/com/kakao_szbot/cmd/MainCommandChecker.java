@@ -1,6 +1,7 @@
 package com.kakao_szbot.cmd;
 
 import android.content.Context;
+import android.service.notification.StatusBarNotification;
 import android.util.Log;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
 public class MainCommandChecker {
     public final static String TAG = "CommandChecker";
 
-    public String checkKakaoMessage(String msg, String sender, String room) {
+    public String checkKakaoMessage(String msg, String sender, String room, StatusBarNotification sbn) {
         Log.d(TAG, "checkKakaoMessage ~ " + sender + ": " + msg);
         String replyMessage = null;
 
@@ -26,7 +27,7 @@ public class MainCommandChecker {
         }
 
         if (msg.contains(CommandList.BOT_NAME)) {
-            replyMessage = selectBotMessage(msg, sender);
+            replyMessage = selectBotMessage(msg, sender, sbn);
         } else {
             replyMessage = selectNormalMessage(msg, sender);
         }
@@ -34,18 +35,22 @@ public class MainCommandChecker {
         return replyMessage;
     }
 
-    public String checkPersonalKakaoMessage(String msg, String sender) {
+    public String checkPersonalKakaoMessage(String msg, String sender, StatusBarNotification sbn) {
         Log.d(TAG, "checkPersonalKakaoMessage ~ " + sender + ": " + msg);
         String replyMessage = null;
 
-        replyMessage = new CommandSurvival().mainSurvivalCommand(msg, sender);
+        replyMessage = new CommandSurvival().mainSurvivalCommand(msg, sender, sbn);
         return replyMessage;
     }
 
-    private String selectBotMessage(String msg, String sender) {
+    private String selectBotMessage(String msg, String sender, StatusBarNotification sbn) {
         String replyMessage = null;
 
         try {
+            if (checkCommnadList(msg, CommandList.SURVIVAL_CMD) == 0) {
+                replyMessage = new CommandSurvival().startSurvivalCommand(sbn);
+                return replyMessage;
+            }
             if (checkCommnadList(msg, CommandList.GPT_CMD) == 0) {
                 replyMessage = new CommandGPT().gptMessage(msg, sender);
                 return replyMessage;

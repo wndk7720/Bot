@@ -66,13 +66,13 @@ public class KakaoNotificationListener extends NotificationListenerService {
             public void run() {
                 String replyMessage;
                 if (subText == null) {
-                    replyMessage = new MainCommandChecker().checkPersonalKakaoMessage(text.toString(), title);
+                    replyMessage = new MainCommandChecker().checkPersonalKakaoMessage(text.toString(), title, sbn);
                     if (replyMessage == null) {
                         Log.d(TAG, "replyMessage is null");
                         return;
                     }
                 } else {
-                    replyMessage = new MainCommandChecker().checkKakaoMessage(text.toString(), title, subText.toString());
+                    replyMessage = new MainCommandChecker().checkKakaoMessage(text.toString(), title, subText.toString(), sbn);
                     if (replyMessage == null) {
                         Log.d(TAG, "replyMessage is null");
                         return;

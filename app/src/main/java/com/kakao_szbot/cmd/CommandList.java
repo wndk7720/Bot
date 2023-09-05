@@ -246,6 +246,10 @@ public class CommandList {
             "GPT", "gpt"
     };
 
+    public static String[] SURVIVAL_CMD = {
+            "전쟁"
+    };
+
     public static String[] DEV_DEBUG_CSV_CMD = {
             "개발자_전용"
     };

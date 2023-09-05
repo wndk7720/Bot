@@ -210,6 +210,53 @@ public class FileLibrary {
         }
     }
 
+    public void changeSurvivalCSV(String fileName, String sender, String value, int index) {
+        Context context = getAppContext();
+
+        try {
+            File file = new File(context.getFilesDir(), fileName);
+            if (!file.exists()) {
+                return;
+            }
+            Scanner scanner = new Scanner(file);
+            StringBuilder modifiedData = new StringBuilder();
+            int foundSender = 0;
+
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] values = line.split(",");
+                if (values[0].equals(sender)) {
+                    // Modify the value if it meets the criteria
+                    values[index] = value;
+                    foundSender = 1;
+                }
+                // Append the modified data to the StringBuilder
+                modifiedData.append(String.join(",", values));
+                modifiedData.append("\n");
+            }
+            scanner.close();
+
+            // Write the modified data to a new file or overwrite the original file
+            FileWriter writer = new FileWriter(file);
+            writer.write(modifiedData.toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void changeSkillNameSurvivalCSV(String fileName, String sender, String name, int index) {
+        changeSurvivalCSV(fileName, sender, name, index + 6);
+    }
+
+    public void changeSkillStatSurvivalCSV(String fileName, String sender, int point, int index) {
+        changeSurvivalCSV(fileName, sender, String.valueOf(point), index + 3);
+    }
+
+    public void changeHealthSurvivalCSV(String fileName, String sender, int point) {
+        changeSurvivalCSV(fileName, sender, String.valueOf(point), 2);
+    }
+
     public void WriteSurvivalCSV(String fileName, String player, String survant, int health, int rock, int paper, int scissors) {
         Context context = getAppContext();
 
@@ -224,7 +271,7 @@ public class FileLibrary {
                     String.valueOf(rock) + "," +
                     String.valueOf(paper) + "," +
                     String.valueOf(scissors) + "," +
-                    "null,null,null\n";
+                    "바위,보,가위\n";
             osw.write(line);
 
             osw.close();
