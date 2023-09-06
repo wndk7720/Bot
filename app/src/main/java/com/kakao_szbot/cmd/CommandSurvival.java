@@ -62,13 +62,17 @@ public class CommandSurvival {
             {SURVIVAL_BATTLE_BACK_WIN, SURVIVAL_BATTLE_FRONT_WIN, SURVIVAL_BATTLE_DRAW}
     };
 
+
+    private static int SURVIVAL_DEAD = 0;
+    private static int SURVIVAL_ALIVE = 1;
     private static int SURVIVAL_MSG_MAX = 99999;
 
-    public static int total_survant_num = 0;
+    //public static int total_survant_num = 0;
     public static int survival_start = 0;
     public static int total_battle_num = 0;
     private static int current_hoshi_num = 0;
 
+    /*
     public static List<String> player = new ArrayList<String>();
     public static List<String> survant = new ArrayList<String>();
     public static List<Integer> survant_health = new ArrayList<Integer>();
@@ -77,7 +81,20 @@ public class CommandSurvival {
     public static List<Integer> battle_survive = new ArrayList<Integer>();
     public static List<Integer> battle_select = new ArrayList<Integer>();
     public static List<Integer> player_hoshi_num = new ArrayList<Integer>();
+    */
 
+    class SurvivalPlayer {
+        private String player_name;
+        private String survant_name;
+        private Integer survant_health;
+        private int[] attack_damage = new int[SURVIVAL_ATTACK_MAX];
+        private String[] attack_name = new String[SURVIVAL_ATTACK_MAX];
+        private int battle_survive;
+        private int battle_group;
+        private int hoshi_num;
+    }
+
+    private static List<SurvivalPlayer> player_list = new ArrayList<SurvivalPlayer>();
 
     public String helpMessage() {
         String replyMessage =
@@ -117,8 +134,7 @@ public class CommandSurvival {
             return "개발자에게 문의 바랍니다.\n" +
                     "(프로필 형식을 안맞춰서 실패했을 가능성이 많습니다!)";
 
-        index = player.indexOf(player_name);
-        if (index < 0)
+        if (getSurvivalPlayer(player_name) == null)
             return "소환 먼저 부탁드립니다.";
 
         String replyMessage = "[최애의 전쟁 룰북]\n" +
@@ -134,29 +150,29 @@ public class CommandSurvival {
         return replyMessage;
     }
 
-    private String getSurvantInfo(int index) {
-        String replyMessage = "[" + player.get(index) + "님의 서번트 정보]\n" +
-                " - 서번트 : " + survant.get(index) + "\n" +
-                " - 체력 : " + survant_health.get(index) + "\n" +
-                " - " + SURVIVAL_ATTACK_EMOJI[SURVIVAL_ATTACK_ROCK] + "(" + attack_name[SURVIVAL_ATTACK_ROCK].get(index) + ") : " + attack_damage[SURVIVAL_ATTACK_ROCK].get(index) + "\n" +
-                " - " + SURVIVAL_ATTACK_EMOJI[SURVIVAL_ATTACK_PAPER] + "(" + attack_name[SURVIVAL_ATTACK_PAPER].get(index) + ") : " + attack_damage[SURVIVAL_ATTACK_PAPER].get(index) + "\n" +
-                " - " + SURVIVAL_ATTACK_EMOJI[SURVIVAL_ATTACK_SCISSORS] + "(" + attack_name[SURVIVAL_ATTACK_SCISSORS].get(index) + ") : " + attack_damage[SURVIVAL_ATTACK_SCISSORS].get(index) + "\n";
+    private String getSurvantInfo(SurvivalPlayer player) {
+        String replyMessage = "[" + player.player_name + "님의 서번트 정보]\n" +
+                " - 서번트 : " + player.survant_name + "\n" +
+                " - 체력 : " + player.survant_health + "\n" +
+                " - " + SURVIVAL_ATTACK_EMOJI[SURVIVAL_ATTACK_ROCK] + "(" + player.attack_name[SURVIVAL_ATTACK_ROCK] + ") : " + player.attack_damage[SURVIVAL_ATTACK_ROCK] + "\n" +
+                " - " + SURVIVAL_ATTACK_EMOJI[SURVIVAL_ATTACK_PAPER] + "(" + player.attack_name[SURVIVAL_ATTACK_PAPER] + ") : " + player.attack_damage[SURVIVAL_ATTACK_PAPER] + "\n" +
+                " - " + SURVIVAL_ATTACK_EMOJI[SURVIVAL_ATTACK_SCISSORS] + "(" + player.attack_name[SURVIVAL_ATTACK_SCISSORS] + ") : " + player.attack_damage[SURVIVAL_ATTACK_SCISSORS] + "\n";
 
         if (survival_start == 1) {
-            replyMessage += " - ⭐(호시) : " + player_hoshi_num.get(index);
+            replyMessage += " - ⭐(호시) : " + player.hoshi_num;
         } else {
-            replyMessage += " - 잔여 스텟 포인트 : " + getStatPoint(index);
+            replyMessage += " - 잔여 스텟 포인트 : " + getStatPoint(player);
         }
 
         return replyMessage;
     }
 
-    private String getSurvantSummaryInfo(int index) {
-        String replyMessage = survant.get(index) + "\n" +
-                "\uD83D\uDC95(" + survant_health.get(index) + "), " +
-                SURVIVAL_ATTACK_EMOJI[SURVIVAL_ATTACK_ROCK] + "(" + attack_damage[SURVIVAL_ATTACK_ROCK].get(index) + "), " +
-                SURVIVAL_ATTACK_EMOJI[SURVIVAL_ATTACK_PAPER] + "(" + attack_damage[SURVIVAL_ATTACK_PAPER].get(index) + "), " +
-                SURVIVAL_ATTACK_EMOJI[SURVIVAL_ATTACK_SCISSORS] + "(" + attack_damage[SURVIVAL_ATTACK_SCISSORS].get(index) + ")";
+    private String getSurvantSummaryInfo(SurvivalPlayer player) {
+        String replyMessage = player.survant_name + "\n" +
+                "\uD83D\uDC95(" + player.survant_health + "), " +
+                SURVIVAL_ATTACK_EMOJI[SURVIVAL_ATTACK_ROCK] + "(" + player.attack_damage[SURVIVAL_ATTACK_ROCK] + "), " +
+                SURVIVAL_ATTACK_EMOJI[SURVIVAL_ATTACK_PAPER] + "(" + player.attack_damage[SURVIVAL_ATTACK_PAPER] + "), " +
+                SURVIVAL_ATTACK_EMOJI[SURVIVAL_ATTACK_SCISSORS] + "(" + player.attack_damage[SURVIVAL_ATTACK_SCISSORS] + ")";
 
         return replyMessage;
     }
@@ -165,23 +181,23 @@ public class CommandSurvival {
         return survival_start;
     }
 
-    private synchronized void setSurvivalStart (int start ) {
+    private synchronized void setSurvivalStart (int start) {
         survival_start = start;
     }
 
-    private int getTotalDamage(int index) {
-        return attack_damage[SURVIVAL_ATTACK_ROCK].get(index) +
-                attack_damage[SURVIVAL_ATTACK_PAPER].get(index) +
-                attack_damage[SURVIVAL_ATTACK_SCISSORS].get(index);
+    private int getTotalDamage(SurvivalPlayer player) {
+        return player.attack_damage[SURVIVAL_ATTACK_ROCK] +
+                player.attack_damage[SURVIVAL_ATTACK_PAPER] +
+                player.attack_damage[SURVIVAL_ATTACK_SCISSORS];
     }
 
-    private int getStatPoint(int index) {
+    private int getStatPoint(SurvivalPlayer player) {
         int stat_point = SURVIVAL_STAT_POINT_MAX;
 
-        stat_point -= survant_health.get(index);
-        stat_point -= attack_damage[SURVIVAL_ATTACK_ROCK].get(index);
-        stat_point -= attack_damage[SURVIVAL_ATTACK_PAPER].get(index);
-        stat_point -= attack_damage[SURVIVAL_ATTACK_SCISSORS].get(index);
+        stat_point -= player.survant_health;
+        stat_point -= player.attack_damage[SURVIVAL_ATTACK_ROCK];
+        stat_point -= player.attack_damage[SURVIVAL_ATTACK_PAPER];
+        stat_point -= player.attack_damage[SURVIVAL_ATTACK_SCISSORS];
 
         return stat_point;
     }
@@ -225,7 +241,7 @@ public class CommandSurvival {
         return SURVIVAL_ATTACK_SCISSORS;
     }
 
-    private int setSkill(String msg, int index, StatusBarNotification sbn) {
+    private int setSkill(String msg, SurvivalPlayer player, StatusBarNotification sbn) {
         String skill_name;
         int skill_num;
 
@@ -234,29 +250,29 @@ public class CommandSurvival {
             skill_name = parseSkillName(msg);
             if (skill_name == null) {
                 if (msg.indexOf("업") >= 0) {
-                    if (getStatPoint(index) == 0) {
+                    if (getStatPoint(player) == 0) {
                         KakaoSendReply("잔여 스텟 포인트가 없습니다.", sbn);
                         return 0;
                     }
-                    attack_damage[skill_num].set(index, attack_damage[skill_num].get(index) + 1);
+                    player.attack_damage[skill_num] = player.attack_damage[skill_num] + 1;
                 } else if (msg.indexOf("다운") >= 0) {
-                    if (attack_damage[skill_num].get(index) == 0) {
+                    if (player.attack_damage[skill_num] == 0) {
                         KakaoSendReply("공격력은 0 이하가 될 수 없습니다.", sbn);
                         return 0;
                     }
-                    if (getTotalDamage(index) == 1) {
+                    if (getTotalDamage(player) == 1) {
                         KakaoSendReply("총 공격력은 1 이상이여야 합니다.", sbn);
                         return 0;
                     }
-                    attack_damage[skill_num].set(index, attack_damage[skill_num].get(index) - 1);
+                    player.attack_damage[skill_num] = player.attack_damage[skill_num] - 1;
                 } else {
                     return -1;
                 }
 
                 FileLibrary csv = new FileLibrary();
                 csv.changeSkillStatSurvivalCSV(SURVIVAL_DATA_BASE,
-                        player.get(index),
-                        attack_damage[skill_num].get(index),
+                        player.player_name,
+                        player.attack_damage[skill_num],
                         skill_num);
                 KakaoSendReply("공격력 적용 성공했습니다!", sbn);
                 return 0;
@@ -267,11 +283,11 @@ public class CommandSurvival {
                 return -1;
             }
 
-            attack_name[skill_num].set(index, skill_name);
+            player.attack_name[skill_num] = skill_name;
             FileLibrary csv = new FileLibrary();
             csv.changeSkillNameSurvivalCSV(SURVIVAL_DATA_BASE,
-                    player.get(index),
-                    attack_name[skill_num].get(index),
+                    player.player_name,
+                    player.attack_name[skill_num],
                     skill_num);
             KakaoSendReply("공격 이름 적용 성공했습니다!", sbn);
             return 0;
@@ -280,54 +296,54 @@ public class CommandSurvival {
         return -1;
     }
 
-    private int setHealth(String msg, int index, StatusBarNotification sbn) {
+    private int setHealth(String msg, SurvivalPlayer player, StatusBarNotification sbn) {
         if (msg.indexOf("체력") < 0) {
             return -1;
         }
 
         if (msg.indexOf("업") >= 0) {
-            if (getStatPoint(index) == 0) {
+            if (getStatPoint(player) == 0) {
                 KakaoSendReply("잔여 스텟 포인트가 없습니다.", sbn);
                 return 0;
             }
-            survant_health.set(index, survant_health.get(index) + 1);
+            player.survant_health = player.survant_health + 1;
         } else if (msg.indexOf("다운") >= 0) {
-            if (survant_health.get(index) == 1) {
+            if (player.survant_health == 1) {
                 KakaoSendReply("체력은 1 이하가 될 수 없습니다.", sbn);
                 return 0;
             }
-            survant_health.set(index, survant_health.get(index) - 1);
+            player.survant_health = player.survant_health - 1;
         } else {
             return -1;
         }
 
         FileLibrary csv = new FileLibrary();
         csv.changeHealthSurvivalCSV(SURVIVAL_DATA_BASE,
-                player.get(index),
-                survant_health.get(index));
+                player.player_name,
+                player.survant_health);
         KakaoSendReply("체력 적용 성공했습니다!", sbn);
         return 0;
     }
 
     private synchronized String setStatMessage(String msg, String sender, StatusBarNotification sbn) {
+        SurvivalPlayer player = null;
         String player_name = null;
-        int index;
 
         player_name = getPlayerName(sender);
         if (player_name == null)
             return "정보 조회를 실패하였습니다. 개발자에게 문의 바랍니다.\n" +
                     "(프로필 형식을 안맞춰서 실패했을 가능성이 많습니다!)";
 
-        index = player.indexOf(player_name);
-        if (index < 0)
+        player = getSurvivalPlayer(player_name);
+        if (player == null)
             return "소환 먼저 부탁드립니다.";
 
-        if (setSkill(msg, index, sbn) == 0) {
-            return getSurvantInfo(index);
+        if (setSkill(msg, player, sbn) == 0) {
+            return getSurvantInfo(player);
         }
 
-        if (setHealth(msg, index, sbn) == 0) {
-            return getSurvantInfo(index);
+        if (setHealth(msg, player, sbn) == 0) {
+            return getSurvantInfo(player);
         }
 
         return "다시 말해주세요.\n" +
@@ -335,19 +351,19 @@ public class CommandSurvival {
     }
 
     private String survantInfoMessage(String sender) {
+        SurvivalPlayer player = null;
         String player_name = null;
-        int index;
 
         player_name = getPlayerName(sender);
         if (player_name == null)
             return "정보 조회를 실패하였습니다. 개발자에게 문의 바랍니다.\n" +
                     "(프로필 형식을 안맞춰서 실패했을 가능성이 많습니다!)";
 
-        index = player.indexOf(player_name);
-        if (index < 0)
+        player = getSurvivalPlayer(player_name);
+        if (player == null)
             return "소환 먼저 부탁드립니다.";
 
-        return getSurvantInfo(index);
+        return getSurvantInfo(player);
     }
 
     private String getPlayerName(String sender) {
@@ -385,12 +401,30 @@ public class CommandSurvival {
             return "소환에 실패하였습니다. 개발자에게 문의 바랍니다.\n" +
                     "(프로필 형식을 안맞춰서 실패했을 가능성이 많습니다!)";
 
-        if (player.indexOf(player_name) >= 0)
+        if (getSurvivalPlayer(player_name) != null)
             return "이미 소환된 서번트가 있습니다.";
 
         FileLibrary csv = new FileLibrary();
         csv.WriteSurvivalCSV(SURVIVAL_DATA_BASE, player_name, survant_name, 5, 1, 1, 1);
 
+        SurvivalPlayer player = new SurvivalPlayer();
+
+        player.player_name = player_name;
+        player.survant_name = survant_name;
+        player.survant_health = 5;
+        player.attack_damage[SURVIVAL_ATTACK_ROCK] = 1;
+        player.attack_damage[SURVIVAL_ATTACK_PAPER] = 1;
+        player.attack_damage[SURVIVAL_ATTACK_SCISSORS] = 1;
+        player.attack_name[SURVIVAL_ATTACK_ROCK] = "바위";
+        player.attack_name[SURVIVAL_ATTACK_PAPER] = "보";
+        player.attack_name[SURVIVAL_ATTACK_SCISSORS] = "가위";
+        player.battle_survive = SURVIVAL_ALIVE;
+        player.battle_group = 0;
+        player.hoshi_num = 0;
+
+        player_list.add(player);
+
+        /*
         player.add(player_name);
         survant.add(survant_name);
         survant_health.add(5);
@@ -404,6 +438,7 @@ public class CommandSurvival {
         battle_select.add(0);
         player_hoshi_num.add(0);
         total_survant_num++;
+        */
 
         KakaoSendReply("\uD83D\uDCAE", sbn);
         Thread.sleep(3000);
@@ -420,45 +455,59 @@ public class CommandSurvival {
         return result;
     }
 
-    private int findFrontGroupSurvant(int battle_num) {
-        int i;
-
-        for (i = 0; i < total_survant_num; i++) {
-            if (battle_select.get(i) == battle_num && battle_survive.get(i) == 1)
-                break;
+    private SurvivalPlayer getSurvivalPlayer(String name) {
+        for (SurvivalPlayer p : player_list) {
+            if (p.player_name.equals(name)) {
+                return p;
+            }
         }
 
-        return i;
+        return null;
     }
 
-    private int findBackGroupSurvant(int battle_num) {
-        int i;
-
-        for (i = (total_survant_num - 1); i >= 0; i--) {
-            if (battle_select.get(i) == battle_num && battle_survive.get(i) == 1)
-                break;
+    private SurvivalPlayer findFrontGroupPlayer(int battle_num) {
+        for (SurvivalPlayer p : player_list) {
+            if (p.battle_group == battle_num && p.battle_survive == SURVIVAL_ALIVE) {
+                return p;
+            }
         }
 
-        return i;
+        return null;
     }
 
-    private int playBattle(int battle_group, int battle_round ,StatusBarNotification sbn) throws InterruptedException {
+    private SurvivalPlayer findBackGroupPlayer(int battle_num) {
+        int front_skip = 0;
+
+        for (SurvivalPlayer p : player_list) {
+            if (p.battle_group == battle_num && p.battle_survive == SURVIVAL_ALIVE) {
+                if (front_skip == 0) {
+                    front_skip = 1;
+                } else {
+                    return p;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    private SurvivalPlayer playBattle(int battle_group, int battle_round ,StatusBarNotification sbn) throws InterruptedException {
         int i = 0;
         Random random = new Random();
-        int index_front, index_back, index_win;
+        SurvivalPlayer player_front, player_back, player_win;
         int rand_front, rand_back;
         int hp_front, hp_back;
 
 
-        index_front = findFrontGroupSurvant(battle_group);
-        index_back = findBackGroupSurvant(battle_group);
-        hp_front = survant_health.get(index_front);
-        hp_back = survant_health.get(index_back);
+        player_front = findFrontGroupPlayer(battle_group);
+        player_back = findBackGroupPlayer(battle_group);
+        hp_front = player_front.survant_health;
+        hp_back = player_back.survant_health;
 
         current_hoshi_num++;
         String battle_info = "[최애의 전쟁 배틀 시작 준비]\n" +
-                "<1번> 서번트 : " + getSurvantSummaryInfo(index_front) +
-                "\n\n<2번> 서번트 : " + getSurvantSummaryInfo(index_back) +
+                "<1번> 서번트 : " + getSurvantSummaryInfo(player_front) +
+                "\n\n<2번> 서번트 : " + getSurvantSummaryInfo(player_back) +
                 "\n\n잠시 후.. 10분 뒤 전투가 시작됩니다." +
                 "\n승리할 것 같은 서번트에게 투표해주세요." +
                 "\n\n※ 맞추면 ⭐(+" + current_hoshi_num + "), 틀리면 ⭐(-" + current_hoshi_num + ")" +
@@ -468,7 +517,7 @@ public class CommandSurvival {
 
         /* Battle */
         battle_info = "[전투 상세 내역]\n0. " +
-                survant.get(index_front) + " VS " + survant.get(index_back);
+                player_front.survant_name + " VS " + player_back.survant_name;
         while (true) {
             rand_front = random.nextInt(SURVIVAL_ATTACK_MAX);
             rand_back = random.nextInt(SURVIVAL_ATTACK_MAX);
@@ -476,21 +525,21 @@ public class CommandSurvival {
             i++;
             battle_info += "\n" + i + ". ";
             battle_info += SURVIVAL_ATTACK_EMOJI[rand_front] + "(" +
-                    attack_damage[rand_front].get(index_front) + ") VS " +
+                    player_front.attack_damage[rand_front] + ") VS " +
                     SURVIVAL_ATTACK_EMOJI[rand_back] + "(" +
-                    attack_damage[rand_back].get(index_back) + ") : ";
+                    player_back.attack_damage[rand_back] + ") : ";
 
             int result = SURVIVAL_BATTLE_RESULT_ARRAY[rand_front][rand_back];
             if (result == SURVIVAL_BATTLE_FRONT_WIN) {
-                hp_back -= attack_damage[rand_front].get(index_front);
-                battle_info += survant.get(index_front) + " 승";
+                hp_back -= player_front.attack_damage[rand_front];
+                battle_info += player_front.survant_name + " 승";
             } else if (result == SURVIVAL_BATTLE_BACK_WIN) {
-                hp_front -= attack_damage[rand_back].get(index_back);
-                battle_info += survant.get(index_back) + " 승";
+                hp_front -= player_back.attack_damage[rand_back];
+                battle_info += player_back.survant_name + " 승";
             } else {
                 battle_info += "무승부";
                 /*
-                int damage = attack_damage[rand_front].get(index_front) - attack_damage[rand_back].get(index_back);
+                int damage = player_front.attack_damage[rand_front] - player_back.attack_damage[rand_back];
                 if (damage > 0) {
                     hp_back -= damage;
                 } else if (damage == 0) {
@@ -502,71 +551,70 @@ public class CommandSurvival {
             }
 
             if (hp_front <= 0) {
-                battle_info += "\n\n※ " + survant.get(index_back) + "의 「" +
-                        attack_name[rand_back].get(index_back) +
+                battle_info += "\n\n※ " + player_back.survant_name + "의 「" +
+                        player_back.attack_name[rand_back] +
                         "」 최후의 일격!";
                 battle_info += "\n - " +
-                        survant.get(index_front) + " (체력 : " + hp_front + ") 쓰러졌다.";
-                battle_survive.set(index_front, 0);
-                index_win = index_back;
+                        player_front.survant_name + " (체력 : " + hp_front + ") 쓰러졌다.";
+                player_front.battle_survive = SURVIVAL_DEAD;
+                player_win = player_back;
                 break;
             }
 
             if (hp_back <= 0) {
-                battle_info += "\n\n※ " + survant.get(index_front) + "의 「" +
-                        attack_name[rand_front].get(index_front) +
+                battle_info += "\n\n※ " + player_front.survant_name + "의 「" +
+                        player_front.attack_name[rand_front] +
                         "」 최후의 일격!";
                 battle_info += "\n - " +
-                        survant.get(index_back) + " (체력 : " + hp_back + ") 쓰러졌다.";
-                battle_survive.set(index_back, 0);
-                index_win = index_front;
+                        player_back.survant_name + " (체력 : " + hp_back + ") 쓰러졌다.";
+                player_back.battle_survive = SURVIVAL_DEAD;
+                player_win = player_front;
                 break;
             }
         }
 
+        /* Result */
         if (battle_round != 2) {
             battle_info += "\n\n[최애의 전쟁 " + battle_round + "강 - " + i + "라운드 결과]\n" +
-                    " - " + survant.get(index_win) + " 승리. \uD83C\uDF89";
+                    " - " + player_win.survant_name + " 승리. \uD83C\uDF89";
         } else {
             battle_info += "\n\n[최애의 전쟁 결승전 결과]\n" +
-                    " - " + survant.get(index_win) +
-                    " (마스터 : " + player.get(index_win)+ "님) 우승. \uD83C\uDF8A";
+                    " - " + player_win.survant_name +
+                    " (마스터 : " + player_win.player_name+ "님) 우승. \uD83C\uDF8A";
         }
         KakaoSendReply(battle_info, sbn);
 
-        /* Result */
-
-
-        return index_win;
+        return player_win;
     }
 
-    private void selectGroupForceCommand(int index, int battle_num) {
-        battle_select.set(index, battle_num);
+    private void selectGroupForceCommand(SurvivalPlayer player, int battle_num) {
+        player.battle_group = battle_num;
     }
 
     private void selectGroupCommand(int battle_num) {
         Random random = new Random();
         int rand;
 
-        rand = random.nextInt(total_survant_num);
+        rand = random.nextInt(player_list.size());
         while(true) {
-            if (battle_select.get(rand) == 0 && battle_survive.get(rand) == 1)
+            if (player_list.get(rand).battle_group == 0 &&
+                    player_list.get(rand).battle_survive == SURVIVAL_ALIVE)
                 break;
 
             rand++;
-            if (rand == total_survant_num)
+            if (rand == player_list.size())
                 rand = 0;
         }
-        battle_select.set(rand, battle_num);
+        player_list.get(rand).battle_group = battle_num;
     }
 
-    private void makeBattleCommand(int battle_num, int force_index) {
+    private void makeBattleCommand(int battle_num, SurvivalPlayer player) {
         while (battle_num > 0) {
-            if (force_index < 0) {
+            if (player == null) {
                 selectGroupCommand(battle_num);
             } else {
-                selectGroupForceCommand(force_index, battle_num);
-                force_index = -1;
+                selectGroupForceCommand(player, battle_num);
+                player = null;
             }
             selectGroupCommand(battle_num);
 
@@ -575,9 +623,9 @@ public class CommandSurvival {
     }
 
     private void makeTournamentCommand(StatusBarNotification sbn) throws InterruptedException {
-        int prev_battle_num = total_survant_num;
+        int prev_battle_num = player_list.size();
         int temp_battle_num;
-        int win_by_default = -1;
+        SurvivalPlayer win_by_default = null;
 
         while (prev_battle_num > 1) {
             temp_battle_num = (prev_battle_num / 2);
@@ -592,7 +640,7 @@ public class CommandSurvival {
 
         Log.d(TAG, "총 배틀 라운드 수 : " + total_battle_num);
 
-        prev_battle_num = total_survant_num;
+        prev_battle_num = player_list.size();
         while (prev_battle_num > 1) {
             temp_battle_num = (prev_battle_num / 2);
 
@@ -605,21 +653,21 @@ public class CommandSurvival {
 
                 for (int i = 1; i <= temp_battle_num; i++) {
                     battle_info += "\n - " + i + " 라운드 : " +
-                            survant.get(findFrontGroupSurvant(i)) +
+                            findFrontGroupPlayer(i).survant_name +
                             " VS " +
-                            survant.get(findBackGroupSurvant(i));
+                            findBackGroupPlayer(i).survant_name;
                 }
             } else {
                 battle_info = "[최애의 전쟁 결승전]\n" +
-                        survant.get(findFrontGroupSurvant(1)) +
+                        findFrontGroupPlayer(1).survant_name +
                         " VS " +
-                        survant.get(findBackGroupSurvant(1));
+                        findBackGroupPlayer(1).survant_name;
             }
 
-            win_by_default = -1;
+            win_by_default = null;
             if (prev_battle_num % 2 == 1) {
-                win_by_default = findFrontGroupSurvant(0);
-                battle_info += "\n - 부전승 : " + survant.get(win_by_default);
+                win_by_default = findFrontGroupPlayer(0);
+                battle_info += "\n - 부전승 : " + win_by_default.survant_name;
             }
 
             KakaoSendReply(battle_info, sbn);
@@ -627,17 +675,17 @@ public class CommandSurvival {
 
             if (prev_battle_num != 2) {
                 for (int i = 1; i <= temp_battle_num; i++) {
-                    int win_index = playBattle(i, prev_battle_num, sbn);
-                    player_hoshi_num.set(win_index, player_hoshi_num.get(win_index) + current_hoshi_num);
+                    SurvivalPlayer win_player = playBattle(i, prev_battle_num, sbn);
+                    win_player.hoshi_num = win_player.hoshi_num + current_hoshi_num;
                     Thread.sleep(10000);
                 }
             } else {
-                int win_index = playBattle(1, prev_battle_num, sbn);
-                player_hoshi_num.set(win_index, player_hoshi_num.get(win_index) + current_hoshi_num);
+                SurvivalPlayer win_player = playBattle(1, prev_battle_num, sbn);
+                win_player.hoshi_num = win_player.hoshi_num + current_hoshi_num;
             }
 
-            for (int i = 0; i < total_survant_num; i++) {
-                battle_select.set(i, 0);
+            for (int i = 0; i < player_list.size(); i++) {
+                player_list.get(i).battle_group = 0;
             }
 
             if (prev_battle_num % 2 == 1) {
@@ -648,9 +696,9 @@ public class CommandSurvival {
         }
 
         /* clean up */
-        for (int i = 0; i < total_survant_num; i++) {
-            battle_survive.set(i, 1);
-            player_hoshi_num.set(i, 0);
+        for (int i = 0; i < player_list.size(); i++) {
+            player_list.get(i).battle_survive = SURVIVAL_ALIVE;
+            player_list.get(i).hoshi_num = 0;
         }
         current_hoshi_num = 0;
     }
@@ -700,10 +748,12 @@ public class CommandSurvival {
     }
 
     public synchronized void loadSurvivalData() {
+        /*
         for (int i = 0; i < SURVIVAL_ATTACK_MAX; i++) {
             attack_damage[i] = new ArrayList<Integer>();
             attack_name[i] = new ArrayList<String>();
         }
+        */
 
         FileLibrary csv = new FileLibrary();
         String allData = csv.ReadCSV(SURVIVAL_DATA_BASE);
@@ -713,6 +763,25 @@ public class CommandSurvival {
         String[] parts = allData.split("\n");
         for (String part : parts) {
             String[] data = part.split(",");
+
+            SurvivalPlayer player = new SurvivalPlayer();
+
+            player.player_name = data[0];
+            player.survant_name = data[1];
+            player.survant_health = Integer.parseInt(data[2]);
+            player.attack_damage[SURVIVAL_ATTACK_ROCK] = Integer.parseInt(data[3]);
+            player.attack_damage[SURVIVAL_ATTACK_PAPER] = Integer.parseInt(data[4]);
+            player.attack_damage[SURVIVAL_ATTACK_SCISSORS] = Integer.parseInt(data[5]);
+            player.attack_name[SURVIVAL_ATTACK_ROCK] = data[6];
+            player.attack_name[SURVIVAL_ATTACK_PAPER] = data[7];
+            player.attack_name[SURVIVAL_ATTACK_SCISSORS] = data[8];
+            player.battle_survive = SURVIVAL_ALIVE;
+            player.battle_group = 0;
+            player.hoshi_num = 0;
+
+            player_list.add(player);
+
+            /*
             player.add(data[0]);
             survant.add(data[1]);
             survant_health.add(Integer.parseInt(data[2]));
@@ -726,8 +795,9 @@ public class CommandSurvival {
             battle_select.add(0);
             player_hoshi_num.add(0);
             total_survant_num++;
+            */
         }
 
-        Log.d(TAG, "전체 서버트 수 : " + total_survant_num);
+        Log.d(TAG, "전체 서버트 수 : " + player_list.size());
     }
 }
