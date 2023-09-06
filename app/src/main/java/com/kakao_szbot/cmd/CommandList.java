@@ -250,6 +250,10 @@ public class CommandList {
             "전쟁"
     };
 
+    public static String[] SURVIVAL_BETTING_CMD = {
+            "최애"
+    };
+
     public static String[] DEV_DEBUG_CSV_CMD = {
             "개발자_전용"
     };
