@@ -76,6 +76,11 @@ public class CommandSurvival {
     private static int SURVIVAL_BETTING_NONE = 0;
     private static int SURVIVAL_BETTING_FRONT = 1;
     private static int SURVIVAL_BETTING_BACK = 2;
+
+    private static int SURVIVAL_CYCLE_TIME = 1800 * 1000; // 1800 * 1000;
+    private static int SURVIVAL_BATTING_TIME = 600 * 1000; // 600 * 1000;
+    private static int SURVIVAL_BATTING_AFTER_TIME = 1200 * 1000; // 1200 * 1000;
+    private static int SURVIVAL_RESULT_TIME = 180 * 1000; // 180 * 1000;
     private static int SURVIVAL_MSG_MAX = 99999;
 
     public static int survival_start = 0;
@@ -101,6 +106,7 @@ public class CommandSurvival {
     }
 
     private static List<SurvivalPlayer> player_list = new ArrayList<SurvivalPlayer>();
+    private static List<SurvivalPlayer> last_list = new ArrayList<SurvivalPlayer>();
     private static SurvivalPlayer player_front, player_back;
 
     public String helpMessage() {
@@ -150,8 +156,8 @@ public class CommandSurvival {
                 " - 모든 서번트는 랜덤 가위/바위/보로 승부\n" +
                 " - 이기면 해당 공격력 만큼 데미지\n" +
                 " - 무승부는 무효\n\n" +
-                " - 추석 당일(9~18시) 동안 단톡방에서 토너먼트 형식으로 모든 전투는 자동으로 진행\n" +
-                " - 기본 잔여 스텟 포인트 2개 분배 필요\n" +
+                " - 추석 당일(9시부터) 동안 단톡방에서 토너먼트 형식으로 모든 전투는 자동으로 진행\n" +
+                " - 기본 잔여 스텟 포인트 2개 등 분배 필요\n" +
                 " - 토너먼트 시작 후에는 스텟 수정 불가\n\n" +
                 skillhelpMessage();
         return replyMessage;
@@ -247,11 +253,32 @@ public class CommandSurvival {
 
     private String getHoshiResultMessage() {
         String result = "[최애의 전쟁 ⭐(호시) 순위]";
+        SurvivalPlayer win_player = null;
+        int hoshi_max = 0;
 
         Collections.sort(player_list);
         for (SurvivalPlayer p : player_list) {
             result += "\n - " + p.player_name + " 마스터님 : " + p.hoshi_num;
+
+            if (hoshi_max == 0) {
+                win_player = p;
+                hoshi_max = p.hoshi_num;
+            }
+
+            if (hoshi_max == p.hoshi_num) {
+                last_list.add(p);
+            }
         }
+
+        if (last_list.size() > 1) {
+            result += "\n\n이런! 동점자가 생겼군요! 내일 최후의 우승자가 가려집니다!\n" +
+                    " ⭐ To Be Continued.. ⭐";
+        } else {
+            result += "\n\n※ 최종 우승자 : " + win_player.player_name + " 마스터님\n" +
+                    " ⭐ 진심으로 축하드립니다! ⭐";
+        }
+
+        last_list.clear();
 
         return result;
     }
@@ -562,18 +589,17 @@ public class CommandSurvival {
         hp_front = player_front.servant_health;
         hp_back = player_back.servant_health;
 
-        current_hoshi_num++;
         String battle_info = "[최애의 전쟁 배틀 시작 준비]\n" +
                 "<1번> 서번트 : " + getServantSummaryInfo(player_front) +
                 "\n\n<2번> 서번트 : " + getServantSummaryInfo(player_back) +
                 "\n\n잠시 후.. 10분 뒤 전투가 시작됩니다." +
                 "\n승리할 것 같은 서번트에게 투표해주세요." +
-                "\n\n※ 맞추면 ⭐(+" + current_hoshi_num + "), 틀리면 ⭐(-" + current_hoshi_num + ")" +
+                "\n\n※ 승리, 적중 : ⭐(+" + current_hoshi_num + "), 미적중 : ⭐(-" + current_hoshi_num + ")" +
                 "\n - " + CommandList.BOT_NAME + " 최애 1번 or " + CommandList.BOT_NAME + " 최애 2번";
         KakaoSendReply(battle_info, sbn);
         setBettingNum(1);
 
-        Thread.sleep(10000);
+        Thread.sleep(SURVIVAL_BATTING_TIME);
         setBettingNum(0);
 
         /* Battle */
@@ -641,9 +667,11 @@ public class CommandSurvival {
             battle_info += "\n\n[최애의 전쟁 " + battle_round + "강 - " + battle_group + "라운드 결과]\n" +
                     " - " + player_win.servant_name + " 승리. \uD83C\uDF89";
         } else {
+
             battle_info += "\n\n[최애의 전쟁 결승전 결과]\n" +
                     " - " + player_win.servant_name +
-                    " (" + player_win.player_name+ " 마스터님) 우승. \uD83C\uDF8A";
+                    " (" + player_win.player_name+ " 마스터님) 우승. \uD83C\uDF8A\n\n" +
+                    "잠시 후 3분 뒤 최후의 승리자를 공개합니다!";
         }
         KakaoSendReply(battle_info, sbn);
 
@@ -685,9 +713,26 @@ public class CommandSurvival {
         }
     }
 
+    private String calcEndTime(int battle_num) {
+        String result = "";
+        int half = battle_num % 2;
+        int hour = battle_num / 2;
+
+        hour += 9;
+        result += hour;
+        if (half != 0) {
+            result += ":30";
+        } else {
+            result += ":00";
+        }
+
+        return result;
+    }
+
     private void makeTournamentCommand(StatusBarNotification sbn) throws InterruptedException {
         int prev_battle_num = player_list.size();
         int temp_battle_num;
+        String battle_info;
         SurvivalPlayer win_by_default = null;
 
         while (prev_battle_num > 1) {
@@ -703,13 +748,25 @@ public class CommandSurvival {
 
         Log.d(TAG, "총 배틀 라운드 수 : " + total_battle_num);
 
+        battle_info = "[최애의 전쟁 공지문]\n" +
+                " - 안녕하세요. 최애의 전쟁에 참여해주신 마스터 여러분들을 진심으로 환영합니다.\n" +
+                " - 최애의 전쟁은 마스터 분들의 최애와 함께하는 RPS(Rock Paper Scissors) 게임이며 최후의 승자 1명을 가리게 됩니다.\n" +
+                " - 이번 전쟁에는 총 " + player_list.size() + "명의 마스터 분들이 출전해 주셨습니다.\n\n" +
+                " - 승부는 토너먼트로 진행되며, 매 정각 및 30분에 출전자 소개와 배팅을 받고 10분 뒤 승부가 진행됩니다.\n" +
+                " - 마지막 경기는 " + calcEndTime(total_battle_num) + " 에 치뤄지게 됩니다.\n\n" +
+                " - 전쟁의 최종 승자는 토너먼트 우승자가 아닌 ⭐(호시)가 많은 사람이 최종 승자이니 유의 바랍니다.\n" +
+                "   (호시는 승리 또는 배팅시 획득 가능 하므로.. 배팅을 잘 하는 것도 중요하겠지요..)\n" +
+                " - 그럼 모두 행운을 빕니다.";
+        KakaoSendReply(battle_info, sbn);
+        Thread.sleep(SURVIVAL_CYCLE_TIME);
+
         prev_battle_num = player_list.size();
         while (prev_battle_num > 1) {
             temp_battle_num = (prev_battle_num / 2);
 
             makeBattleCommand(temp_battle_num, win_by_default);
 
-            String battle_info;
+
             if (prev_battle_num != 2) {
                 battle_info = "[최애의 전쟁 " + prev_battle_num + "강 대진표]\n" +
                         "※ 총 라운드 수 : " + temp_battle_num;
@@ -728,23 +785,25 @@ public class CommandSurvival {
             }
 
             win_by_default = null;
+            current_hoshi_num++;
             if (prev_battle_num % 2 == 1) {
                 win_by_default = findFrontGroupPlayer(0);
                 battle_info += "\n - 부전승 : " + win_by_default.servant_name;
+                win_by_default.hoshi_num += current_hoshi_num;
             }
 
             KakaoSendReply(battle_info, sbn);
-            Thread.sleep(5000);
 
             if (prev_battle_num != 2) {
                 for (int i = 1; i <= temp_battle_num; i++) {
                     SurvivalPlayer win_player = playBattle(i, prev_battle_num, sbn);
-                    win_player.hoshi_num = win_player.hoshi_num + current_hoshi_num;
-                    Thread.sleep(10000);
+                    win_player.hoshi_num += current_hoshi_num;
+                    Thread.sleep(SURVIVAL_BATTING_AFTER_TIME);
                 }
             } else {
                 SurvivalPlayer win_player = playBattle(1, prev_battle_num, sbn);
-                win_player.hoshi_num = win_player.hoshi_num + current_hoshi_num;
+                win_player.hoshi_num += current_hoshi_num;
+                Thread.sleep(SURVIVAL_RESULT_TIME);
             }
 
             for (int i = 0; i < player_list.size(); i++) {
@@ -781,9 +840,11 @@ public class CommandSurvival {
 
     public String mainSurvivalCommand(String msg, String sender, StatusBarNotification sbn) {
         try {
+            /*
             if (checkCommnadList(msg, SURVIVAL_START_CMD) == 0) {
                 return startSurvivalCommand(sbn);
             }
+            */
             if (checkCommnadList(msg, SURVIVAL_BETTING_CMD) == 0) {
                 return voteServant(msg, sender);
             }
