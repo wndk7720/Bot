@@ -40,7 +40,7 @@ public class CommandGPT {
         try {
             return generateText(requestMsg, API_KEY);
         } catch (Exception e) {
-            return "아쉽게 ChatGPT가 고장났답니다. 데헷☆";
+            return "ChatGPT가 고장났다.";
         }
     }
 
@@ -48,7 +48,7 @@ public class CommandGPT {
         try {
             return generateText(msg, API_KEY);
         } catch (Exception e) {
-            return "아쉽게 ChatGPT가 고장났답니다. 데헷☆";
+            return "ChatGPT가 고장났다.";
         }
     }
 
@@ -77,7 +77,7 @@ public class CommandGPT {
             return null;
         }
 
-        String requestMsg = msg.replace("쿄코", "");
+        String requestMsg = msg.replace(CommandList.BOT_NAME, " /tone:반말 ");
         String emptyCheckMsg = requestMsg.replaceAll("[^ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9]", "");
         if (emptyCheckMsg.length() == 0) {
             return null;
