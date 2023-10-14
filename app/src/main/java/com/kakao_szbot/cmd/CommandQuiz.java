@@ -216,9 +216,10 @@ public class CommandQuiz {
         return result;
     }
 
-    public String printQuizPointList() {
+    public String printQuizPointList(int top_num) {
         String result = null;
         String result_msg = "";
+        int i = 0;
 
         List<String> keySet = new ArrayList<>(player.keySet());
         keySet.sort(new Comparator<String>() {
@@ -229,13 +230,27 @@ public class CommandQuiz {
         });
         keySet.sort((o1, o2) -> player.get(o2).compareTo(player.get(o1)));
 
-        for (String key : keySet) {
-            result_msg += "\n - " + key + "님의 점수: "
-                    + player.get(key);
-        }
+        if (top_num == 0) {
+            for (String key : keySet) {
+                result_msg += "\n - " + key + "님의 점수: "
+                        + player.get(key);
+            }
 
-        result = "[애니 퀴즈 명예의 전당]\n * 총 점수 : " + total_quiz_point + "\n"
-                + result_msg;
+            result = "[애니 퀴즈 명예의 전당]\n * 총 점수 : " + total_quiz_point + "\n"
+                    + result_msg;
+        } else {
+            for (String key : keySet) {
+                if (i >= top_num)
+                    break;
+
+                result_msg += "\n - " + key + "님의 점수: "
+                        + player.get(key);
+                i++;
+            }
+
+            result = "[애니 퀴즈 명예의 전당]\n * TOP " + top_num + "\n"
+                    + result_msg;
+        }
         return result;
     }
 

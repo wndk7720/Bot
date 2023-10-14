@@ -203,6 +203,10 @@ public class CommandSurvival {
         String player_name;
         int betting_num;
 
+        if (survival_start == 0) {
+            return null;
+        }
+
         if (betting_time != 1) {
             return "배팅시간이 아닙니다.";
         }
@@ -715,7 +719,7 @@ public class CommandSurvival {
 
     private String calcEndTime(int battle_num) {
         String result = "";
-        int half = battle_num % 2;
+        int half = (battle_num + 1) % 2;
         int hour = battle_num / 2;
 
         hour += 9;

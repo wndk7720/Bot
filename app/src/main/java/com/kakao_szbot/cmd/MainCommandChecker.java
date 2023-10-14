@@ -29,7 +29,9 @@ public class MainCommandChecker {
         if (msg.contains(CommandList.BOT_NAME)) {
             replyMessage = selectBotMessage(msg, sender, sbn);
         } else {
-            replyMessage = selectNormalMessage(msg, sender);
+            if (room.indexOf("다덕임") != -1) {
+                replyMessage = selectNormalMessage(msg, sender);
+            }
         }
 
         return replyMessage;
@@ -48,7 +50,13 @@ public class MainCommandChecker {
 
         try {
             if (checkCommnadList(msg, CommandList.SURVIVAL_CMD) == 0) {
-                replyMessage = new CommandSurvival().startSurvivalCommand(sbn);
+                if (sender.indexOf("방장") >= 0) {
+                    replyMessage = new CommandSurvival().startSurvivalCommand(sbn);
+                    return replyMessage;
+                }
+            }
+            if (checkCommnadList(msg, CommandList.SURVIVAL_BETTING_CMD) == 0) {
+                replyMessage = new CommandSurvival().voteServant(msg, sender);
                 return replyMessage;
             }
             if (checkCommnadList(msg, CommandList.GPT_CMD) == 0) {
@@ -96,7 +104,7 @@ public class MainCommandChecker {
                 return replyMessage;
             }
             if (checkCommnadList(msg, CommandList.QUIZ_POINT_CMD) == 0) {
-                replyMessage = new CommandQuiz().printQuizPointList();
+                replyMessage = new CommandQuiz().printQuizPointList(3);
                 return replyMessage;
             }
             if (checkCommnadList(msg, CommandList.QUIZ_CMD) == 0) {

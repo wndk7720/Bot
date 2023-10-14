@@ -1,6 +1,8 @@
 package com.kakao_szbot.cmd;
 
 
+import android.util.Log;
+
 import com.kakao_szbot.lib.FileLibrary;
 
 import java.util.ArrayList;
