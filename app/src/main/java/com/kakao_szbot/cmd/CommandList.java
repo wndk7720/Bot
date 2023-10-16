@@ -14,7 +14,7 @@ public class CommandList {
 
     public final static String BOT_NAME = "를르슈";
     public final static String FAMOUS_MSG = "를르슈 비 브리타니아가 명한다.";
-    public final static String BOT_VERSION = "23.10.14";
+    public final static String BOT_VERSION = "23.10.16";
 
     public final static int RAND_MAX = 10000;
     public final static int RAND_ANI_MAX = 2500;

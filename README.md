@@ -1,5 +1,5 @@
-# Kyouko Bot
-### Version 23.09.18
+# Lelouch Bot
+### Version 23.10.16
 
 - 운영환경 : android
 - 언어 : java
@@ -8,7 +8,7 @@
 
 ### Command List
 
- 「"쿄코" + "명령어"」 형태로 동작합니다.
+ 「"를르슈" + "명령어"」 형태로 동작합니다.
 
    - 도움말, -h, --help
    - 환영하기
