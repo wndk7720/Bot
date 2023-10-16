@@ -43,8 +43,8 @@ public class CommandReinforce {
             reinforce_weapon_upgrade++;
             result = reinforce_weapon[reinforce_weapon_index] +
                     " (+" + reinforce_weapon_upgrade +
-                    ") 강화에 성공했다.\n(다음 성공 확률: " +
-                    Math.floor(reinforce_chance * 100) + "%)";
+                    ") 강화에 성공했다.\n계산대로라면, 다음 성공 확률은 " +
+                    Math.floor(reinforce_chance * 100) + "% 이다.";
         }
         else if (rand_2 < (CommandList.RAND_MAX * reinforce_chance)) {
             reinforce_weapon_upgrade--;
@@ -54,8 +54,8 @@ public class CommandReinforce {
 
             result = reinforce_weapon[reinforce_weapon_index] +
                     " (+" + reinforce_weapon_upgrade +
-                    ") 강화에 실패했다.\n(다음 성공 확률: " +
-                    Math.floor(reinforce_chance * 100) + "%)";
+                    ") 강화에 실패했다.\n계산대로라면, 다음 성공 확률은 " +
+                    Math.floor(reinforce_chance * 100) + "% 이다.";
         }
         else {
             result = reinforce_weapon[reinforce_weapon_index] + " 깨져버렸다.";

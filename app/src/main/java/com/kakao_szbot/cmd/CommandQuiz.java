@@ -98,13 +98,11 @@ public class CommandQuiz {
             ani_quiz_name_consonants = convertToConsonants(ani_quiz_name, hard_mode);
 
             if (hard_mode == 0) {
-                result = CommandList.FAMOUS_MSG + " 맞춰라.\n\n"
-                        + ani_quiz_name_consonants +
-                        "\n(15분뒤 정답 공개)";
+                result = CommandList.FAMOUS_MSG + " 맞춰라. 15분뒤 정답을 공개하겠다.\n - "
+                        + ani_quiz_name_consonants;
             } else {
-                result = CommandList.FAMOUS_MSG + " 맞춰라.\n\n"
-                        + ani_quiz_name_consonants +
-                        "\n(15분뒤 정답 공개)";
+                result = CommandList.FAMOUS_MSG + " 맞춰라. 15분뒤 정답을 공개하겠다.\n - "
+                        + ani_quiz_name_consonants;
             }
 
             new Thread() {
@@ -248,8 +246,7 @@ public class CommandQuiz {
                 i++;
             }
 
-            result = "[애니 퀴즈 명예의 전당]\n * TOP " + top_num + "\n"
-                    + result_msg;
+            result = "[애니 퀴즈 명예의 전당]\n * TOP " + top_num + result_msg;
         }
         return result;
     }

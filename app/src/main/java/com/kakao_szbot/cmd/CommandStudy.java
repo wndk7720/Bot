@@ -72,7 +72,7 @@ public class CommandStudy {
                 STUDY_CMD_LIST.remove(index);
                 STUDY_MSG_LIST.remove(index);
 
-                result = CommandList.FAMOUS_MSG + "잊어버려라. (거울을 보며)";
+                result = CommandList.FAMOUS_MSG + " 잊어버려라. (거울을 보며)";
             }
 
         } else {
