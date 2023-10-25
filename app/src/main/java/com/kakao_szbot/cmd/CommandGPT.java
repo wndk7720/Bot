@@ -25,7 +25,7 @@ public class CommandGPT {
     private static final String API_KEY = "";
     private static final int MAX_TOKEN = 130;
     private static int SOMETIMES_RATIO = 0;
-    private static final int SOMETIMES_THRESHOLD = 300;
+    private static final int SOMETIMES_THRESHOLD = 1000;
     public static String[] sometimes_exception =
             {"ㅋ", "ㅎ", "이모티콘", "사진", CommandList.BOT_NAME};
 
@@ -40,7 +40,7 @@ public class CommandGPT {
         try {
             return generateText(requestMsg, API_KEY);
         } catch (Exception e) {
-            return "아쉽게 ChatGPT가 고장났답니다. 데헷☆";
+            return "ChatGPT가 고장났다.";
         }
     }
 
@@ -48,7 +48,7 @@ public class CommandGPT {
         try {
             return generateText(msg, API_KEY);
         } catch (Exception e) {
-            return "아쉽게 ChatGPT가 고장났답니다. 데헷☆";
+            return "ChatGPT가 고장났다.";
         }
     }
 
@@ -77,11 +77,13 @@ public class CommandGPT {
             return null;
         }
 
-        String requestMsg = msg.replace("쿄코", "");
+        String requestMsg = msg.replace(CommandList.BOT_NAME, "");
         String emptyCheckMsg = requestMsg.replaceAll("[^ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9]", "");
         if (emptyCheckMsg.length() == 0) {
             return null;
         }
+
+        requestMsg += "\n\nPlease write in Informal and Authoritative. Korean language.";
         Log.d(TAG, "requestMsg: " + requestMsg);
 
         return gptDefaultMessage(requestMsg, sender);

@@ -40,13 +40,13 @@ public class CommandStudy {
                 STUDY_CMD_LIST.add(study_cmd);
                 STUDY_MSG_LIST.add(study_msg);
 
-                result = "명심하겠습니다";
+                result = CommandList.FAMOUS_MSG + " 기억해라! (거울을 보며)";
             } else {
-                result = "이미 공부한 명령어에요";
+                result = "이미 기억한 명령어다.";
             }
         }
         else {
-            result = "다시 말해주세요 (공부하기 [배울 문장] [응답 문장])";
+            result = "다시 말해라. (공부하기 [배울 문장] [응답 문장])";
         }
 
         return result;
@@ -63,7 +63,7 @@ public class CommandStudy {
             String study_cmd = msg.substring(first_msg_start_index, first_msg_end_index);
 
             if (Collections.frequency(STUDY_CMD_LIST, study_cmd) == 0) {
-                result = "공부한적 없는 명령어에요";
+                result = "공부한적 없는 명령어다.";
             } else {
                 FileLibrary csv = new FileLibrary();
                 csv.deleteLineCSV("studyCommand.csv", study_cmd);
@@ -72,11 +72,11 @@ public class CommandStudy {
                 STUDY_CMD_LIST.remove(index);
                 STUDY_MSG_LIST.remove(index);
 
-                result = "잊어버렸습니다";
+                result = CommandList.FAMOUS_MSG + " 잊어버려라. (거울을 보며)";
             }
 
         } else {
-            result = "다시 말해주세요 (잊어버려 [잊을 문장])";
+            result = "다시 말해라. (잊어버려 [잊을 문장])";
         }
 
         return result;
@@ -86,11 +86,11 @@ public class CommandStudy {
         String result = null;
 
         if (STUDY_CMD_LIST.size() == 0) {
-            result = "공부목록이 텅 비었습니다";
+            result = "공부목록이 텅 비었다.";
             return result;
         }
 
-        result = "공부한 목록은 아래와 같습니다\n";
+        result = "공부한 목록은 아래와 같다.\n";
         for (int i = 0; i < STUDY_CMD_LIST.size(); i++) {
             result += "\n - " + STUDY_CMD_LIST.get(i);
             result += " : " + STUDY_MSG_LIST.get(i);

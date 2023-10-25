@@ -34,7 +34,7 @@ public class CommandReinforce {
             Thread.sleep(1000);
         }
         else if (reinforce_weapon_upgrade > 4) {
-            KakaoSendReply("두근두근..", getSbn());
+            KakaoSendReply("호오..", getSbn());
             Thread.sleep(2000);
         }
 
@@ -43,8 +43,8 @@ public class CommandReinforce {
             reinforce_weapon_upgrade++;
             result = reinforce_weapon[reinforce_weapon_index] +
                     " (+" + reinforce_weapon_upgrade +
-                    ") 강화에 성공했습니다!\n(다음 성공 확률: " +
-                    Math.floor(reinforce_chance * 100) + "%)";
+                    ") 강화에 성공했다.\n계산대로라면, 다음 성공 확률은 " +
+                    Math.floor(reinforce_chance * 100) + "% 이다.";
         }
         else if (rand_2 < (CommandList.RAND_MAX * reinforce_chance)) {
             reinforce_weapon_upgrade--;
@@ -54,11 +54,11 @@ public class CommandReinforce {
 
             result = reinforce_weapon[reinforce_weapon_index] +
                     " (+" + reinforce_weapon_upgrade +
-                    ") 강화에 실패했습니다..\n(다음 성공 확률: " +
-                    Math.floor(reinforce_chance * 100) + "%)";
+                    ") 강화에 실패했다.\n계산대로라면, 다음 성공 확률은 " +
+                    Math.floor(reinforce_chance * 100) + "% 이다.";
         }
         else {
-            result = reinforce_weapon[reinforce_weapon_index] + " 깨져버렸습니다..";
+            result = reinforce_weapon[reinforce_weapon_index] + " 깨져버렸다.";
 
             reinforce_chance = 1;
             reinforce_weapon_upgrade = 0;
