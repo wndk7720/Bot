@@ -22,7 +22,7 @@ import okhttp3.Response;
 
 public class CommandGPT {
     public final static String TAG = "CommandGPT";
-    private static final String API_KEY = "";
+    private static final String API_KEY = "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";
     private static final int MAX_TOKEN = 130;
     private static int SOMETIMES_RATIO = 0;
     private static final int SOMETIMES_THRESHOLD = 1000;
@@ -83,7 +83,7 @@ public class CommandGPT {
             return null;
         }
 
-        requestMsg += "\n\nPlease write in Informal and Authoritative. Korean language.";
+        requestMsg += "\n\nPlease write in Informal and Authoritative. Korean language. 반말로 해줘.";
         Log.d(TAG, "requestMsg: " + requestMsg);
 
         return gptDefaultMessage(requestMsg, sender);

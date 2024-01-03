@@ -43,6 +43,32 @@ public class CommandCrawling {
         return content.toString();
     }
 
+    public String exchangeRateMessage(String msg, String sender) throws Exception {
+        String url = "https://quotation-api-cdn.dunamu.com/v1/forex/recent?codes=FRX.";
+        String exchange_name = null, exchange_symbol = null, result = null;
+
+        for (int i = 0; i < CommandList.EXCHANGE_RATE_CMD.length; i++) {
+            if (msg.contains(CommandList.EXCHANGE_RATE_CMD[i])) {
+                exchange_name = CommandList.EXCHANGE_RATE_CMD[i];
+                exchange_symbol = CommandList.EXCHANGE_RATE_SYMBOL[i];
+                break;
+            }
+        }
+
+        if (exchange_symbol == null) {
+            return result;
+        }
+
+        result = getContentURL(url + exchange_symbol);
+
+        JSONArray jsonArray = new JSONArray(result);
+        JSONObject response = jsonArray.getJSONObject(0);
+        double price = response.getDouble("basePrice");
+
+        result = "현.재 " + exchange_name + " 환율은 " + (int)price + "원이다.";
+        return result;
+    }
+
     public String coinMessage(String msg, String sender) throws Exception {
         String url = "https://api.upbit.com/v1/ticker?markets=KRW-";
         String coin_name = null, coin_symbol = null, result = null;
@@ -65,7 +91,7 @@ public class CommandCrawling {
         JSONObject response = jsonArray.getJSONObject(0);
         double price = response.getDouble("trade_price");
 
-        result = "현재 " + coin_name + " 시세는 " + (int)price + "원이다";
+        result = "현.재 " + coin_name + " 시세는 " + (int)price + "원이다.";
         return result;
     }
 
