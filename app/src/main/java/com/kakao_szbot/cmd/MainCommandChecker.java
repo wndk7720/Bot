@@ -71,6 +71,10 @@ public class MainCommandChecker {
                 replyMessage = new CommandBasic().lottoMessage(msg);
                 return replyMessage;
             }
+            if (checkCommnadList(msg, CommandList.EXCHANGE_RATE_CMD) == 0) {
+                replyMessage = new CommandCrawling().exchangeRateMessage(msg, sender);
+                return replyMessage;
+            }
             if (checkCommnadList(msg, CommandList.COIN_CMD) == 0) {
                 replyMessage = new CommandCrawling().coinMessage(msg, sender);
                 return replyMessage;

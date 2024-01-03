@@ -143,7 +143,7 @@ public class CommandList {
     };
 
     public static String[] SLANG_CMD = {
-            "ㅅㅂ","시발","시빨","씨발","씨빠","씨빨","슈발","싀발","슈빨","쓔발",
+            "ㅅㅂ","시발","시빨","씨발","씨빠","씨빨","슈밤","싀발","슈빨","쓔발",
             "쓔빨","씌발","싀빨","씌발","ㅆㅃ","ㅅㅃ","ㅆㅃ","ㅅㅍ","시팔","씨팔",
             "ㅄ","ㅂㅅ","ㅂ1ㅅ","병신","븅신","또라이","미친놈","미친넘","미친년",
             "개새끼","뒤1져","좆","ㅅ1ㅂ","ㅅ@ㅂ","시이발","씨댕","개빡","시파",
@@ -182,6 +182,12 @@ public class CommandList {
             "오늘의 만화", "오늘의만화", "오늘 만화", "오늘만화"
     };
 
+    public static String[] EXCHANGE_RATE_CMD = {
+            "엔화", "원달러"
+    };
+    public static String[] EXCHANGE_RATE_SYMBOL = {
+            "KRWJPY", "KRWUSD"
+    };
     public static String[] COIN_CMD = {
             "비트코인", "이더리움", "리플"
     };

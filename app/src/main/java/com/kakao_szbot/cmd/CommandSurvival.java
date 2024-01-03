@@ -222,7 +222,7 @@ public class CommandSurvival {
 
         if (player_front.player_name.equals(player.player_name) ||
                 player_back.player_name.equals(player.player_name))
-            return player_name + " 마스터님, 현재 전투 준비중인 마스터는 배팅이 불가합니다.";
+            return player_name + " 마스터님, 현.재 전투 준비중인 마스터는 배팅이 불가합니다.";
 
         if (msg.indexOf("1") >= 0) {
             betting_num = 1;
