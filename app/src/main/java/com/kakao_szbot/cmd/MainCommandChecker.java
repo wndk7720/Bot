@@ -1,6 +1,7 @@
 package com.kakao_szbot.cmd;
 
 import android.content.Context;
+import android.service.notification.StatusBarNotification;
 import android.util.Log;
 
 import java.util.List;
@@ -9,10 +10,16 @@ import java.util.List;
 public class MainCommandChecker {
     public final static String TAG = "CommandChecker";
 
-    public String checkKakaoMessage(String msg, String sender) {
+    public String checkKakaoMessage(String msg, String sender, String room, StatusBarNotification sbn) {
         Log.d(TAG, "checkKakaoMessage ~ " + sender + ": " + msg);
         String replyMessage = null;
 
+        /*
+        replyMessage = specialRoomMessage(msg, sender, room);
+        if (replyMessage != null) {
+            return replyMessage;
+        }
+        */
 
         replyMessage = highPriorityMessage(msg, sender);
         if (replyMessage != null) {
@@ -20,24 +27,52 @@ public class MainCommandChecker {
         }
 
         if (msg.contains(CommandList.BOT_NAME)) {
-            replyMessage = selectBotMessage(msg, sender);
+            replyMessage = selectBotMessage(msg, sender, sbn);
         } else {
-            replyMessage = selectNormalMessage(msg, sender);
+            if (room.indexOf("다덕임") != -1) {
+                replyMessage = selectNormalMessage(msg, sender);
+            }
         }
 
         return replyMessage;
     }
 
-    private String selectBotMessage(String msg, String sender) {
+    public String checkPersonalKakaoMessage(String msg, String sender, StatusBarNotification sbn) {
+        Log.d(TAG, "checkPersonalKakaoMessage ~ " + sender + ": " + msg);
+        String replyMessage = null;
+
+        replyMessage = new CommandSurvival().mainSurvivalCommand(msg, sender, sbn);
+        return replyMessage;
+    }
+
+    private String selectBotMessage(String msg, String sender, StatusBarNotification sbn) {
         String replyMessage = null;
 
         try {
+            if (checkCommnadList(msg, CommandList.SURVIVAL_CMD) == 0) {
+                if (sender.indexOf("방장") >= 0) {
+                    replyMessage = new CommandSurvival().startSurvivalCommand(sbn);
+                    return replyMessage;
+                }
+            }
+            if (checkCommnadList(msg, CommandList.SURVIVAL_BETTING_CMD) == 0) {
+                replyMessage = new CommandSurvival().voteServant(msg, sender);
+                return replyMessage;
+            }
+            if (checkCommnadList(msg, CommandList.GPT_CMD) == 0) {
+                replyMessage = new CommandGPT().gptMessage(msg, sender);
+                return replyMessage;
+            }
             if (checkCommnadList(msg, CommandList.RAMEN_CMD) == 0) {
                 replyMessage = new CommandBasic().ramenMessage(msg);
                 return replyMessage;
             }
             if (checkCommnadList(msg, CommandList.LOTTO_CMD) == 0) {
                 replyMessage = new CommandBasic().lottoMessage(msg);
+                return replyMessage;
+            }
+            if (checkCommnadList(msg, CommandList.EXCHANGE_RATE_CMD) == 0) {
+                replyMessage = new CommandCrawling().exchangeRateMessage(msg, sender);
                 return replyMessage;
             }
             if (checkCommnadList(msg, CommandList.COIN_CMD) == 0) {
@@ -73,7 +108,7 @@ public class MainCommandChecker {
                 return replyMessage;
             }
             if (checkCommnadList(msg, CommandList.QUIZ_POINT_CMD) == 0) {
-                replyMessage = new CommandQuiz().printQuizPointList();
+                replyMessage = new CommandQuiz().printQuizPointList(3);
                 return replyMessage;
             }
             if (checkCommnadList(msg, CommandList.QUIZ_CMD) == 0) {
@@ -96,12 +131,13 @@ public class MainCommandChecker {
                 replyMessage = new CommandInvest().investMessage(msg);
                 return replyMessage;
             }
-            if (checkCommnadList(msg, CommandList.LOVE_LIST_CMD) == 0) {
-                replyMessage = new CommandLovePoint().printLovePointList();
-                return replyMessage;
-            }
             if (checkCommnadList(msg, CommandInvest.INVEST_PURCHASE_CMD) == 0) {
                 replyMessage = new CommandInvest().investPurchaseMessage(msg, sender);
+                return replyMessage;
+            }
+            /*
+            if (checkCommnadList(msg, CommandList.LOVE_LIST_CMD) == 0) {
+                replyMessage = new CommandLovePoint().printLovePointList();
                 return replyMessage;
             }
             if (checkCommnadList(msg, CommandLovePoint.POINT_DOWM_CMD) == 0) {
@@ -112,16 +148,30 @@ public class MainCommandChecker {
                 replyMessage = new CommandLovePoint().upLovePointMessage(msg, sender);
                 return replyMessage;
             }
+            */
+
+            for (int i = 0; i < (CommandList.BOT_BASIC_CMD.length - 1); i++) {
+                if (checkCommnadArrayList(msg, CommandList.BOT_BASIC_CMD[i]) == 0) {
+                    replyMessage = new CommandBasic().basicMessage(CommandList.BOT_BASIC_MSG[i]);
+                    return replyMessage;
+                }
+            }
+
+            replyMessage = new CommandGPT().gptBotMessage(msg, sender);
+            if (replyMessage != null) {
+                return replyMessage;
+            }
+
+            for (int i = (CommandList.BOT_BASIC_CMD.length - 1); i < CommandList.BOT_BASIC_CMD.length; i++) {
+                if (checkCommnadArrayList(msg, CommandList.BOT_BASIC_CMD[i]) == 0) {
+                    replyMessage = new CommandBasic().basicMessage(CommandList.BOT_BASIC_MSG[i]);
+                    return replyMessage;
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        for (int i = 0; i < CommandList.BOT_BASIC_CMD.length; i++) {
-            if (checkCommnadArrayList(msg, CommandList.BOT_BASIC_CMD[i]) == 0) {
-                replyMessage = new CommandBasic().basicMessage(CommandList.BOT_BASIC_MSG[i]);
-                return replyMessage;
-            }
-        }
 
         return replyMessage;
     }
@@ -130,6 +180,10 @@ public class MainCommandChecker {
         String replyMessage = null;
 
         new CommandSampling().storeSamplingMessage(msg);
+
+        replyMessage = new CommandQuiz().answerQuizMessage(msg, sender);
+        if (replyMessage != null)
+            return replyMessage;
 
         for (int i = 0; i < CommandList.COMMON_BASIC_CMD.length; i++) {
             if (checkCommnadList(msg, CommandList.COMMON_BASIC_CMD[i]) == 0) {
@@ -140,7 +194,7 @@ public class MainCommandChecker {
         if (replyMessage != null)
             return replyMessage;
 
-        replyMessage = new CommandQuiz().answerQuizMessage(msg, sender);
+        replyMessage = new CommandGPT().gptSometimesMessage(msg, sender);
         if (replyMessage != null)
             return replyMessage;
 
@@ -151,6 +205,20 @@ public class MainCommandChecker {
 
     private String highPriorityMessage(String msg, String sender) {
         String replyMessage = new CommandBasic().slangMessage(msg, CommandList.SLANG_CMD);
+        return replyMessage;
+    }
+
+    private String specialRoomMessage(String msg, String sender, String room) {
+        String replyMessage = null;
+
+        if (room.indexOf("고독") != -1) {
+            if (msg.indexOf("이모티콘") != -1 || msg.indexOf("사진") != -1) {
+                return null;
+            }
+
+            replyMessage = "채팅 금지입니다.. 사진 또는 이모티콘만 올려주세요..";
+        }
+
         return replyMessage;
     }
 

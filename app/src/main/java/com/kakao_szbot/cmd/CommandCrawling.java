@@ -43,6 +43,32 @@ public class CommandCrawling {
         return content.toString();
     }
 
+    public String exchangeRateMessage(String msg, String sender) throws Exception {
+        String url = "https://quotation-api-cdn.dunamu.com/v1/forex/recent?codes=FRX.";
+        String exchange_name = null, exchange_symbol = null, result = null;
+
+        for (int i = 0; i < CommandList.EXCHANGE_RATE_CMD.length; i++) {
+            if (msg.contains(CommandList.EXCHANGE_RATE_CMD[i])) {
+                exchange_name = CommandList.EXCHANGE_RATE_CMD[i];
+                exchange_symbol = CommandList.EXCHANGE_RATE_SYMBOL[i];
+                break;
+            }
+        }
+
+        if (exchange_symbol == null) {
+            return result;
+        }
+
+        result = getContentURL(url + exchange_symbol);
+
+        JSONArray jsonArray = new JSONArray(result);
+        JSONObject response = jsonArray.getJSONObject(0);
+        double price = response.getDouble("basePrice");
+
+        result = "현.재 " + exchange_name + " 환율은 " + (int)price + "원이다.";
+        return result;
+    }
+
     public String coinMessage(String msg, String sender) throws Exception {
         String url = "https://api.upbit.com/v1/ticker?markets=KRW-";
         String coin_name = null, coin_symbol = null, result = null;
@@ -65,7 +91,7 @@ public class CommandCrawling {
         JSONObject response = jsonArray.getJSONObject(0);
         double price = response.getDouble("trade_price");
 
-        result = "현재 " + coin_name + " 시세는 " + (int)price + "원 입니다";
+        result = "현.재 " + coin_name + " 시세는 " + (int)price + "원이다.";
         return result;
     }
 
@@ -90,21 +116,23 @@ public class CommandCrawling {
     }
 
     public String recommendAniMessage(String msg, String sender) throws Exception {
-        String url = "https://anissia.net/api/anime/list/";
+        String url = "https://api.anissia.net/anime/animeNo/";
         String result = null;
         Random random = new Random();
 
-        int pageRand = random.nextInt(CommandList.RAND_ANI_PAGE_MAX);
-        result = getContentURL(url + pageRand);
+        int noRand = random.nextInt(CommandList.RAND_ANI_MAX);
+        result = getContentURL(url + noRand);
         JSONObject content = new JSONObject(result);
 
+        /*
         JSONArray array =  content.getJSONArray("content");
         int arrayLength = array.length();
         int aniRand = random.nextInt(arrayLength);
+        */
 
-        JSONObject object = array.getJSONObject(aniRand);
+        JSONObject object = content.getJSONObject("data");
 
-        result = "이런 애니 어떠신가요?\n\n";
+        result = CommandList.FAMOUS_MSG + " 이 애니를 보아라.\n\n";
         result += " - " + object.getString("subject");
         result += " (" + object.getString("genres") + ")\n";
         result += "  > 방영일 : " + object.getString("startDate") + "\n";
@@ -114,7 +142,7 @@ public class CommandCrawling {
     }
 
     public String todayAniMessage(String msg, String sender) throws Exception {
-        String url = "https://anissia.net/api/anime/schedule/";
+        String url = "https://api.anissia.net/anime/schedule/";
         Date date = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -122,9 +150,10 @@ public class CommandCrawling {
         String result = null;
 
         result = getContentURL(url + dayOfWeek);
-        JSONArray jsonArray = new JSONArray(result);
+        JSONObject jsonResult = new JSONObject(result);
+        JSONArray jsonArray = jsonResult.getJSONArray("data");
 
-        result = "오늘 방영하는 애니 목록입니다\n";
+        result = "오늘 방영하는 애니 목록이다.\n";
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             result += "\n - " + jsonObject.getString("subject");
