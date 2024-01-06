@@ -22,7 +22,7 @@ import okhttp3.Response;
 
 public class CommandGPT {
     public final static String TAG = "CommandGPT";
-    private static final String API_KEY = "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";
+    private static final String API_KEY = "";
     private static final int MAX_TOKEN = 130;
     private static int SOMETIMES_RATIO = 0;
     private static final int SOMETIMES_THRESHOLD = 1000;
@@ -101,7 +101,8 @@ public class CommandGPT {
         message.put("content", input);
         messageList.put(message);
 
-        payload.put("model", "gpt-3.5-turbo"); // model is important
+        //payload.put("model", "gpt-3.5-turbo"); // model is important
+        payload.put("model", "gpt-4"); // model is important
         payload.put("messages", messageList);
         payload.put("temperature", 0.7);
 
