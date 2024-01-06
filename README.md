@@ -1,5 +1,5 @@
 # Lelouch Bot
-### Version 23.10.16
+### Version 24.01.06
 
 - 운영환경 : android
 - 언어 : java
