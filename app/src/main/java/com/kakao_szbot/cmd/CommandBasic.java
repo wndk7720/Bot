@@ -122,7 +122,7 @@ public class CommandBasic {
                 tmp = diceStr.substring(add_index);
                 add = Integer.parseInt(tmp);
             }
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
             // do nothing
         }
 
