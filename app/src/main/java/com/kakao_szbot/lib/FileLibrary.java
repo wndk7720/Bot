@@ -210,7 +210,7 @@ public class FileLibrary {
         }
     }
 
-    public void changeSurvivalCSV(String fileName, String sender, String value, int index) {
+    public void changePartCSV(String fileName, String sender, String value, int index) {
         Context context = getAppContext();
 
         try {
@@ -246,15 +246,15 @@ public class FileLibrary {
     }
 
     public void changeSkillNameSurvivalCSV(String fileName, String sender, String name, int index) {
-        changeSurvivalCSV(fileName, sender, name, index + 6);
+        changePartCSV(fileName, sender, name, index + 6);
     }
 
     public void changeSkillStatSurvivalCSV(String fileName, String sender, int point, int index) {
-        changeSurvivalCSV(fileName, sender, String.valueOf(point), index + 3);
+        changePartCSV(fileName, sender, String.valueOf(point), index + 3);
     }
 
     public void changeHealthSurvivalCSV(String fileName, String sender, int point) {
-        changeSurvivalCSV(fileName, sender, String.valueOf(point), 2);
+        changePartCSV(fileName, sender, String.valueOf(point), 2);
     }
 
     public void WriteSurvivalCSV(String fileName, String player, String survant, int health, int rock, int paper, int scissors) {
@@ -272,6 +272,30 @@ public class FileLibrary {
                     String.valueOf(paper) + "," +
                     String.valueOf(scissors) + "," +
                     "바위,보,가위\n";
+            osw.write(line);
+
+            osw.close();
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void changeDiceTowerCSV(String fileName, String sender, int point) {
+        changePartCSV(fileName, sender, String.valueOf(point), 2);
+    }
+
+    public void WriteTowerCSV(String fileName, String player, String participant, int dice_type) {
+        Context context = getAppContext();
+
+        try {
+            File file = new File(context.getFilesDir(), fileName);
+            FileOutputStream fos = new FileOutputStream(file, true);
+            OutputStreamWriter osw = new OutputStreamWriter(fos);
+
+            String line = player + "," +
+                    participant + "," +
+                    String.valueOf(dice_type) + "\n";
             osw.write(line);
 
             osw.close();

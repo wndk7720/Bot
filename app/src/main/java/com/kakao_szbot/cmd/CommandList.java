@@ -250,6 +250,10 @@ public class CommandList {
             "전쟁"
     };
 
+    public static String[] TOWER_CMD = {
+            "다덕의탑"
+    };
+
     public static String[] SURVIVAL_BETTING_CMD = {
             "최애"
     };

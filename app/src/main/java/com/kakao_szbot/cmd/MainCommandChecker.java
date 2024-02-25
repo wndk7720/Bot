@@ -41,7 +41,8 @@ public class MainCommandChecker {
         Log.d(TAG, "checkPersonalKakaoMessage ~ " + sender + ": " + msg);
         String replyMessage = null;
 
-        replyMessage = new CommandSurvival().mainSurvivalCommand(msg, sender, sbn);
+        //replyMessage = new CommandSurvival().mainSurvivalCommand(msg, sender, sbn);
+        replyMessage = new CommandTower().mainTowerCommand(msg, sender, sbn);
         return replyMessage;
     }
 
@@ -52,6 +53,12 @@ public class MainCommandChecker {
             if (checkCommnadList(msg, CommandList.SURVIVAL_CMD) == 0) {
                 if (sender.indexOf("방장") >= 0) {
                     replyMessage = new CommandSurvival().startSurvivalCommand(sbn);
+                    return replyMessage;
+                }
+            }
+            if (checkCommnadList(msg, CommandList.TOWER_CMD) == 0) {
+                if (sender.indexOf("방장") >= 0) {
+                    replyMessage = new CommandTower().startTowerCommand(sbn);
                     return replyMessage;
                 }
             }
