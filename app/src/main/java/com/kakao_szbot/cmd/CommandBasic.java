@@ -35,7 +35,7 @@ public class CommandBasic {
 
         for (int i = 0; i < list.length; i++) {
             if (msg.indexOf(list[i]) != -1) {
-                responseMessage = CommandList.FAMOUS_MSG + " '" + list[i] + "' 단어를 쓰지말라.";
+                responseMessage = "'" + list[i] + "' 라는 단어 장난 아니네요☆";
             }
         }
 
@@ -51,7 +51,7 @@ public class CommandBasic {
         responseMessage = CommandList.RAMEN_CONTENTS_MSG[0][toppingRand];
         responseMessage += " 넣은 ";
         responseMessage += CommandList.RAMEN_CONTENTS_MSG[1][ramenRand];
-        responseMessage += " 추천한다.";
+        responseMessage += " 장난 아니네요☆";
 
         return responseMessage;
     }
@@ -84,7 +84,7 @@ public class CommandBasic {
 
         Arrays.sort(num);
 
-        String responseMessage = CommandList.FAMOUS_MSG + " 이 번호로 사라.\n[ ";
+        String responseMessage = "이 번호 장난 아니네요☆\n[ ";
         for (int i = 0; i < LOTTO_NUM_MAX; i++) {
             responseMessage += num[i] + " ";
         }
@@ -95,7 +95,7 @@ public class CommandBasic {
 
     /* diceMessage
      * 기능 추가 like DnD 주사위 by ygh 2024-01-25
-     * 사용 예시 : 를르슈 주사위 2d20+3 -> 20눈 주사위 2번 굴려 + 3
+     * 사용 예시 : "봇이름 주사위" 2d20+3 -> 20눈 주사위 2번 굴려 + 3
      */ 
     public String diceMessage(String msg) {
         String result = null;
@@ -132,7 +132,7 @@ public class CommandBasic {
             randNum += random.nextInt(number) + 1;
         }
 
-        result = "주사위 결과는 " + randNum + " 이다.";
+        result = "주사위 결과는 " + randNum + " 입니다!";
 
         return result;
     }

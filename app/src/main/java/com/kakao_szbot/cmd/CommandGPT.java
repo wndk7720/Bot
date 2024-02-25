@@ -40,7 +40,7 @@ public class CommandGPT {
         try {
             return generateText(requestMsg, API_KEY);
         } catch (Exception e) {
-            return "ChatGPT가 고장났다.";
+            return "ChatGPT가 고장나버렸어요☆";
         }
     }
 
@@ -48,7 +48,7 @@ public class CommandGPT {
         try {
             return generateText(msg, API_KEY);
         } catch (Exception e) {
-            return "ChatGPT가 고장났다.";
+            return "ChatGPT가 고장나버렸어요☆.";
         }
     }
 
@@ -83,7 +83,7 @@ public class CommandGPT {
             return null;
         }
 
-        requestMsg += "\n\nPlease write in Informal and Authoritative. Korean language. 반말로 해줘.";
+        requestMsg += "\n\nPlease write in Friendly and Optimistic. Korean language. 반말로 해줘.";
         Log.d(TAG, "requestMsg: " + requestMsg);
 
         return gptDefaultMessage(requestMsg, sender);

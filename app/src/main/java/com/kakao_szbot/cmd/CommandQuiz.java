@@ -98,10 +98,10 @@ public class CommandQuiz {
             ani_quiz_name_consonants = convertToConsonants(ani_quiz_name, hard_mode);
 
             if (hard_mode == 0) {
-                result = CommandList.FAMOUS_MSG + " 맞춰라. 15분뒤 정답을 공개하겠다.\n - "
+                result = "맞춰보세요! 15분뒤 정답을 공개!\n - "
                         + ani_quiz_name_consonants;
             } else {
-                result = CommandList.FAMOUS_MSG + " 맞춰라. 15분뒤 정답을 공개하겠다.\n - "
+                result = "맞춰보세요! 15분뒤 정답을 공개!\n - "
                         + ani_quiz_name_consonants;
             }
 
@@ -127,7 +127,7 @@ public class CommandQuiz {
                     if (ani_quiz_answer_flag == 0) {
                         ani_quiz_answer_flag = 1;
                         ani_quiz_start = 0;
-                        result = "정답은 [" + ani_quiz_name + "] 이었다.";
+                        result = "정답은 [" + ani_quiz_name + "] 였답니다!";
                     }
 
                     KakaoSendReply(result, getSbn());
@@ -136,7 +136,7 @@ public class CommandQuiz {
 
             return result;
         } else {
-            result = "이미 퀴즈 진행중이다.";
+            result = "이미 퀴즈 진행중이에요!";
         }
 
         return result;
@@ -165,7 +165,7 @@ public class CommandQuiz {
                     FileLibrary csv = new FileLibrary();
                     csv.writePointCSV("quizPointList.csv", sender, player.get(sender));
 
-                    result = resultSender + " 정답이다.\n" +
+                    result = resultSender + " 정답입니다!\n" +
                             " - 누적 점수 : " + player.get(sender);
 
                     if (player.get(sender) > (total_quiz_point / 2)) {

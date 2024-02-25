@@ -65,7 +65,7 @@ public class CommandCrawling {
         JSONObject response = jsonArray.getJSONObject(0);
         double price = response.getDouble("basePrice");
 
-        result = "현.재 " + exchange_name + " 환율은 " + (int)price + "원이다.";
+        result = "현.재 " + exchange_name + " 환율은 " + (int)price + "원이에요!";
         return result;
     }
 
@@ -91,7 +91,7 @@ public class CommandCrawling {
         JSONObject response = jsonArray.getJSONObject(0);
         double price = response.getDouble("trade_price");
 
-        result = "현.재 " + coin_name + " 시세는 " + (int)price + "원이다.";
+        result = "현.재 " + coin_name + " 시세는 " + (int)price + "원이에요!";
         return result;
     }
 
@@ -132,7 +132,7 @@ public class CommandCrawling {
 
         JSONObject object = content.getJSONObject("data");
 
-        result = CommandList.FAMOUS_MSG + " 이 애니를 보아라.\n\n";
+        result = "이 애니 장난 아니네요☆\n\n";
         result += " - " + object.getString("subject");
         result += " (" + object.getString("genres") + ")\n";
         result += "  > 방영일 : " + object.getString("startDate") + "\n";
@@ -153,7 +153,7 @@ public class CommandCrawling {
         JSONObject jsonResult = new JSONObject(result);
         JSONArray jsonArray = jsonResult.getJSONArray("data");
 
-        result = "오늘 방영하는 애니 목록이다.\n";
+        result = "오늘 방영하는 애니 목록이에요!\n";
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             result += "\n - " + jsonObject.getString("subject");

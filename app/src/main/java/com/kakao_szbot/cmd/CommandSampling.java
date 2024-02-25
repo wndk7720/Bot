@@ -18,7 +18,7 @@ public class CommandSampling {
         String result = null;
 
         if (sampling_data.size() < 5) {
-            result = "대화기록이 부족하다.";
+            result = "대화기록이 부족해요!";
             return result;
         }
 
@@ -26,7 +26,7 @@ public class CommandSampling {
         int rand = random.nextInt(CommandList.RAND_MAX);
         rand = rand % (sampling_data.size() - 3);
 
-        result = "최근 대화 요약이다.\n\n" +
+        result = "최근 대화 요약이에요!\n\n" +
                 sampling_data.get(rand) + "\n" +
                 sampling_data.get(rand + 1) + "\n" +
                 sampling_data.get(rand + 2);
