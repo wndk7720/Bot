@@ -115,6 +115,19 @@ public class CommandCrawling {
         return result;
     }
 
+    public JSONObject getAniObject() throws Exception {
+        String url = "https://api.anissia.net/anime/animeNo/";
+        String result = null;
+        Random random = new Random();
+
+        int noRand = random.nextInt(CommandList.RAND_ANI_MAX);
+        result = getContentURL(url + noRand);
+        JSONObject content = new JSONObject(result);
+        JSONObject object = content.getJSONObject("data");
+
+        return object;
+    }
+
     public String recommendAniMessage(String msg, String sender) throws Exception {
         String url = "https://api.anissia.net/anime/animeNo/";
         String result = null;

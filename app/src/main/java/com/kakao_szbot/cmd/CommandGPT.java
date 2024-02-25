@@ -44,11 +44,11 @@ public class CommandGPT {
         }
     }
 
-    public String gptDefaultMessage(String msg, String sender) {
+    public String gptDefaultMessage(String msg) {
         try {
             return generateText(msg, API_KEY);
         } catch (Exception e) {
-            return "ChatGPT가 고장나버렸어요☆.";
+            return "ChatGPT가 고장나버렸어요☆";
         }
     }
 
@@ -65,11 +65,20 @@ public class CommandGPT {
             int rand = random.nextInt(CommandList.RAND_MAX);
             if (rand < SOMETIMES_RATIO) {
                 SOMETIMES_RATIO = 0;
-                return gptDefaultMessage(msg, sender);
+                return gptDefaultMessage(msg);
             }
         }
 
         return null;
+    }
+
+    public String gptConversationSummary(String msg) {
+        String requestMsg = msg;
+
+        requestMsg += "\n\n위의 내용을 3줄 요약해줘.";
+        Log.d(TAG, "requestMsg: " + requestMsg);
+
+        return gptDefaultMessage(requestMsg);
     }
 
     public String gptBotMessage(String msg, String sender) {
@@ -86,7 +95,7 @@ public class CommandGPT {
         requestMsg += "\n\nPlease write in Friendly and Optimistic. Korean language. 반말로 해줘.";
         Log.d(TAG, "requestMsg: " + requestMsg);
 
-        return gptDefaultMessage(requestMsg, sender);
+        return gptDefaultMessage(requestMsg);
     }
 
     private String generateText(String input, String apiKey) throws JSONException, IOException {
