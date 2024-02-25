@@ -93,13 +93,45 @@ public class CommandBasic {
         return responseMessage;
     }
 
+    /* diceMessage
+     * 기능 추가 like DnD 주사위 by ygh 2024-01-25
+     * 사용 예시 : 를르슈 주사위 2d20+3 -> 20눈 주사위 2번 굴려 + 3
+     */ 
     public String diceMessage(String msg) {
         String result = null;
-        int maxNum = findNum(msg);
-        if (maxNum == 0) maxNum = 6;
+        String diceStr = msg.toLowerCase().replaceAll("[^0-9d\\+]", "");
+        int dice = 1; // 주사위 갯수
+        int number = 6; // 주사위 눈
+        int add = 0; // 보너스
+
+        String tmp = "";
+	    int dice_index = diceStr.indexOf("d");
+	    int add_index = diceStr.indexOf("+");
+
+	    try {
+            if (dice_index != -1) {
+                tmp = diceStr.substring(0, dice_index);
+                if (tmp.equals("")) tmp = "1";
+                dice = Integer.parseInt(tmp);
+            }
+            
+            tmp = diceStr.substring((dice_index != -1) ? (dice_index + 1) : 0, (add_index != -1) ? add_index : diceStr.length());
+            number = Integer.parseInt(tmp);
+            
+            if (add_index != -1) {
+                tmp = diceStr.substring(add_index);
+                add = Integer.parseInt(tmp);
+            }
+        } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
+            // do nothing
+        }
 
         Random random = new Random();
-        int randNum = random.nextInt(maxNum) + 1;
+        int randNum = add;
+        for (int i=0; i < dice; i++) {
+            randNum += random.nextInt(number) + 1;
+        }
+
         result = "주사위 결과는 " + randNum + " 이다.";
 
         return result;
