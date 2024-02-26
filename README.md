@@ -1,5 +1,5 @@
 # Pecorine Bot
-### Version 24.02.25
+### Version 24.02.26
 
 - 운영환경 : android
 - 언어 : java
