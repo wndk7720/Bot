@@ -144,18 +144,19 @@ public class CommandQuiz {
                     try {
                         while (true) {
                             Thread.sleep(100);
+                            count++;
 
-                            if (count++ > (FIFTEEN_MIN_PER_SEC * 10))
+                            if (count > (FIFTEEN_MIN_PER_SEC * 10))
                                 break;
 
-                            if (count++ > (FIVE_MIN_PER_SEC * 10) && hint_1 == false) {
-                                result = "[힌트 1]\n - " + select_quiz.getString("genres");
+                            if (count > (FIVE_MIN_PER_SEC * 10) && hint_1 == false) {
+                                result = "[애니 자음 퀴즈 시즌2]\n - 힌트 1: " + select_quiz.getString("genres");
                                 KakaoSendReply(result, getSbn());
                                 hint_1 = true;
                             }
 
-                            if (count++ > (TEN_MIN_PER_SEC * 10) && hint_2 == false) {
-                                result = "[힌트 2]\n - " + select_quiz.getString("startDate");
+                            if (count > (TEN_MIN_PER_SEC * 10) && hint_2 == false) {
+                                result = "[애니 자음 퀴즈 시즌2]\n - 힌트 2: " + select_quiz.getString("startDate");
                                 KakaoSendReply(result, getSbn());
                                 hint_2 = true;
                             }
@@ -271,7 +272,8 @@ public class CommandQuiz {
 
         if (ani_quiz_start != 0) {
             if (ani_quiz_answer_flag == 0) {
-                answer = msg.replaceAll(" ", "");
+                answer = msg.replaceAll("[^ ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9]", "");
+                answer = answer.replaceAll(" ", "");
                 answer = answer.toLowerCase();
                 if (answer.indexOf(ani_quiz_name) != -1) {
                     ani_quiz_answer_flag = 1;
