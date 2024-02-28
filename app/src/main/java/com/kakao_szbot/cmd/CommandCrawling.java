@@ -65,7 +65,7 @@ public class CommandCrawling {
         JSONObject response = jsonArray.getJSONObject(0);
         double price = response.getDouble("basePrice");
 
-        result = "현.재 " + exchange_name + " 환율은 " + (int)price + "원이에요!";
+        result = "현.재 " + exchange_name + " 환율은 " + (int)price + "원이에요! " + CommandList.BOT_FAMOUS_MSG;
         return result;
     }
 
@@ -91,7 +91,7 @@ public class CommandCrawling {
         JSONObject response = jsonArray.getJSONObject(0);
         double price = response.getDouble("trade_price");
 
-        result = "현.재 " + coin_name + " 시세는 " + (int)price + "원이에요!";
+        result = "현.재 " + coin_name + " 시세는 " + (int)price + "원이에요! " + CommandList.BOT_FAMOUS_MSG;
         return result;
     }
 
@@ -145,7 +145,7 @@ public class CommandCrawling {
 
         JSONObject object = content.getJSONObject("data");
 
-        result = "이 애니 장난 아니네요☆\n\n";
+        result = "이 애니 " + CommandList.BOT_FAMOUS_MSG + "\n\n";
         result += " - " + object.getString("subject");
         result += " (" + object.getString("genres") + ")\n";
         result += "  > 방영일 : " + object.getString("startDate") + "\n";

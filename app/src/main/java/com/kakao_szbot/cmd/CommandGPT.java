@@ -92,7 +92,7 @@ public class CommandGPT {
             return null;
         }
 
-        requestMsg += "\n\nPlease write in Friendly and Optimistic. Korean language.";
+        requestMsg += "\n\nPlease write in Friendly and Optimistic. Korean language. 너의 이름은 페코린느야. 5문장 이내로 말해줘.";
         Log.d(TAG, "requestMsg: " + requestMsg);
 
         return gptDefaultMessage(requestMsg);

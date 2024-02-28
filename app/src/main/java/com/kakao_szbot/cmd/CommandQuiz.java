@@ -13,7 +13,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -22,8 +21,7 @@ import java.util.Random;
 
 public class CommandQuiz {
     public final static String TAG = "CommandQuiz";
-    public final static String ANI_QUIZ_POINT_FILE_NAME = "quizPointList.csv";
-    public final static String ANI_QUIZ2_POINT_FILE_NAME = "quiz2PointList.csv";
+
     private static int FIFTEEN_MIN_PER_SEC = 900; // Default 900
     private static int FIVE_MIN_PER_SEC = 300; // Default 300
     private static int TEN_MIN_PER_SEC = 600; // Default 600
@@ -33,9 +31,13 @@ public class CommandQuiz {
     public static JSONObject ani_quiz_object;
     public static int ani_quiz_start = 0;
     public static int ani_quiz_answer_flag = 1;
-    public static int total_quiz_point = 0;
 
-    private static Map<String, Integer> player = new HashMap<>();
+    public final static String ANI_QUIZ1_POINT_FILE_NAME = "quizPointList.csv";
+    public final static String ANI_QUIZ2_POINT_FILE_NAME = "quiz2PointList.csv";
+    public static int total_quiz1_point = 0;
+    public static int total_quiz2_point = 0;
+    private static Map<String, Integer> player1 = new HashMap<>();
+    private static Map<String, Integer> player2 = new HashMap<>();
 
 
     public static String convertToConsonants(String word, int hard_mode) {
@@ -283,50 +285,50 @@ public class CommandQuiz {
                     int patternIndex = patternIndexOf(sender, "[0-9`~!@#$%^&*()-_=+\\|\\[\\]{};:'\",.<>/? ]");
                     if (patternIndex != 0) sender = sender.substring(0, patternIndex);
 
-                    total_quiz_point++;
-                    if (player.containsKey(sender)) {
-                        player.put(sender, player.get(sender) + 1);
+                    total_quiz2_point++;
+                    if (player2.containsKey(sender)) {
+                        player2.put(sender, player2.get(sender) + 1);
                     } else {
-                        player.put(sender, 1);
+                        player2.put(sender, 1);
                     }
 
                     FileLibrary csv = new FileLibrary();
-                    csv.writePointCSV(ANI_QUIZ2_POINT_FILE_NAME, sender, player.get(sender));
+                    csv.writePointCSV(ANI_QUIZ2_POINT_FILE_NAME, sender, player2.get(sender));
 
                     result = resultSender + "님 정답입니다!\n" +
-                            " - 누적 점수 : " + player.get(sender);
+                            " - 누적 점수 : " + player2.get(sender);
 
-                    if (player.get(sender) < 2) {
+                    if (player2.get(sender) < 2) {
                         result += " (칭호 :\uD83D\uDC23)";
-                    } else if (player.get(sender) < 3) {
+                    } else if (player2.get(sender) < 3) {
                         result += " (칭호 :\uD83D\uDC24)";
-                    } else if (player.get(sender) < 4) {
+                    } else if (player2.get(sender) < 4) {
                         result += " (칭호 :\uD83D\uDC25)";
-                    } else if (player.get(sender) < 5) {
+                    } else if (player2.get(sender) < 5) {
                         result += " (칭호 :\uD83C\uDF31)";
-                    } else if (player.get(sender) < 10) {
+                    } else if (player2.get(sender) < 10) {
                         result += " (칭호 :\uD83C\uDF3F)";
-                    } else if (player.get(sender) < 15) {
+                    } else if (player2.get(sender) < 15) {
                         result += " (칭호 :\uD83C\uDF40)";
-                    } else if (player.get(sender) < 20) {
+                    } else if (player2.get(sender) < 20) {
                         result += " (칭호 :\uD83C\uDF37)";
-                    } else if (player.get(sender) < 25) {
+                    } else if (player2.get(sender) < 25) {
                         result += " (칭호 :\uD83C\uDF3A)";
-                    } else if (player.get(sender) < 30) {
+                    } else if (player2.get(sender) < 30) {
                         result += " (칭호 :\uD83E\uDEB7)";
-                    } else if (player.get(sender) < 40) {
+                    } else if (player2.get(sender) < 40) {
                         result += " (칭호 :\uD83E\uDD49)";
-                    } else if (player.get(sender) < 50) {
+                    } else if (player2.get(sender) < 50) {
                         result += " (칭호 :\uD83E\uDD48)";
-                    } else if (player.get(sender) < 60) {
+                    } else if (player2.get(sender) < 60) {
                         result += " (칭호 :\uD83E\uDD47)";
-                    } else if (player.get(sender) < 70) {
+                    } else if (player2.get(sender) < 70) {
                         result += " (칭호 :\uD83C\uDFC5)";
-                    } else if (player.get(sender) < 80) {
+                    } else if (player2.get(sender) < 80) {
                         result += " (칭호 :\uD83C\uDF96)";
-                    } else if (player.get(sender) < 90) {
+                    } else if (player2.get(sender) < 90) {
                         result += " (칭호 :\uD83C\uDFC6)";
-                    } else if (player.get(sender) < 100) {
+                    } else if (player2.get(sender) < 100) {
                         result += " (칭호 :\uD83D\uDDFD)";
                     } else {
                         result += " (칭호 :\uD83D\uDC79)";
@@ -352,22 +354,22 @@ public class CommandQuiz {
         String result_msg = "";
         int i = 0;
 
-        List<String> keySet = new ArrayList<>(player.keySet());
+        List<String> keySet = new ArrayList<>(player1.keySet());
         keySet.sort(new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) {
-                return player.get(o1).compareTo(player.get(o2));
+                return player1.get(o1).compareTo(player1.get(o2));
             }
         });
-        keySet.sort((o1, o2) -> player.get(o2).compareTo(player.get(o1)));
+        keySet.sort((o1, o2) -> player1.get(o2).compareTo(player1.get(o1)));
 
         if (top_num == 0) {
             for (String key : keySet) {
                 result_msg += "\n - " + key + "님의 점수: "
-                        + player.get(key);
+                        + player1.get(key);
             }
 
-            result = "[애니 퀴즈 시즌1 명예의 전당]\n * 총 점수 : " + total_quiz_point + "\n"
+            result = "[애니 퀴즈 시즌1 명예의 전당]\n * 총 점수 : " + total_quiz1_point + "\n"
                     + result_msg;
         } else {
             for (String key : keySet) {
@@ -375,7 +377,7 @@ public class CommandQuiz {
                     break;
 
                 result_msg += "\n - " + key + "님의 점수: "
-                        + player.get(key);
+                        + player1.get(key);
                 i++;
             }
 
@@ -393,26 +395,26 @@ public class CommandQuiz {
         String[] parts = allData.split("\n");
         for (String part : parts) {
             String[] data = part.split(",");
-            player.put(data[0], Integer.parseInt(data[1]));
-            total_quiz_point += Integer.parseInt(data[1]);
+            player2.put(data[0], Integer.parseInt(data[1]));
+            total_quiz2_point += Integer.parseInt(data[1]);
         }
 
-        Log.d(TAG, "퀴즈2 총 점수 : " + total_quiz_point);
+        Log.d(TAG, "퀴즈2 총 점수 : " + total_quiz2_point);
     }
 
     public void loadQuizPointList() {
         FileLibrary csv = new FileLibrary();
-        String allData = csv.ReadCSV(ANI_QUIZ_POINT_FILE_NAME);
+        String allData = csv.ReadCSV(ANI_QUIZ1_POINT_FILE_NAME);
         if (allData == null)
             return;
 
         String[] parts = allData.split("\n");
         for (String part : parts) {
             String[] data = part.split(",");
-            player.put(data[0], Integer.parseInt(data[1]));
-            total_quiz_point += Integer.parseInt(data[1]);
+            player1.put(data[0], Integer.parseInt(data[1]));
+            total_quiz1_point += Integer.parseInt(data[1]);
         }
 
-        Log.d(TAG, "퀴즈 총 점수 : " + total_quiz_point);
+        Log.d(TAG, "퀴즈1 총 점수 : " + total_quiz1_point);
     }
 }

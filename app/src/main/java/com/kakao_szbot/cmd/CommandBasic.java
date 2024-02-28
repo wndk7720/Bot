@@ -35,7 +35,7 @@ public class CommandBasic {
 
         for (int i = 0; i < list.length; i++) {
             if (msg.indexOf(list[i]) != -1) {
-                responseMessage = "'" + list[i] + "' 라는 단어 장난 아니네요☆";
+                responseMessage = "'" + list[i] + "' 라는 단어 " + CommandList.BOT_FAMOUS_MSG;
             }
         }
 
@@ -51,7 +51,7 @@ public class CommandBasic {
         responseMessage = CommandList.RAMEN_CONTENTS_MSG[0][toppingRand];
         responseMessage += " 넣은 ";
         responseMessage += CommandList.RAMEN_CONTENTS_MSG[1][ramenRand];
-        responseMessage += " 장난 아니네요☆";
+        responseMessage += " " + CommandList.BOT_FAMOUS_MSG;
 
         return responseMessage;
     }
@@ -84,7 +84,7 @@ public class CommandBasic {
 
         Arrays.sort(num);
 
-        String responseMessage = "이 번호 장난 아니네요☆\n[ ";
+        String responseMessage = "이 번호 " + CommandList.BOT_FAMOUS_MSG + "\n[ ";
         for (int i = 0; i < LOTTO_NUM_MAX; i++) {
             responseMessage += num[i] + " ";
         }

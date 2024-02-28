@@ -24,7 +24,7 @@ public class CommandReinforce {
         int rand_2 = random.nextInt(CommandList.RAND_MAX);
 
         if (reinforce_weapon_upgrade > 9) {
-            KakaoSendReply("와.. 장난 아니네요☆", getSbn());
+            KakaoSendReply("와.. " + CommandList.BOT_FAMOUS_MSG, getSbn());
             Thread.sleep(2000);
             KakaoSendReply("3", getSbn());
             Thread.sleep(1000);
@@ -34,7 +34,7 @@ public class CommandReinforce {
             Thread.sleep(1000);
         }
         else if (reinforce_weapon_upgrade > 4) {
-            KakaoSendReply("호오.. 장난 아니네요☆", getSbn());
+            KakaoSendReply("호오.. " + CommandList.BOT_FAMOUS_MSG, getSbn());
             Thread.sleep(2000);
         }
 

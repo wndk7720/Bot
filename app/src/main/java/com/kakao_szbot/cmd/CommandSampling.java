@@ -27,7 +27,7 @@ public class CommandSampling {
             data += sampling_data.get(i) + "\n";
         }
 
-        result = "최근 대화 요약이에요!\n\n" +
+        result = "최근 대화 요약이에요! " + CommandList.BOT_FAMOUS_MSG + "\n\n" +
                 new CommandGPT().gptConversationSummary(data);
 
         return result;
