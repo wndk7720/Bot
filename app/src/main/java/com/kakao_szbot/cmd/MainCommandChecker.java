@@ -1,6 +1,5 @@
 package com.kakao_szbot.cmd;
 
-import android.content.Context;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
 
@@ -115,8 +114,12 @@ public class MainCommandChecker {
                 replyMessage = new CommandSampling().samplingGptMessage(msg);
                 return replyMessage;
             }
-            if (checkCommnadList(msg, CommandList.QUIZ_POINT_CMD) == 0) {
-                replyMessage = new CommandQuiz().printQuizPointList(0);
+            if (checkCommnadList(msg, CommandList.QUIZ1_POINT_CMD) == 0) {
+                replyMessage = new CommandQuiz().printQuiz1PointList(0);
+                return replyMessage;
+            }
+            if (checkCommnadList(msg, CommandList.QUIZ2_POINT_CMD) == 0) {
+                replyMessage = new CommandQuiz().printQuiz2PointList(0);
                 return replyMessage;
             }
             if (checkCommnadList(msg, CommandList.QUIZ_CMD) == 0) {

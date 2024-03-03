@@ -152,13 +152,13 @@ public class CommandQuiz {
                                 break;
 
                             if (count > (FIVE_MIN_PER_SEC * 10) && hint_1 == false) {
-                                result = "[애니 자음 퀴즈 시즌2]\n - 힌트 1: " + select_quiz.getString("genres");
+                                result = "[애니 자음 퀴즈 시즌2]\n - 힌트 1 : " + select_quiz.getString("genres");
                                 KakaoSendReply(result, getSbn());
                                 hint_1 = true;
                             }
 
                             if (count > (TEN_MIN_PER_SEC * 10) && hint_2 == false) {
-                                result = "[애니 자음 퀴즈 시즌2]\n - 힌트 2: " + select_quiz.getString("startDate");
+                                result = "[애니 자음 퀴즈 시즌2]\n - 힌트 2 : " + select_quiz.getString("startDate");
                                 KakaoSendReply(result, getSbn());
                                 hint_2 = true;
                             }
@@ -268,6 +268,48 @@ public class CommandQuiz {
         return result;
     }
 
+    public String getPointTitle(int score) {
+        String result = "";
+
+        if (score < 2) {
+            result += " (칭호 :\uD83D\uDC23)";
+        } else if (score < 3) {
+            result += " (칭호 :\uD83D\uDC24)";
+        } else if (score < 4) {
+            result += " (칭호 :\uD83D\uDC25)";
+        } else if (score < 5) {
+            result += " (칭호 :\uD83C\uDF31)";
+        } else if (score < 10) {
+            result += " (칭호 :\uD83C\uDF3F)";
+        } else if (score < 15) {
+            result += " (칭호 :\uD83C\uDF40)";
+        } else if (score < 20) {
+            result += " (칭호 :\uD83C\uDF37)";
+        } else if (score < 25) {
+            result += " (칭호 :\uD83C\uDF3A)";
+        } else if (score < 30) {
+            result += " (칭호 :\uD83E\uDEB7)";
+        } else if (score < 40) {
+            result += " (칭호 :\uD83E\uDD49)";
+        } else if (score < 50) {
+            result += " (칭호 :\uD83E\uDD48)";
+        } else if (score < 60) {
+            result += " (칭호 :\uD83E\uDD47)";
+        } else if (score < 70) {
+            result += " (칭호 :\uD83C\uDFC5)";
+        } else if (score < 80) {
+            result += " (칭호 :\uD83C\uDF96)";
+        } else if (score < 90) {
+            result += " (칭호 :\uD83C\uDFC6)";
+        } else if (score < 100) {
+            result += " (칭호 :\uD83D\uDDFD)";
+        } else {
+            result += " (칭호 :\uD83D\uDC79)";
+        }
+
+        return result;
+    }
+
     public String answerQuizMessage(String msg, String sender) {
         String result = null;
         String answer;
@@ -298,41 +340,7 @@ public class CommandQuiz {
                     result = resultSender + "님 정답입니다!\n" +
                             " - 누적 점수 : " + player2.get(sender);
 
-                    if (player2.get(sender) < 2) {
-                        result += " (칭호 :\uD83D\uDC23)";
-                    } else if (player2.get(sender) < 3) {
-                        result += " (칭호 :\uD83D\uDC24)";
-                    } else if (player2.get(sender) < 4) {
-                        result += " (칭호 :\uD83D\uDC25)";
-                    } else if (player2.get(sender) < 5) {
-                        result += " (칭호 :\uD83C\uDF31)";
-                    } else if (player2.get(sender) < 10) {
-                        result += " (칭호 :\uD83C\uDF3F)";
-                    } else if (player2.get(sender) < 15) {
-                        result += " (칭호 :\uD83C\uDF40)";
-                    } else if (player2.get(sender) < 20) {
-                        result += " (칭호 :\uD83C\uDF37)";
-                    } else if (player2.get(sender) < 25) {
-                        result += " (칭호 :\uD83C\uDF3A)";
-                    } else if (player2.get(sender) < 30) {
-                        result += " (칭호 :\uD83E\uDEB7)";
-                    } else if (player2.get(sender) < 40) {
-                        result += " (칭호 :\uD83E\uDD49)";
-                    } else if (player2.get(sender) < 50) {
-                        result += " (칭호 :\uD83E\uDD48)";
-                    } else if (player2.get(sender) < 60) {
-                        result += " (칭호 :\uD83E\uDD47)";
-                    } else if (player2.get(sender) < 70) {
-                        result += " (칭호 :\uD83C\uDFC5)";
-                    } else if (player2.get(sender) < 80) {
-                        result += " (칭호 :\uD83C\uDF96)";
-                    } else if (player2.get(sender) < 90) {
-                        result += " (칭호 :\uD83C\uDFC6)";
-                    } else if (player2.get(sender) < 100) {
-                        result += " (칭호 :\uD83D\uDDFD)";
-                    } else {
-                        result += " (칭호 :\uD83D\uDC79)";
-                    }
+                    result += getPointTitle(player2.get(sender));
 
                     try {
                         result += "\n\n";
@@ -349,7 +357,46 @@ public class CommandQuiz {
         return result;
     }
 
-    public String printQuizPointList(int top_num) {
+    public String printQuiz2PointList(int top_num) {
+        String result = null;
+        String result_msg = "";
+        int i = 0;
+
+        List<String> keySet = new ArrayList<>(player2.keySet());
+        keySet.sort(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return player2.get(o1).compareTo(player2.get(o2));
+            }
+        });
+        keySet.sort((o1, o2) -> player2.get(o2).compareTo(player2.get(o1)));
+
+        if (top_num == 0) {
+            for (String key : keySet) {
+                result_msg += "\n - " + key + "님의 점수: "
+                        + player2.get(key)
+                        + getPointTitle(player2.get(key));
+            }
+
+            result = "[애니 퀴즈 시즌2 랭킹]\n * 총 점수 : " + total_quiz2_point + "\n"
+                    + result_msg;
+        } else {
+            for (String key : keySet) {
+                if (i >= top_num)
+                    break;
+
+                result_msg += "\n - " + key + "님의 점수: "
+                        + player2.get(key)
+                        + getPointTitle(player2.get(key));
+                i++;
+            }
+
+            result = "[애니 퀴즈 시즌2 랭킹]\n * TOP " + top_num + result_msg;
+        }
+        return result;
+    }
+
+    public String printQuiz1PointList(int top_num) {
         String result = null;
         String result_msg = "";
         int i = 0;
@@ -366,7 +413,8 @@ public class CommandQuiz {
         if (top_num == 0) {
             for (String key : keySet) {
                 result_msg += "\n - " + key + "님의 점수: "
-                        + player1.get(key);
+                        + player1.get(key)
+                        + getPointTitle(player1.get(key));
             }
 
             result = "[애니 퀴즈 시즌1 명예의 전당]\n * 총 점수 : " + total_quiz1_point + "\n"
@@ -377,7 +425,8 @@ public class CommandQuiz {
                     break;
 
                 result_msg += "\n - " + key + "님의 점수: "
-                        + player1.get(key);
+                        + player1.get(key)
+                        + getPointTitle(player1.get(key));
                 i++;
             }
 

@@ -1,13 +1,9 @@
 package com.kakao_szbot.cmd;
 
-import android.util.Log;
-
 import com.kakao_szbot.lib.FileLibrary;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class CommandList {
     public final static String TAG = "CommandList";
@@ -269,8 +265,13 @@ public class CommandList {
     public static String[] QUIZ_CMD = {
             "퀴즈"
     };
-    public static String[] QUIZ_POINT_CMD = {
-            "퀴즈순위", "퀴즈 순위", "명예의전당", "명예의 전당"
+
+    public static String[] QUIZ1_POINT_CMD = {
+            "명예의전당", "명예의 전당"
+    };
+
+    public static String[] QUIZ2_POINT_CMD = {
+            "퀴즈순위", "퀴즈 순위"
     };
 
     public static String[] GACHA_CMD = {
