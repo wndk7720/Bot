@@ -13,8 +13,8 @@ public class CommandGacha {
             "하시비라 이노스케", "렌고쿠 쿄쥬로", "우즈이 텐겐", "코쵸우 시노부",
             "칸로지 미츠리", "이구로 오바나이", "히메지마 교메이", "토키토 무이치로",
             "토미오카 기유", "시나즈가와 사네미", "키부츠지 무잔"};
-    String[] gacha_reply_5 = {"당근 무더기", "단비", "토르"};
-    String[] gacha_reply_6 = {"바이올렛 에버가든"};
+    String[] gacha_reply_5 = {"당근 무더기", "단비", "바이올렛 에버가든", "토르", "쿄코", "를르슈"};
+    String[] gacha_reply_6 = {"스즈미야 하루히"};
     String[] gacha_reply_7 = {"엑스칼리버"};
     String[] gacha_reply_8 = {"온천 티켓"};
     String[] gacha_reply_9 = {"메이드"};
