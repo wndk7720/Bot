@@ -14,11 +14,47 @@ public class CommandSampling {
             {"ㅋ", "ㅎ", "이모티콘", "사진", CommandList.BOT_NAME};
 
 
+    public String samplingGptMessage(String msg) {
+        String result = null;
+        String data = "";
+
+        if (sampling_data.size() < 5) {
+            result = "대화기록이 부족해요!";
+            return result;
+        }
+
+        for (int i = 0; i < sampling_data.size(); i++) {
+            data += sampling_data.get(i) + "\n";
+        }
+
+        result = "최근 대화 요약이에요! " + CommandList.BOT_FAMOUS_MSG + "\n\n" +
+                new CommandGPT().gptConversationSummary(data);
+
+        return result;
+    }
+
+    public void storeSamplingAllMessage(String msg) {
+        String store_data;
+
+        for (int i = 0; i < sampling_exception.length; i++) {
+            if (msg.indexOf(sampling_exception[i]) == 0) {
+                return;
+            }
+        }
+
+        if (sampling_data.size() > SAMPLING_DATA_MAX) {
+            sampling_data.remove(0);
+        }
+
+        store_data = msg;
+        sampling_data.add(store_data);
+    }
+
     public String samplingMessage(String msg) {
         String result = null;
 
         if (sampling_data.size() < 5) {
-            result = "대화기록이 부족하다.";
+            result = "대화기록이 부족해요!";
             return result;
         }
 
@@ -26,7 +62,7 @@ public class CommandSampling {
         int rand = random.nextInt(CommandList.RAND_MAX);
         rand = rand % (sampling_data.size() - 3);
 
-        result = "최근 대화 요약이다.\n\n" +
+        result = "최근 대화 요약이에요!\n\n" +
                 sampling_data.get(rand) + "\n" +
                 sampling_data.get(rand + 1) + "\n" +
                 sampling_data.get(rand + 2);

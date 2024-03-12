@@ -1,5 +1,5 @@
-# Lelouch Bot
-### Version 24.01.06
+# Pecorine Bot
+### Version 24.02.26
 
 - 운영환경 : android
 - 언어 : java
@@ -8,7 +8,7 @@
 
 ### Command List
 
- 「"를르슈" + "명령어"」 형태로 동작합니다.
+ 「"페코린느" + "명령어"」 형태로 동작합니다.
 
    - 도움말, -h, --help
    - 환영하기

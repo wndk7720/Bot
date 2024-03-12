@@ -1,6 +1,5 @@
 package com.kakao_szbot.cmd;
 
-import android.content.Context;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
 
@@ -111,15 +110,21 @@ public class MainCommandChecker {
                 return replyMessage;
             }
             if (checkCommnadList(msg, CommandList.SAMPLING_CMD) == 0) {
-                replyMessage = new CommandSampling().samplingMessage(msg);
+                //replyMessage = new CommandSampling().samplingMessage(msg);
+                replyMessage = new CommandSampling().samplingGptMessage(msg);
                 return replyMessage;
             }
-            if (checkCommnadList(msg, CommandList.QUIZ_POINT_CMD) == 0) {
-                replyMessage = new CommandQuiz().printQuizPointList(3);
+            if (checkCommnadList(msg, CommandList.QUIZ1_POINT_CMD) == 0) {
+                replyMessage = new CommandQuiz().printQuiz1PointList(0);
+                return replyMessage;
+            }
+            if (checkCommnadList(msg, CommandList.QUIZ2_POINT_CMD) == 0) {
+                replyMessage = new CommandQuiz().printQuiz2PointList(0);
                 return replyMessage;
             }
             if (checkCommnadList(msg, CommandList.QUIZ_CMD) == 0) {
-                replyMessage = new CommandQuiz().quizMessage(msg);
+                //replyMessage = new CommandQuiz().quizMessage(msg);
+                replyMessage = new CommandQuiz().quiz2Message(msg);
                 return replyMessage;
             }
             if (checkCommnadList(msg, CommandList.GACHA_CMD) == 0) {
@@ -186,7 +191,8 @@ public class MainCommandChecker {
     private String selectNormalMessage(String msg, String sender) {
         String replyMessage = null;
 
-        new CommandSampling().storeSamplingMessage(msg);
+        //new CommandSampling().storeSamplingMessage(msg);
+        new CommandSampling().storeSamplingAllMessage(msg);
 
         replyMessage = new CommandQuiz().answerQuizMessage(msg, sender);
         if (replyMessage != null)

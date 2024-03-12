@@ -8,11 +8,14 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Random;
+
+import javax.net.ssl.HttpsURLConnection;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -40,15 +43,15 @@ public class CommandGPT {
         try {
             return generateText(requestMsg, API_KEY);
         } catch (Exception e) {
-            return "ChatGPT가 고장났다.";
+            return "ChatGPT가 고장나버렸어요☆";
         }
     }
 
-    public String gptDefaultMessage(String msg, String sender) {
+    public String gptDefaultMessage(String msg) {
         try {
             return generateText(msg, API_KEY);
         } catch (Exception e) {
-            return "ChatGPT가 고장났다.";
+            return "ChatGPT가 고장나버렸어요☆";
         }
     }
 
@@ -65,11 +68,20 @@ public class CommandGPT {
             int rand = random.nextInt(CommandList.RAND_MAX);
             if (rand < SOMETIMES_RATIO) {
                 SOMETIMES_RATIO = 0;
-                return gptDefaultMessage(msg, sender);
+                return gptDefaultMessage(msg);
             }
         }
 
         return null;
+    }
+
+    public String gptConversationSummary(String msg) {
+        String requestMsg = msg;
+
+        requestMsg += "\n\n위의 내용을 3줄 요약해줘.";
+        Log.d(TAG, "requestMsg: " + requestMsg);
+
+        return gptDefaultMessage(requestMsg);
     }
 
     public String gptBotMessage(String msg, String sender) {
@@ -83,10 +95,10 @@ public class CommandGPT {
             return null;
         }
 
-        requestMsg += "\n\nPlease write in Informal and Authoritative. Korean language. 반말로 해줘.";
+        requestMsg += "\n\nPlease write in Friendly and Optimistic. Korean language. Please answer as if your name is 페코린느. Please answer within 5 sentences.";
         Log.d(TAG, "requestMsg: " + requestMsg);
 
-        return gptDefaultMessage(requestMsg, sender);
+        return gptDefaultMessage(requestMsg);
     }
 
     private String generateText(String input, String apiKey) throws JSONException, IOException {
@@ -104,10 +116,10 @@ public class CommandGPT {
         //payload.put("model", "gpt-3.5-turbo"); // model is important
         payload.put("model", "gpt-4"); // model is important
         payload.put("messages", messageList);
-        payload.put("temperature", 0.7);
+        //payload.put("temperature", 0.7);
 
         URL url = new URL("https://api.openai.com/v1/chat/completions");
-        HttpURLConnection con = (HttpURLConnection)url.openConnection();
+        HttpsURLConnection con = (HttpsURLConnection)url.openConnection();
         con.setRequestMethod("POST");
         con.setRequestProperty("Authorization", "Bearer " + apiKey);
         con.setRequestProperty("Content-Type", "application/json; utf-8");
@@ -121,7 +133,7 @@ public class CommandGPT {
             os.write(inputByte, 0, inputByte.length);
         }
 
-        try(BufferedReader br = new BufferedReader(
+        try (BufferedReader br = new BufferedReader(
                 new InputStreamReader(con.getInputStream(), "utf-8"))) {
             StringBuilder response = new StringBuilder();
             String responseLine = null;
@@ -129,7 +141,11 @@ public class CommandGPT {
                 response.append(responseLine.trim());
             }
             result = response.toString();
+        } catch (Exception e){
+            Log.d(TAG, "exception code: " + con.getResponseCode() + ", message: " + con.getResponseMessage());
+            e.printStackTrace();
         }
+        con.disconnect();
 
         JSONObject jsonResult = new JSONObject(result);
         JSONArray jsonChoices = jsonResult.getJSONArray("choices");
@@ -137,6 +153,7 @@ public class CommandGPT {
         result = jsonMessage.getString("content");
         result = makePrettyText(result);
         Log.d(TAG, "responseStr: " + result);
+        con.disconnect();
 
         return result;
     }
