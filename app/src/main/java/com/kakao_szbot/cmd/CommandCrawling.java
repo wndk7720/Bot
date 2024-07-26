@@ -22,6 +22,7 @@ import org.jsoup.select.Elements;
 
 public class CommandCrawling {
     public final static String TAG = "CommandCrawling";
+    private static final String API_KEY = "";
 
     private String getContentURL(String address) throws Exception {
         // Specify the URL for retrieving XRP price from Upbit
@@ -44,12 +45,11 @@ public class CommandCrawling {
     }
 
     public String exchangeRateMessage(String msg, String sender) throws Exception {
-        String url = "https://quotation-api-cdn.dunamu.com/v1/forex/recent?codes=FRX.";
-        String exchange_name = null, exchange_symbol = null, result = null;
+        String url = "https://ecos.bok.or.kr/api/KeyStatisticList/" + API_KEY + "/json/kr/";
+        String exchange_symbol = null, result = null;
 
         for (int i = 0; i < CommandList.EXCHANGE_RATE_CMD.length; i++) {
             if (msg.contains(CommandList.EXCHANGE_RATE_CMD[i])) {
-                exchange_name = CommandList.EXCHANGE_RATE_CMD[i];
                 exchange_symbol = CommandList.EXCHANGE_RATE_SYMBOL[i];
                 break;
             }
@@ -61,11 +61,21 @@ public class CommandCrawling {
 
         result = getContentURL(url + exchange_symbol);
 
-        JSONArray jsonArray = new JSONArray(result);
-        JSONObject response = jsonArray.getJSONObject(0);
-        double price = response.getDouble("basePrice");
+        JSONObject jsonObject = new JSONObject(result);
+        JSONObject KeyStatisticList = jsonObject.getJSONObject("KeyStatisticList");
+        JSONArray row = KeyStatisticList.getJSONArray("row");
+        JSONObject response = row.getJSONObject(0);
 
-        result = "현.재 " + exchange_name + " 환율은 " + (int)price + "원이에요! " + CommandList.BOT_FAMOUS_MSG;
+        String unit = response.getString("UNIT_NAME");
+        String keystat  = response.getString("KEYSTAT_NAME");
+        if (unit == "%") {
+            double data = response.getDouble("DATA_VALUE");
+            result = "현.재 " + keystat + " " + data + unit + "이에요! " + CommandList.BOT_FAMOUS_MSG;
+        } else {
+            long data = response.getLong("DATA_VALUE");
+            result = "현.재 " + keystat + " " + data + unit + "이에요! " + CommandList.BOT_FAMOUS_MSG;
+        }
+
         return result;
     }
 
