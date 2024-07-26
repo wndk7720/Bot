@@ -1,8 +1,9 @@
-# Pecorine Bot
-### Version 24.02.26
+![](https://capsule-render.vercel.app/api?type=waving&height=300&color=gradient&text=Pecorine%20Bot&fontColor=ffffff&fontAlign=50&animation=fadeIn&textBg=false)
+# Pecorine Bot ![](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white) ![](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white) ![](https://img.shields.io/badge/Android_Studio-3DDC84?style=for-the-badge&logo=android-studio&logoColor=white)
+### Version 24.07.27
 
 - 운영환경 : android
-- 언어 : java
+- 언어 : java 
 
 ---
 
