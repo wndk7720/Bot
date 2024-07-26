@@ -10,7 +10,7 @@ public class CommandList {
 
     public final static String BOT_NAME = "페코린느";
     public final static String BOT_FAMOUS_MSG = "장난 아니네요☆";
-    public final static String BOT_VERSION = "24.02.26";
+    public final static String BOT_VERSION = "24.07.27";
 
     public final static int RAND_MAX = 10000;
     public final static int RAND_ANI_MAX = 2500;
