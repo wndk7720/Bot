@@ -21,7 +21,7 @@ import java.io.IOException;
 
 public class CommandCrawling {
     public final static String TAG = "CommandCrawling";
-    public final static String BOT_END_OF_MSG = "보고는 이상입니다! 에헴!"
+    public final static String BOT_END_OF_MSG = "보고는 이상입니다! 에헴!";
     private static final String API_KEY = "";
 
     private String getContentURL(String address) throws Exception {

@@ -50,7 +50,7 @@ public class CommandList {
     public static String[][] BOT_BASIC_DEFAULT_MSG = {
             /* help msg */
             {
-                "/*\n * Pecorine Bot\n * Version " + BOT_VERSION + "\n */" +
+                "/*\n * Sakura Bakushin O Bot\n * Version " + BOT_VERSION + "\n */" +
                 "\n\n 「" + BOT_NAME + " + 명령어」 형태로 동작합니다.\n\n" +
                 "명령어 목록은 아래와 같습니다.\n" +
                 "   - 도움말, -h, --help\n" +
@@ -63,7 +63,7 @@ public class CommandList {
             },
             /* welcome msg */
             {
-                "안녕하세요~ 저는 다덕임의 먹보 담당 페코린느라고 합니다☆\n\n" +
+                "안녕하세요~ 저는 다덕임의 반장 사쿠라 바쿠신 오입니다!\n\n" +
                 "닉네임은 이름/출생연도/최애캐로 설정해주시고, 간단한 자기소개 부탁드립니다!\n" +
                 "(입문작/최애작/최애캐/가장 최근에 본 애니)"
             },
@@ -122,7 +122,7 @@ public class CommandList {
                 "어떤 세계의 반장에게도 지지않을 힘을…!!",
                 "쵸와아앗∼∼∼ 등장입니다! 홋!！ 바쿠신! 돌진! 돌진~진! ...하하!",
                 "바쿠신, 돌지이이이이이이이이이이이이이이인!!!!!!!",
-                "전교생의 모범으로서!"
+                "전교생의 모범으로서!",
                 "이 사쿠라 바쿠신 오! 1200mX3의 장거리를 몇 번이나 제패한 우마무스메라고요?"
             },
     };
