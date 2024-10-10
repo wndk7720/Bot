@@ -8,9 +8,9 @@ import java.util.List;
 public class CommandList {
     public final static String TAG = "CommandList";
 
-    public final static String BOT_NAME = "페코린느";
-    public final static String BOT_FAMOUS_MSG = "장난 아니네요☆";
-    public final static String BOT_VERSION = "24.07.27";
+    public final static String BOT_NAME = "바쿠신";
+    public final static String BOT_FAMOUS_MSG = "돌진, 돌진∼∼∼∼∼∼!!";
+    public final static String BOT_VERSION = "24.10.10";
 
     public final static int RAND_MAX = 10000;
     public final static int RAND_ANI_MAX = 2500;
@@ -37,14 +37,11 @@ public class CommandList {
             },
             /* special cmd */
             {
-                "캬루"
-            },
-            {
-                "콧코로"
+                "미호노 부르봉", "키타산 블랙"
             },
             /* default cmd */
             {
-                    BOT_NAME
+                BOT_NAME
             },
     };
     public static String[][] BOT_BASIC_DEFAULT_MSG = {
@@ -97,37 +94,27 @@ public class CommandList {
             },
             /* introduce msg */
             {
-                "페코린느? 그건 저를 말씀하시는 건가요? 정말 귀여운 별명이 붙어버렸네요~ " + BOT_FAMOUS_MSG,
-                "안뇽~☆ 제 이름은...... 배가 꼬륵꼬륵 페코린느입니다!",
-
+                "안녕하십니까! 사쿠라 바쿠신 오입니다! 보시는 바와 같이, 우수한 반장이기도 합니다! 모두의 모범이 되기 위해 지금 당장! 돌진~!"
             },
             /* special msg */
             {
-                "저는 캬루의 말대로 응석받이에 떼쟁이에요.",
-                "캬루 쨩하고 함께☆",
-                "캬루쨩... 저 좀 위로해주세요....",
-                "에헤헤 저는 캬루와 함께라면 어디까지라도 달려갈 수 있을것 같아요"
-            },
-            {
-                "콧코로쨩... 저 밥 좀...",
-                "GO! GO! 콧코로쨩~",
-                "쁘띠코를 먹어버려서 미안해요..."
+                "당신도 우등생!",
+                "함께 돌진! 합시다!",
+                "이 세상을 돌진으로 퍼뜨립시다!"
             },
             /* default msg */
             {
-                "맛있~어! 밥은 삶의 에너지-☆",
-                "꼬르르륵~ 배에서 소리가 나버렸어요. 우, 웃으면 안 돼요!",
-                "먹을 걸 주신다고요? 와아, 반해버려도 될까요?",
-                "먹을 것을 함부로하는 나쁜 아이에는....벌을 줍니다!",
-                "저, 역시 배가 꼬륵꼬륵 소리가 나요......",
-                "이 다덕임은....제가 지킵니다!!",
-                "뗵!",
-                "밥~! 밥~",
-                "그 누구라도 평등하게 맛있는 밥을 먹을 수 있는곳.. 그곳이 다덕임 이니까요..",
-                "우리들의 목적은 이 세계의 온갖 만화나 애니를 추구, 탐구하면서 모두 함께 즐겁게 식사하는 길드!",
-                "배 안 고프세요? 괜찮다면 저랑 같이 밥 먹으러 가실래요?",
-                "안뇽~☆ 밥의 힘으로 용기가 100배 솟아났어요!",
-                "음식을 소중히 합시다! 뭐, 제가 있으면 음식 남기는 일은 없겠지만요...."
+                "안녕하십니까! 사쿠라 바쿠신 오입니다! 보시는 바와 같이, 우수한 반장이기도 합니다! 모두의 모범이 되기 위해 지금 당장! 돌진~!",
+                "넵! 사쿠라 바쿠신 오 입니다!",
+                "트레이너 선생님의 지도는 틀림 없고 말고요",
+                "거짓말쟁이",
+                "반장을 따라라!!",
+                "몸이 뜨겁게 달아오르네요!",
+                "승리를! 향해서! 도올~지이이~~인!",
+                "제가 승리로 이끌겠습니다! 왜냐하면, 반장이니까요!",
+                "어떤 세계의 반장에게도 지지않을 힘을…!!",
+                "쵸와아앗∼∼∼ 등장입니다! 홋!！ 바쿠신! 돌진! 돌진~진! ...하하!",
+                "바쿠신, 돌지이이이이이이이이이이이이이이인!!!!!!!"
             },
     };
 
@@ -162,8 +149,8 @@ public class CommandList {
             },
             /* go to work msg */
             {
-                    "밥을 먹기 위해 일해야죠!",
-                    "힘내세요!",
+                    "오늘도 힘차게 돌진~~ 해봅시다!",
+                    "돌진! 돌진! 돌진! 돌진! 돌진! 돌진!",
                     BOT_FAMOUS_MSG
             },
             /* leave work msg */
