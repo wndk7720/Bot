@@ -37,7 +37,7 @@ public class CommandList {
             },
             /* special cmd */
             {
-                "키타산산"
+                "키타산"
             },
             {
                 "부르봉", "라이스"
