@@ -84,7 +84,7 @@ public class CommandBasic {
 
         Arrays.sort(num);
 
-        String responseMessage = "이 번호로로 " + CommandList.BOT_FAMOUS_MSG + "\n[ ";
+        String responseMessage = "이 번호로 " + CommandList.BOT_FAMOUS_MSG + "\n[ ";
         for (int i = 0; i < LOTTO_NUM_MAX; i++) {
             responseMessage += num[i] + " ";
         }
