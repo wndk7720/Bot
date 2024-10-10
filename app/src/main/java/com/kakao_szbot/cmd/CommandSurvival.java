@@ -77,10 +77,11 @@ public class CommandSurvival {
     private static int SURVIVAL_BETTING_FRONT = 1;
     private static int SURVIVAL_BETTING_BACK = 2;
 
-    private static int SURVIVAL_CYCLE_TIME = 1800 * 1000; // 1800 * 1000;
-    private static int SURVIVAL_BATTING_TIME = 600 * 1000; // 600 * 1000;
-    private static int SURVIVAL_BATTING_AFTER_TIME = 1200 * 1000; // 1200 * 1000;
-    private static int SURVIVAL_RESULT_TIME = 180 * 1000; // 180 * 1000;
+    private static int SURVIVAL_SEC = 1000; // 1 sec;
+    private static int SURVIVAL_CYCLE_TIME = 1800 * SURVIVAL_SEC; // 1800 * 1000;
+    private static int SURVIVAL_BATTING_TIME = 600 * SURVIVAL_SEC; // 600 * 1000;
+    private static int SURVIVAL_BATTING_AFTER_TIME = 1200 * SURVIVAL_SEC; // 1200 * 1000;
+    private static int SURVIVAL_RESULT_TIME = 180 * SURVIVAL_SEC; // 180 * 1000;
     private static int SURVIVAL_MSG_MAX = 99999;
 
     public static int survival_start = 0;
@@ -121,7 +122,7 @@ public class CommandSurvival {
     }
 
     public String defaultMessage() {
-        String replyMessage = "[2023 추석 이벤트 - 최애의 전쟁]\n" +
+        String replyMessage = "[2024 추석 이벤트 - 최애의 전쟁]\n" +
                 " - 본 이벤트는 서바이벌 컨셉으로 기획되었습니다.\n" +
                 " - 참가 신청은 이 곳에 '소환' 이라고만 입력해 주시면 됩니다.\n" +
                 " - 꼭 다덕임 오픈채팅방에서 사용중인 프로필로 설정 후에 소환 부탁드립니다.\n\n" +
@@ -615,9 +616,11 @@ public class CommandSurvival {
 
             i++;
             battle_info += "\n" + i + ". ";
-            battle_info += SURVIVAL_ATTACK_EMOJI[rand_front] + "(" +
+            battle_info += SURVIVAL_ATTACK_EMOJI[rand_front] + " " +
+                    player_front.attack_name[rand_front] + "(" +
                     player_front.attack_damage[rand_front] + ") VS " +
-                    SURVIVAL_ATTACK_EMOJI[rand_back] + "(" +
+                    SURVIVAL_ATTACK_EMOJI[rand_back] + " " +
+                    player_back.attack_name[rand_back] + "(" +
                     player_back.attack_damage[rand_back] + ") : ";
 
             int result = SURVIVAL_BATTLE_RESULT_ARRAY[rand_front][rand_back];
