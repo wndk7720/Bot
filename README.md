@@ -1,5 +1,5 @@
-![](https://capsule-render.vercel.app/api?type=waving&height=300&color=gradient&text=Pecorine%20Bot&fontColor=ffffff&fontAlign=50&animation=fadeIn&textBg=false)
-# Pecorine Bot ![](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white) ![](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white) ![](https://img.shields.io/badge/Android_Studio-3DDC84?style=for-the-badge&logo=android-studio&logoColor=white)
+![]([https://capsule-render.vercel.app/api?type=waving&height=300&color=gradient&text=Pecorine%20Bot&fontColor=ffffff&fontAlign=50&animation=fadeIn&textBg=false](https://capsule-render.vercel.app/api?type=waving&height=300&color=gradient&text=Sakura%20Bakushin%20O%20Bot&animation=blink&section=header&reversal=false&textBg=false)
+# Sakura Bakushin O Bot ![](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white) ![](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white) ![](https://img.shields.io/badge/Android_Studio-3DDC84?style=for-the-badge&logo=android-studio&logoColor=white)
 ### Version 24.07.27
 
 - 운영환경 : android
@@ -9,7 +9,7 @@
 
 ### Command List
 
- 「"페코린느" + "명령어"」 형태로 동작합니다.
+ 「"바쿠신" or "박신" + "명령어"」 형태로 동작합니다.
 
    - 도움말, -h, --help
    - 환영하기
