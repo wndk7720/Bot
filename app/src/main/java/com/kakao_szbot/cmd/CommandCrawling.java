@@ -1,12 +1,9 @@
 package com.kakao_szbot.cmd;
 
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -18,6 +15,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import java.io.IOException;
 
 
 public class CommandCrawling {
@@ -45,12 +44,66 @@ public class CommandCrawling {
     }
 
     public String exchangeRateMessage(String msg, String sender) throws Exception {
+        String url = "https://finance.naver.com/marketindex/exchangeList.naver";
+        String result = null, exchangeName = null;
+        int startIndex = 0, endIndex;
+        int i;
+
+        for (i = 0; i < CommandList.EXCHANGE_RATE_CMD.length; i++) {
+            if (msg.indexOf("환율") == -1) {
+                continue;
+            }
+
+            startIndex = msg.indexOf(CommandList.EXCHANGE_RATE_CMD[i]);
+            if (startIndex != -1) {
+                endIndex = startIndex + CommandList.EXCHANGE_RATE_CMD[i].length();
+                exchangeName = msg.substring(startIndex, endIndex);
+                break;
+            }
+        }
+
+        for (i = 0; i < CommandList.EXCHANGE_RATE_SPECIFIC_CMD.length; i++) {
+            if (msg.contains(CommandList.EXCHANGE_RATE_SPECIFIC_CMD[i])) {
+                exchangeName = CommandList.EXCHANGE_RATE_SYMBOL[i];
+                break;
+            }
+        }
+
+        if (exchangeName == null) {
+            return result;
+        }
+
+        try {
+            // URL로부터 HTML 문서를 가져옵니다.
+            Document doc = Jsoup.connect(url).get();
+
+            // 매매기준율을 포함한 테이블을 선택합니다.
+            Elements rows = doc.select(".tbl_exchange tbody tr");
+
+            for (Element row : rows) {
+                // 통화명
+                String currencyName = row.select("td.tit").text();
+                // 매매기준율
+                String exchangeRate = row.select("td.sale").text();
+
+                if (currencyName.contains(exchangeName)) {
+                    result = "현.재 " + currencyName + " " + exchangeRate + "원 이에요! " + CommandList.BOT_FAMOUS_MSG;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public String economicMessage(String msg, String sender) throws Exception {
         String url = "https://ecos.bok.or.kr/api/KeyStatisticList/" + API_KEY + "/json/kr/";
         String exchange_symbol = null, result = null;
 
-        for (int i = 0; i < CommandList.EXCHANGE_RATE_CMD.length; i++) {
-            if (msg.contains(CommandList.EXCHANGE_RATE_CMD[i])) {
-                exchange_symbol = CommandList.EXCHANGE_RATE_SYMBOL[i];
+        for (int i = 0; i < CommandList.ECONOMIC_CMD.length; i++) {
+            if (msg.contains(CommandList.ECONOMIC_CMD[i])) {
+                exchange_symbol = CommandList.ECONOMIC_SYMBOL[i];
                 break;
             }
         }

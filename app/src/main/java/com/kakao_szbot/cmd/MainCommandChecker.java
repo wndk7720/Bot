@@ -40,8 +40,8 @@ public class MainCommandChecker {
         Log.d(TAG, "checkPersonalKakaoMessage ~ " + sender + ": " + msg);
         String replyMessage = null;
 
-        //replyMessage = new CommandSurvival().mainSurvivalCommand(msg, sender, sbn);
-        replyMessage = new CommandTower().mainTowerCommand(msg, sender, sbn);
+        replyMessage = new CommandSurvival().mainSurvivalCommand(msg, sender, sbn);
+        //replyMessage = new CommandTower().mainTowerCommand(msg, sender, sbn);
         return replyMessage;
     }
 
@@ -79,6 +79,10 @@ public class MainCommandChecker {
             }
             if (checkCommnadList(msg, CommandList.EXCHANGE_RATE_CMD) == 0) {
                 replyMessage = new CommandCrawling().exchangeRateMessage(msg, sender);
+                return replyMessage;
+            }
+            if (checkCommnadList(msg, CommandList.ECONOMIC_CMD) == 0) {
+                replyMessage = new CommandCrawling().economicMessage(msg, sender);
                 return replyMessage;
             }
             if (checkCommnadList(msg, CommandList.COIN_CMD) == 0) {

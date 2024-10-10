@@ -114,7 +114,7 @@ public class CommandGPT {
         messageList.put(message);
 
         //payload.put("model", "gpt-3.5-turbo"); // model is important
-        payload.put("model", "gpt-4"); // model is important
+        payload.put("model", "gpt-4o"); // model is important
         payload.put("messages", messageList);
         //payload.put("temperature", 0.7);
 
