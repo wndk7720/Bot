@@ -166,7 +166,7 @@ public class CommandList {
             },
             /* .... msg */
             {
-                    "장난 아니네요....☆"
+                    "돌진...!"
             },
     };
 
