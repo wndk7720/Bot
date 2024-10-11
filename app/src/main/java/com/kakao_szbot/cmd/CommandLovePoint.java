@@ -130,7 +130,7 @@ public class CommandLovePoint {
                     + map.get(key);
         }
 
-        result = "[" + CommandList.BOT_NAME + "의 호감도 현황]" + result_msg;
+        result = "[" + CommandList.BOT_NAME[0] + "의 호감도 현황]" + result_msg;
         return result;
     }
 

@@ -12,7 +12,8 @@ public class CommandSampling {
     public static int sampling_index = 0;
     public static List<String> sampling_data = new ArrayList<String>();
     public static String[] sampling_exception =
-            {"ㅋ", "ㅎ", "이모티콘", "사진", CommandList.BOT_NAME};
+            {"ㅋ", "ㅎ", "이모티콘", "사진",
+            CommandList.BOT_NAME[0], CommandList.BOT_NAME[1]};
 
 
     public String getRecentMessage() {

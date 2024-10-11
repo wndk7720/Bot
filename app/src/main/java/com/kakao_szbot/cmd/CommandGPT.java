@@ -30,7 +30,8 @@ public class CommandGPT {
     private static int SOMETIMES_RATIO = 0;
     private static final int SOMETIMES_THRESHOLD = 1000;
     public static String[] sometimes_exception =
-            {"ㅋ", "ㅎ", "이모티콘", "사진", CommandList.BOT_NAME};
+            {"ㅋ", "ㅎ", "이모티콘", "사진",
+            CommandList.BOT_NAME[0], CommandList.BOT_NAME[1]};
 
 
     public String gptMessage(String msg, String sender) {
@@ -89,7 +90,11 @@ public class CommandGPT {
             return null;
         }
 
-        String requestMsg = msg.replace(CommandList.BOT_NAME, "");
+        String requestMsg = msg;
+        for (int i = 0; i < CommandList.BOT_NAME.length; i++) {
+            requestMsg = requestMsg.replace(CommandList.BOT_NAME[i], "");
+        }
+
         String emptyCheckMsg = requestMsg.replaceAll("[^ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9]", "");
         if (emptyCheckMsg.length() == 0) {
             return null;
@@ -119,7 +124,7 @@ public class CommandGPT {
         message.put("role", "system");
         message.put("content",
                 //"Please write in Friendly and Optimistic. Korean language. Please answer as if your name is 바쿠신. Please answer within 5 sentences.");
-                "넌 우마무스메라는 애니의 사쿠라 바쿠신 오라는 캐릭터라는 설정이야. 매우 밝고 긍정적인 모범생에 반장역할이고 돌진! 이라는 표현을 습관적으로 쓰는 컨셉이야. 5문장 이내로 답장해줘.");
+                "넌 우마무스메라는 애니의 사쿠라 바쿠신 오라는 캐릭터라는 설정이야. 매우 밝고 긍정적인 모범생에 반장역할이고 돌진! 이라는 표현을 습관적으로 쓰는 컨셉이야. 존댓말로만 5문장 이내로 답장해줘.");
         messageList.put(message);
 
         data = new CommandSampling().getRecentMessage();

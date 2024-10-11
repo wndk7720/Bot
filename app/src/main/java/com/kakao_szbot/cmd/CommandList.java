@@ -8,7 +8,9 @@ import java.util.List;
 public class CommandList {
     public final static String TAG = "CommandList";
 
-    public final static String BOT_NAME = "바쿠신";
+    public final static String[] BOT_NAME = {
+            "바쿠신", "박신"
+    };
     public final static String BOT_FAMOUS_MSG = "돌진, 돌진∼∼∼∼∼∼!!";
     public final static String BOT_VERSION = "24.10.10";
 
@@ -43,15 +45,13 @@ public class CommandList {
                 "부르봉", "라이스"
             },
             /* default cmd */
-            {
-                BOT_NAME
-            },
+            BOT_NAME
     };
     public static String[][] BOT_BASIC_DEFAULT_MSG = {
             /* help msg */
             {
                 "/*\n * Sakura Bakushin O Bot\n * Version " + BOT_VERSION + "\n */" +
-                "\n\n 「" + BOT_NAME + " + 명령어」 형태로 동작합니다.\n\n" +
+                "\n\n 「" + BOT_NAME[0] + " + 명령어」 형태로 동작합니다.\n\n" +
                 "명령어 목록은 아래와 같습니다.\n" +
                 "   - 도움말, -h, --help\n" +
                 "   - 환영하기\n   - 날씨\n   - 라면추천\n" +
