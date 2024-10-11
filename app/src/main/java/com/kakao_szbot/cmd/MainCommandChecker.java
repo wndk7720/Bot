@@ -25,7 +25,7 @@ public class MainCommandChecker {
             return replyMessage;
         }
 
-        if (msg.contains(CommandList.BOT_NAME)) {
+        if (checkCommnadList(msg, CommandList.BOT_NAME) == 0) {
             replyMessage = selectBotMessage(msg, sender, sbn);
         } else {
             if (room.indexOf("다덕임") != -1) {

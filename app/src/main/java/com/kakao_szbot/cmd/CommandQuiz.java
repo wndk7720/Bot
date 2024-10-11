@@ -115,7 +115,7 @@ public class CommandQuiz {
             select_quiz_name = select_quiz.getString("subject");
             select_quiz_name = select_quiz_name.replaceAll("[^ ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9]", "");
             if (select_quiz_name.length() == 0) {
-                return "퀴즈 출제 실패☆";
+                return "퀴즈, 인가요~?\n아무리 저라도 휴식은 필요해요~...";
             }
 
             Random random = new Random();
@@ -176,7 +176,7 @@ public class CommandQuiz {
                         ani_quiz_answer_flag = 1;
                         ani_quiz_start = 0;
 
-                        result = "정답은 바로바로 다음과 같습니다!\n\n";
+                        result = "정답은 바로바로 다음과 같습니다!\n여러분께는 아직 어려울지도 모르겠네요!\n\n";
                         try {
                             result += printQuizResult();
                         } catch (Exception e) {
@@ -190,7 +190,7 @@ public class CommandQuiz {
 
             return result;
         } else {
-            result = "이미 퀴즈 진행중이에요!";
+            result = "이미 퀴즈 진행중이에요!!";
         }
 
         return result;

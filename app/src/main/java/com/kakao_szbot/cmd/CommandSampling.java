@@ -7,12 +7,30 @@ import java.util.Random;
 public class CommandSampling {
     public final static String TAG = "CommandSampling";
     private static int SAMPLING_THRESHOLD = 5;
+    private static int SAMPLING_RECENT_THRESHOLD = 10;
     private static int SAMPLING_DATA_MAX = 100;
     public static int sampling_index = 0;
     public static List<String> sampling_data = new ArrayList<String>();
     public static String[] sampling_exception =
-            {"ㅋ", "ㅎ", "이모티콘", "사진", CommandList.BOT_NAME};
+            {"ㅋ", "ㅎ", "이모티콘", "사진",
+            CommandList.BOT_NAME[0], CommandList.BOT_NAME[1]};
 
+
+    public String getRecentMessage() {
+        String data = "";
+
+        if (sampling_data.size() < SAMPLING_RECENT_THRESHOLD) {
+            return data;
+        }
+
+        for (int i = sampling_data.size() - SAMPLING_RECENT_THRESHOLD;
+                 i < sampling_data.size();
+                 i++) {
+            data += sampling_data.get(i) + "\n";
+        }
+
+        return data;
+    }
 
     public String samplingGptMessage(String msg) {
         String result = null;

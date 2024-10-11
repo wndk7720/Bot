@@ -600,7 +600,7 @@ public class CommandSurvival {
                 "\n\n잠시 후.. 10분 뒤 전투가 시작됩니다." +
                 "\n승리할 것 같은 서번트에게 투표해주세요." +
                 "\n\n※ 승리, 적중 : ⭐(+" + current_hoshi_num + "), 미적중 : ⭐(-" + current_hoshi_num + ")" +
-                "\n - " + CommandList.BOT_NAME + " 최애 1번 or " + CommandList.BOT_NAME + " 최애 2번";
+                "\n - " + CommandList.BOT_NAME[0] + " 최애 1번 or " + CommandList.BOT_NAME[0] + " 최애 2번";
         KakaoSendReply(battle_info, sbn);
         setBettingNum(1);
 

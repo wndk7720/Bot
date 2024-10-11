@@ -52,15 +52,15 @@ public class CommandLovePoint {
         }
 
         if (randPoint > RAND_POINT_MAX * 0.95 || lovePoint > LOVE_POINT_THRESHOLD) {
-            result = "♡♡♡♡♡♡ (Unbelievable!!! +" + randPoint + ")\n - " + resultSender + "님의 호감도 : " + lovePoint;
+            result = "우등생이니까요! (Unbelievable!!! +" + randPoint + ")\n - " + resultSender + "님의 호감도 : " + lovePoint;
         } else if (randPoint > RAND_POINT_MAX * 0.75) {
             result = "너무너무 멋져요!! (Excellent!! +" + randPoint + ")\n - " + resultSender + "님의 호감도 : " + lovePoint;
         } else if (randPoint > RAND_POINT_MAX * 0.5) {
-            result = "최고에요! (Very Good! +" + randPoint + ")\n - " + resultSender + "님의 호감도 : " + lovePoint;
+            result = "표창감이네요!? (Very Good! +" + randPoint + ")\n - " + resultSender + "님의 호감도 : " + lovePoint;
         } else if (randPoint > RAND_POINT_MAX * 0.25) {
-            result = "고맙습니다ㅎㅎ (Good +" + randPoint + ")\n - " + resultSender + "님의 호감도 : " + lovePoint;
+            result = "좋네요! (Good +" + randPoint + ")\n - " + resultSender + "님의 호감도 : " + lovePoint;
         } else {
-            result = "고마워요~ (Normal +" + randPoint + ")\n - " + resultSender + "님의 호감도 : " + lovePoint;
+            result = "와아...! (Normal +" + randPoint + ")\n - " + resultSender + "님의 호감도 : " + lovePoint;
         }
 
         FileLibrary csv = new FileLibrary();
@@ -90,7 +90,7 @@ public class CommandLovePoint {
         }
 
         if (randPoint > RAND_POINT_MAX * 0.95 || lovePoint < -LOVE_POINT_THRESHOLD) {
-            result = "구축해주겠어 이 세상에서.. (Unbelievable!!! -" + randPoint + ")\n - " + resultSender + "님의 호감도 : " + lovePoint;
+            result = "훌쩍... (Unbelievable!!! -" + randPoint + ")\n - " + resultSender + "님의 호감도 : " + lovePoint;
         } else if (randPoint > RAND_POINT_MAX * 0.75) {
             result = "다신 저 볼 생각하지 마세요 (Excellent!! -" + randPoint + ")\n - " + resultSender + "님의 호감도 : " + lovePoint;
         } else if (randPoint > RAND_POINT_MAX * 0.5) {
@@ -130,7 +130,7 @@ public class CommandLovePoint {
                     + map.get(key);
         }
 
-        result = "[" + CommandList.BOT_NAME + "의 호감도 현황]" + result_msg;
+        result = "[" + CommandList.BOT_NAME[0] + "의 호감도 현황]" + result_msg;
         return result;
     }
 
