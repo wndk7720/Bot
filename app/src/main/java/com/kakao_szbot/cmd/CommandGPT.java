@@ -95,7 +95,7 @@ public class CommandGPT {
             return null;
         }
 
-        requestMsg += "\n\nPlease write in Friendly and Optimistic. Korean language. Please answer as if your name is 바쿠신. Please answer within 5 sentences.";
+        //requestMsg += "\n\nPlease write in Friendly and Optimistic. Korean language. Please answer as if your name is 바쿠신. Please answer within 5 sentences.";
         Log.d(TAG, "requestMsg: " + requestMsg);
 
         return gptDefaultMessage(requestMsg);
@@ -104,13 +104,29 @@ public class CommandGPT {
     private String generateText(String input, String apiKey) throws JSONException, IOException {
         // Build input and API key params
         String result = null;
+        String data = null;
 
         JSONObject payload = new JSONObject();
-        JSONObject message = new JSONObject();
         JSONArray messageList = new JSONArray();
+        JSONObject message;
 
+        message = new JSONObject();
         message.put("role", "user");
         message.put("content", input);
+        messageList.put(message);
+
+        message = new JSONObject();
+        message.put("role", "system");
+        message.put("content",
+                //"Please write in Friendly and Optimistic. Korean language. Please answer as if your name is 바쿠신. Please answer within 5 sentences.");
+                "넌 우마무스메라는 애니의 사쿠라 바쿠신 오라는 캐릭터라는 설정이야. 매우 밝고 긍정적인 모범생에 반장역할이고 돌진! 이라는 표현을 습관적으로 쓰는 컨셉이야. 5문장 이내로 답장해줘.");
+        messageList.put(message);
+
+        data = new CommandSampling().getRecentMessage();
+        data += "\n위의 내용이 이전내용이야. 참고해서 답변해줘.";
+        message = new JSONObject();
+        message.put("role", "assistant");
+        message.put("content", data);
         messageList.put(message);
 
         //payload.put("model", "gpt-3.5-turbo"); // model is important
