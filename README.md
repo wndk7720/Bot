@@ -1,4 +1,3 @@
-![](https://capsule-render.vercel.app/api?type=waving&height=300&color=gradient&text=Sakura%20Bakushin%20O%20Bot&animation=blink&section=header&reversal=false&textBg=false)
 # Sakuma Rei Bot ![](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white) ![](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white) ![](https://img.shields.io/badge/Android_Studio-3DDC84?style=for-the-badge&logo=android-studio&logoColor=white)
 ### Version 25.02.09
 

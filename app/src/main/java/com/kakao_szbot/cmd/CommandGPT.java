@@ -33,7 +33,7 @@ public class CommandGPT {
 
     private static final String API_KEY = "";
     private static final String ASSISTANT_ID = "";
-    private static String threadId = "";  // Thread ID 저장 (같은 대화 유지)
+    private static String threadId = "";
 
     private static final String BASE_URL = "https://api.openai.com/v1/";
     private static final Gson gson = new Gson();
@@ -177,6 +177,7 @@ public class CommandGPT {
         }
         Log.d(TAG, "thread 선택 완료 (threadId: " + threadId + ")");
 
+        userInput = userInput.replaceAll("\"", "");
         addHistoricalMessages(userInput);
         Log.d(TAG, "OpenAI 요청 완료");
     }
@@ -187,6 +188,7 @@ public class CommandGPT {
         }
         Log.d(TAG, "thread 선택 완료 (threadId: " + threadId + ")");
 
+        userInput = userInput.replaceAll("\"", "");
         addUserMessageToThread(userInput);
         Log.d(TAG, "OpenAI 요청 완료");
 
@@ -235,8 +237,8 @@ public class CommandGPT {
 
     public String gptQuizHintMessage(String answer) {
         try {
-            String msg =  answer + "에 대한 힌트를 \"" + answer +
-                    "\" 라는 단어를 포함하지 말고 2줄로 표현해줘.";
+            String msg = answer + "에 대한 힌트를 \'" + answer +
+                    "\'' 라는 단어를 포함하지 말고 2줄로 표현해줘.";
             return replaceTQText(generateDefaultText(msg), answer, answer);
         } catch (Exception e) {
             return "미안하지만, 이번에는 힌트가 없다네. 그만큼 자네의 능력을 믿고 있으니, 힘껏 도전해 보시게나.";

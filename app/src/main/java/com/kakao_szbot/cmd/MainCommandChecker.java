@@ -238,7 +238,7 @@ public class MainCommandChecker {
     }
 
     private String highPriorityMessage(String msg, String sender) {
-        String replyMessage = new CommandBasic().slangMessage(msg, CommandList.SLANG_CMD);
+        String replyMessage = new CommandBasic().slangMessage(msg, sender, CommandList.SLANG_CMD);
         return replyMessage;
     }
 
