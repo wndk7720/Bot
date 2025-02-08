@@ -40,8 +40,9 @@ public class MainCommandChecker {
         Log.d(TAG, "checkPersonalKakaoMessage ~ " + sender + ": " + msg);
         String replyMessage = null;
 
-        replyMessage = new CommandSurvival().mainSurvivalCommand(msg, sender, sbn);
+        //replyMessage = new CommandSurvival().mainSurvivalCommand(msg, sender, sbn);
         //replyMessage = new CommandTower().mainTowerCommand(msg, sender, sbn);
+
         return replyMessage;
     }
 
@@ -49,6 +50,21 @@ public class MainCommandChecker {
         String replyMessage = null;
 
         try {
+            if (checkCommnadList(msg, CommandList.TQ_GAME_CMD) == 0) {
+                replyMessage = new CommandTwentyQuestions().mainTQCommand(msg, sender, sbn);
+                return replyMessage;
+            }
+            if (CommandTwentyQuestions.getTQStart() == 1) {
+                if (checkCommnadList(msg, CommandList.TQ_GAME_QUESTION_CMD) == 0) {
+                    replyMessage = new CommandTwentyQuestions().mainTQCommand(msg, sender, sbn);
+                    return replyMessage;
+                }
+
+                if (checkCommnadList(msg, CommandList.TQ_GAME_ANSWER_CMD) == 0) {
+                    replyMessage = new CommandTwentyQuestions().mainTQCommand(msg, sender, sbn);
+                    return replyMessage;
+                }
+            }
             if (checkCommnadList(msg, CommandList.SURVIVAL_CMD) == 0) {
                 if (sender.indexOf("방장") >= 0) {
                     replyMessage = new CommandSurvival().startSurvivalCommand(sbn);

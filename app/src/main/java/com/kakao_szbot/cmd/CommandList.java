@@ -9,7 +9,7 @@ public class CommandList {
     public final static String TAG = "CommandList";
 
     public final static String[] BOT_NAME = {
-            "바쿠신", "박신"
+            "박신", "바쿠신"
     };
     public final static String BOT_FAMOUS_MSG = "돌진, 돌진∼∼∼∼∼∼!!";
     public final static String BOT_VERSION = "24.10.10";
@@ -185,6 +185,8 @@ public class CommandList {
             "ㅄ","ㅂㅅ","ㅂ1ㅅ","병신","븅신","또라이","미친놈","미친넘","미친년",
             "개새끼","뒤1져","좆","ㅅ1ㅂ","ㅅ@ㅂ","시이발","씨댕","개빡","시파",
             "싀파","싀팔","싀바","꺼져","꺼저","도라이","ㅈㄴ","존나","썅"
+            /*"시벌", "시팔", "찌발", "싸발", "씨방", "쒸발", "씻팔", "시바루",
+            "Tlqkf", "끼발", "뀨발", "야발"*/
     };
 
     public static String[] RAMEN_CMD = {
@@ -363,6 +365,18 @@ public class CommandList {
             "GPT", "gpt"
     };
 
+    public static String[] TQ_GAME_CMD = {
+            "스무고개"
+    };
+
+    public static String[] TQ_GAME_QUESTION_CMD = {
+            "질문"
+    };
+
+    public static String[] TQ_GAME_ANSWER_CMD = {
+            "정답"
+    };
+    
     public static String[] SURVIVAL_CMD = {
             "전쟁"
     };

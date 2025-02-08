@@ -42,15 +42,23 @@ public class CommandGPT {
         Log.d(TAG, "requestMsg: " + requestMsg);
 
         try {
-            return generateText(requestMsg, API_KEY);
+            return generateDefaultText(requestMsg);
         } catch (Exception e) {
             return "으, 으으윽... 움직이라고요 ChatGPT씨~!!";
         }
     }
 
+    public String questionTQGPT(String msg) {
+        try {
+            return generateDefaultText(msg);
+        } catch (Exception e) {
+            return "망했다. ChatGPT가 고장나버렸다;;";
+        }
+    }
+
     public String gptDefaultMessage(String msg) {
         try {
-            return generateText(msg, API_KEY);
+            return generateDefaultText(msg);
         } catch (Exception e) {
             return "으, 으으윽... 움직이라고요 ChatGPT씨~!!";
         }
@@ -106,14 +114,16 @@ public class CommandGPT {
         return gptDefaultMessage(requestMsg);
     }
 
-    private String generateText(String input, String apiKey) throws JSONException, IOException {
+    private String generateText(JSONArray messageList) throws JSONException, IOException {
         // Build input and API key params
         String result = null;
-        String data = null;
-
         JSONObject payload = new JSONObject();
+
+        /*
+        String data = null;
         JSONArray messageList = new JSONArray();
         JSONObject message;
+
 
         message = new JSONObject();
         message.put("role", "user");
@@ -133,6 +143,7 @@ public class CommandGPT {
         message.put("role", "assistant");
         message.put("content", data);
         messageList.put(message);
+        */
 
         //payload.put("model", "gpt-3.5-turbo"); // model is important
         payload.put("model", "gpt-4o"); // model is important
@@ -142,7 +153,7 @@ public class CommandGPT {
         URL url = new URL("https://api.openai.com/v1/chat/completions");
         HttpsURLConnection con = (HttpsURLConnection)url.openConnection();
         con.setRequestMethod("POST");
-        con.setRequestProperty("Authorization", "Bearer " + apiKey);
+        con.setRequestProperty("Authorization", "Bearer " + API_KEY);
         con.setRequestProperty("Content-Type", "application/json; utf-8");
         con.setRequestProperty("Accept", "application/json");
         con.setDoOutput(true);
@@ -177,6 +188,127 @@ public class CommandGPT {
         con.disconnect();
 
         return result;
+    }
+
+    private String generateDefaultText(String input) throws JSONException, IOException {
+        JSONArray messageList = new JSONArray();
+        JSONObject message;
+
+        message = new JSONObject();
+        message.put("role", "user");
+        message.put("content", input);
+        messageList.put(message);
+
+        message = new JSONObject();
+        message.put("role", "system");
+        message.put("content",
+                //"Please write in Friendly and Optimistic. Korean language. Please answer as if your name is 바쿠신. Please answer within 5 sentences.");
+                "넌 우마무스메라는 애니의 사쿠라 바쿠신 오라는 캐릭터라는 설정이야. 매우 밝고 긍정적인 모범생에 반장역할이고 돌진! 이라는 표현을 습관적으로 쓰는 컨셉이야. 존댓말로만 5문장 이내로 답장해줘.");
+        messageList.put(message);
+
+        String data = new CommandSampling().getRecentMessage();
+        data += "\n위의 내용이 이전내용이야. 참고해서 답변해줘.";
+        message = new JSONObject();
+        message.put("role", "assistant");
+        message.put("content", data);
+        messageList.put(message);
+
+        return generateText(messageList);
+    }
+
+    public String replaceTQText(String reply, String answer, String theme) {
+        Log.d(TAG, "replaceTQText reply before: " + reply);
+
+        if (answer != null) {
+            reply = reply.replaceAll(answer, "?");
+            answer = answer.replaceAll(" ", "");
+            reply = reply.replaceAll(answer, "?");
+        }
+
+        if (theme != null) {
+            reply = reply.replaceAll(theme, "?");
+            theme = theme.replaceAll(" ", "");
+            reply = reply.replaceAll(theme, "?");
+        }
+
+        Log.d(TAG, "replaceTQText reply after: " + reply);
+
+        return reply;
+    }
+
+    public String generateTQQuestionText(String question, String answer, String theme) throws JSONException, IOException {
+        JSONArray messageList = new JSONArray();
+        JSONObject message;
+        String request = "지금은 "  + theme + "에 등장하는 캐릭터 \"" + answer +"\"가 정답인 스무고개 게임을 진행중이고 너가 출제자인 상황이야.\n" +
+                "절대 정답을 말하면 안돼. \"예\" 또는 \"아니오\" 라고만 대답해줘. 아래 질문에 대해서 대답해줘.\n\n" +
+                question;
+
+        message = new JSONObject();
+        message.put("role", "user");
+        message.put("content", request);
+        messageList.put(message);
+
+        String reply = generateText(messageList);
+        return replaceTQText(reply, answer, theme);
+    }
+
+    public String generateTQQuestionHint1Text(String answer, String theme) throws JSONException, IOException {
+        JSONArray messageList = new JSONArray();
+        JSONObject message;
+        String request = theme + "에 대한 장르를 한 단어로 말해줘.";
+
+        message = new JSONObject();
+        message.put("role", "user");
+        message.put("content", request);
+        messageList.put(message);
+
+        String reply = generateText(messageList);
+        return replaceTQText(reply, answer, theme);
+    }
+
+    public String generateTQQuestionHint2Text(String answer, String theme) throws JSONException, IOException {
+        JSONArray messageList = new JSONArray();
+        JSONObject message;
+        String request = theme + "에 대한 힌트를 \"" + theme +
+                "\" 라는 단어를 포함하지 말고 2줄로 표현해줘.";
+
+        message = new JSONObject();
+        message.put("role", "user");
+        message.put("content", request);
+        messageList.put(message);
+
+        String reply = generateText(messageList);
+        return replaceTQText(reply, answer, theme);
+    }
+
+    public String generateTQQuestionHint3Text(String answer, String theme) throws JSONException, IOException {
+        JSONArray messageList = new JSONArray();
+        JSONObject message;
+        String request = "지금은 " + theme + "에 등장하는 캐릭터 \"" + answer +"\"가 정답인 스무고개 게임을 진행중이고 너가 출제자인 상황이야.\n" +
+                "절대 정답을 말하면 안돼. 이 정답에 대한 아주 어려운 힌트를 한 단어로 말해줘. 다시 한번 강요하지만 절대 정답을 힌트에 넣지마. 절대 정답을 말하면 안돼.";
+
+        message = new JSONObject();
+        message.put("role", "user");
+        message.put("content", request);
+        messageList.put(message);
+
+        String reply = generateText(messageList);
+        return replaceTQText(reply, answer, theme);
+    }
+
+    public String generateTQQuestionHint4Text(String answer, String theme) throws JSONException, IOException {
+        JSONArray messageList = new JSONArray();
+        JSONObject message;
+        String request = "지금은 " + theme + "에 등장하는 캐릭터 \"" + answer +"\"가 정답인 스무고개 게임을 진행중이고 너가 출제자인 상황이야.\n" +
+                "절대 정답을 말하면 안돼. 이 정답에 대한 힌트를 3줄로 말해줘. 절대 \"" + answer + "\" 단어를 힌트에 포함하면 안돼.";
+
+        message = new JSONObject();
+        message.put("role", "user");
+        message.put("content", request);
+        messageList.put(message);
+
+        String reply = generateText(messageList);
+        return replaceTQText(reply, answer, theme);
     }
 
     /*

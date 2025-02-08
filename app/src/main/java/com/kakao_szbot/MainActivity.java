@@ -16,6 +16,7 @@ import com.kakao_szbot.cmd.CommandQuiz;
 import com.kakao_szbot.cmd.CommandStudy;
 import com.kakao_szbot.cmd.CommandSurvival;
 import com.kakao_szbot.cmd.CommandTower;
+import com.kakao_szbot.cmd.CommandTwentyQuestions;
 
 import java.util.Set;
 
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         new CommandQuiz().loadQuiz2PointList();
         new CommandSurvival().loadSurvivalData();
         new CommandTower().loadTowerData();
+        new CommandTwentyQuestions().loadTQData();
 
         permissionGrantred();
         setContentView(R.layout.activity_main);
