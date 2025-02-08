@@ -305,6 +305,29 @@ public class FileLibrary {
         }
     }
 
+    public void changeTQPointCSV(String fileName, String sender, int point) {
+        changePartCSV(fileName, sender, String.valueOf(point), 1);
+    }
+
+    public void WriteTQCSV(String fileName, String player, int point) {
+        Context context = getAppContext();
+
+        try {
+            File file = new File(context.getFilesDir(), fileName);
+            FileOutputStream fos = new FileOutputStream(file, true);
+            OutputStreamWriter osw = new OutputStreamWriter(fos);
+
+            String line = player + "," +
+                    String.valueOf(point) + "\n";
+            osw.write(line);
+
+            osw.close();
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public String ReadResCSV(String fileName) throws IOException {
         // Get a reference to the application's resources
         Resources res = getAppResources();

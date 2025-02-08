@@ -28,9 +28,9 @@ public class MainCommandChecker {
         if (checkCommnadList(msg, CommandList.BOT_NAME) == 0) {
             replyMessage = selectBotMessage(msg, sender, sbn);
         } else {
-            if (room.indexOf("다덕임") != -1) {
+            //if (room.indexOf("다덕임") != -1) {
                 replyMessage = selectNormalMessage(msg, sender);
-            }
+            //}
         }
 
         return replyMessage;
@@ -40,8 +40,9 @@ public class MainCommandChecker {
         Log.d(TAG, "checkPersonalKakaoMessage ~ " + sender + ": " + msg);
         String replyMessage = null;
 
-        replyMessage = new CommandSurvival().mainSurvivalCommand(msg, sender, sbn);
+        //replyMessage = new CommandSurvival().mainSurvivalCommand(msg, sender, sbn);
         //replyMessage = new CommandTower().mainTowerCommand(msg, sender, sbn);
+
         return replyMessage;
     }
 
@@ -49,6 +50,21 @@ public class MainCommandChecker {
         String replyMessage = null;
 
         try {
+            if (checkCommnadList(msg, CommandList.TQ_GAME_CMD) == 0) {
+                replyMessage = new CommandTwentyQuestions().mainTQCommand(msg, sender, sbn);
+                return replyMessage;
+            }
+            if (CommandTwentyQuestions.getTQStart() == 1) {
+                if (checkCommnadList(msg, CommandList.TQ_GAME_QUESTION_CMD) == 0) {
+                    replyMessage = new CommandTwentyQuestions().mainTQCommand(msg, sender, sbn);
+                    return replyMessage;
+                }
+
+                if (checkCommnadList(msg, CommandList.TQ_GAME_ANSWER_CMD) == 0) {
+                    replyMessage = new CommandTwentyQuestions().mainTQCommand(msg, sender, sbn);
+                    return replyMessage;
+                }
+            }
             if (checkCommnadList(msg, CommandList.SURVIVAL_CMD) == 0) {
                 if (sender.indexOf("방장") >= 0) {
                     replyMessage = new CommandSurvival().startSurvivalCommand(sbn);
@@ -63,18 +79,11 @@ public class MainCommandChecker {
             }
             if (checkCommnadList(msg, CommandList.SURVIVAL_BETTING_CMD) == 0) {
                 replyMessage = new CommandSurvival().voteServant(msg, sender);
-                return replyMessage;
+                if (replyMessage != null)
+                    return replyMessage;
             }
             if (checkCommnadList(msg, CommandList.GPT_CMD) == 0) {
                 replyMessage = new CommandGPT().gptMessage(msg, sender);
-                return replyMessage;
-            }
-            if (checkCommnadList(msg, CommandList.RAMEN_CMD) == 0) {
-                replyMessage = new CommandBasic().ramenMessage(msg);
-                return replyMessage;
-            }
-            if (checkCommnadList(msg, CommandList.LOTTO_CMD) == 0) {
-                replyMessage = new CommandBasic().lottoMessage(msg);
                 return replyMessage;
             }
             if (checkCommnadList(msg, CommandList.EXCHANGE_RATE_CMD) == 0) {
@@ -87,10 +96,6 @@ public class MainCommandChecker {
             }
             if (checkCommnadList(msg, CommandList.COIN_CMD) == 0) {
                 replyMessage = new CommandCrawling().coinMessage(msg, sender);
-                return replyMessage;
-            }
-            if (checkCommnadList(msg, CommandList.WEATHER_CMD) == 0) {
-                replyMessage = new CommandCrawling().weatherMessage(msg, sender);
                 return replyMessage;
             }
             if (checkCommnadList(msg, CommandList.RECOMMEND_ANI_CMD) == 0) {
@@ -122,13 +127,13 @@ public class MainCommandChecker {
                 replyMessage = new CommandQuiz().printQuiz1PointList(0);
                 return replyMessage;
             }
-            if (checkCommnadList(msg, CommandList.QUIZ2_POINT_CMD) == 0) {
-                replyMessage = new CommandQuiz().printQuiz2PointList(0);
+            if (checkCommnadList(msg, CommandList.QUIZ3_POINT_CMD) == 0) {
+                replyMessage = new CommandQuiz().printQuiz3PointList(0);
                 return replyMessage;
             }
             if (checkCommnadList(msg, CommandList.QUIZ_CMD) == 0) {
                 //replyMessage = new CommandQuiz().quizMessage(msg);
-                replyMessage = new CommandQuiz().quiz2Message(msg);
+                replyMessage = new CommandQuiz().quiz3Message(msg);
                 return replyMessage;
             }
             if (checkCommnadList(msg, CommandList.GACHA_CMD) == 0) {
@@ -152,6 +157,18 @@ public class MainCommandChecker {
                 return replyMessage;
             }
             /*
+            if (checkCommnadList(msg, CommandList.WEATHER_CMD) == 0) {
+                replyMessage = new CommandCrawling().weatherMessage(msg, sender);
+                return replyMessage;
+            }
+            if (checkCommnadList(msg, CommandList.RAMEN_CMD) == 0) {
+                replyMessage = new CommandBasic().ramenMessage(msg);
+                return replyMessage;
+            }
+            if (checkCommnadList(msg, CommandList.LOTTO_CMD) == 0) {
+                replyMessage = new CommandBasic().lottoMessage(msg);
+                return replyMessage;
+            }
             if (checkCommnadList(msg, CommandList.LOVE_LIST_CMD) == 0) {
                 replyMessage = new CommandLovePoint().printLovePointList();
                 return replyMessage;
@@ -221,7 +238,7 @@ public class MainCommandChecker {
     }
 
     private String highPriorityMessage(String msg, String sender) {
-        String replyMessage = new CommandBasic().slangMessage(msg, CommandList.SLANG_CMD);
+        String replyMessage = new CommandBasic().slangMessage(msg, sender, CommandList.SLANG_CMD);
         return replyMessage;
     }
 

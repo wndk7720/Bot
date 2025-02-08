@@ -65,6 +65,8 @@ public class KakaoNotificationListener extends NotificationListenerService {
         new Thread() {
             public void run() {
                 String replyMessage;
+
+                /*
                 if (subText == null) {
                     replyMessage = new MainCommandChecker().checkPersonalKakaoMessage(text.toString(), title, sbn);
                     if (replyMessage == null) {
@@ -72,12 +74,14 @@ public class KakaoNotificationListener extends NotificationListenerService {
                         return;
                     }
                 } else {
-                    replyMessage = new MainCommandChecker().checkKakaoMessage(text.toString(), title, subText.toString(), sbn);
+                 */
+                    //replyMessage = new MainCommandChecker().checkKakaoMessage(text.toString(), title, subText.toString(), sbn);
+                    replyMessage = new MainCommandChecker().checkKakaoMessage(text.toString(), title, null, sbn);
                     if (replyMessage == null) {
                         Log.d(TAG, "replyMessage is null");
                         return;
                     }
-                }
+                //}
                 KakaoSendReply(replyMessage, sbn);
             }
         }.start();

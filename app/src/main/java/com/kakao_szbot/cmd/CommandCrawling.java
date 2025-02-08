@@ -21,7 +21,7 @@ import java.io.IOException;
 
 public class CommandCrawling {
     public final static String TAG = "CommandCrawling";
-    public final static String BOT_END_OF_MSG = "보고는 이상입니다! 에헴!";
+
     private static final String API_KEY = "";
 
     private String getContentURL(String address) throws Exception {
@@ -88,7 +88,7 @@ public class CommandCrawling {
                 String exchangeRate = row.select("td.sale").text();
 
                 if (currencyName.contains(exchangeName)) {
-                    result = "현.재 " + currencyName + " " + exchangeRate + "원이에요! " + BOT_END_OF_MSG;
+                    result = "현.재 " + currencyName + " " + exchangeRate + "원이라네.";
                 }
             }
         } catch (IOException e) {
@@ -124,10 +124,10 @@ public class CommandCrawling {
         String keystat  = response.getString("KEYSTAT_NAME");
         if (unit == "%") {
             double data = response.getDouble("DATA_VALUE");
-            result = "현.재 " + keystat + " " + data + unit + "이에요! " + BOT_END_OF_MSG;
+            result = "현.재 " + keystat + " " + data + unit + "이라네.";
         } else {
             long data = response.getLong("DATA_VALUE");
-            result = "현.재 " + keystat + " " + data + unit + "이에요! " + BOT_END_OF_MSG;
+            result = "현.재 " + keystat + " " + data + unit + "이라네.";
         }
 
         return result;
@@ -155,7 +155,7 @@ public class CommandCrawling {
         JSONObject response = jsonArray.getJSONObject(0);
         double price = response.getDouble("trade_price");
 
-        result = "현.재 " + coin_name + " 시세는 " + (int)price + "원이에요! " + BOT_END_OF_MSG;
+        result = "현.재 " + coin_name + " 시세는 " + (int)price + "원이라네.";
         return result;
     }
 
@@ -209,7 +209,7 @@ public class CommandCrawling {
 
         JSONObject object = content.getJSONObject("data");
 
-        result = "이 애니로 " + CommandList.BOT_FAMOUS_MSG + "\n\n";
+        result = "이 몸이 추천하고 싶은 애니메이션이 있다네.\n\n";
         result += " - " + object.getString("subject");
         result += " (" + object.getString("genres") + ")\n";
         result += "  > 방영일 : " + object.getString("startDate") + "\n";
@@ -230,13 +230,12 @@ public class CommandCrawling {
         JSONObject jsonResult = new JSONObject(result);
         JSONArray jsonArray = jsonResult.getJSONArray("data");
 
-        result = "오늘 방영하는 애니 목록이에요!\n";
+        result = "오늘 방영하는 애니 목록이라네.\n";
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             result += "\n - " + jsonObject.getString("subject");
             result += " (" + jsonObject.getString("genres") + ")";
         }
-        result += BOT_END_OF_MSG;
 
         return result;
     }

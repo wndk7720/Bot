@@ -9,10 +9,10 @@ public class CommandList {
     public final static String TAG = "CommandList";
 
     public final static String[] BOT_NAME = {
-            "바쿠신", "박신"
+            "레이", "사쿠마", "사쿠마레이", "사쿠마 레이"
     };
-    public final static String BOT_FAMOUS_MSG = "돌진, 돌진∼∼∼∼∼∼!!";
-    public final static String BOT_VERSION = "24.10.10";
+
+    public final static String BOT_VERSION = "25.02.09";
 
     public final static int RAND_MAX = 10000;
     public final static int RAND_ANI_MAX = 2500;
@@ -25,47 +25,22 @@ public class CommandList {
             {
                 "도움말", "--help", "-h"
             },
-            /* welcome cmd */
-            {
-                "환영"
-            },
             /* notification cmd */
             {
                 "공지"
             },
-            /* introduce cmd */
-            {
-                "자기소개", "자기 소개"
-            },
-            /* special cmd */
-            {
-                "키타산"
-            },
-            {
-                "부르봉", "라이스"
-            },
-            /* default cmd */
-            BOT_NAME
     };
     public static String[][] BOT_BASIC_DEFAULT_MSG = {
             /* help msg */
             {
-                "/*\n * Sakura Bakushin O Bot\n * Version " + BOT_VERSION + "\n */" +
+                "/*\n * Sakuma Rei Bot\n * Version " + BOT_VERSION + "\n */" +
                 "\n\n 「" + BOT_NAME[0] + " + 명령어」 형태로 동작합니다.\n\n" +
                 "명령어 목록은 아래와 같습니다.\n" +
                 "   - 도움말, -h, --help\n" +
-                "   - 환영하기\n   - 날씨\n   - 라면추천\n" +
                 "   - 애니추천\n   - 오늘의 애니\n   - 공부하기, 잊어버려, 공부목록\n" +
-                "   - 로또번호\n   - 대화요약\n   - 퀴즈, 퀴즈순위\n   - 명예의 전당\n   - 가챠\n   - 강화\n   - 투자게임\n" +
+                "   - 대화요약\n   - 퀴즈, 퀴즈순위\n   - 명예의 전당\n   - 가챠\n   - 강화\n   - 투자게임\n" +
                 "   - 주사위\n   - GPT\n" +
                 "\n@github: github.com/wndk7720/Bot.git"
-                    // "   - 뭐해   - 아침, 점심, 저녁추천   - 치킨추천   - 비트코인   - 호감도
-            },
-            /* welcome msg */
-            {
-                "안녕하세요~ 저는 다덕임의 반장 사쿠라 바쿠신 오입니다!\n\n" +
-                "닉네임은 이름/출생연도/최애캐로 설정해주시고, 간단한 자기소개 부탁드립니다!\n" +
-                "(입문작/최애작/최애캐/가장 최근에 본 애니)"
             },
             /* notification msg */
             {
@@ -95,36 +70,6 @@ public class CommandList {
                 " - 번개 장이 일정 터뜨릴때도 참여자들에게 양해 구한 후 취소\n" +
                 " - 일정 약속시간보다 늦을 경우 미리미리 덧글 및 채팅방에 알려주기"
             },
-            /* introduce msg */
-            {
-                "안녕하십니까! 사쿠라 바쿠신 오입니다! 보시는 바와 같이, 우수한 반장이기도 합니다! 모두의 모범이 되기 위해 지금 당장! 돌진~!"
-            },
-            /* special msg */
-            {
-                "당신도 우등생!",
-                "이 세상을 돌진으로 퍼뜨립시다!",
-                "저는 학급 반장! 당신은 도우미 대장!\n동지끼리 일심동체, 돌진체입니다!"
-            },
-            {
-                "함께 돌진! 합시다!",
-                "부르봉도 라이스도 매일 열심히 해서, 저는 매우 자랑스러워요!\n둘 다 참 잘했어요 도장! 꾹!!"
-            },
-            /* default msg */
-            {
-                "안녕하십니까! 사쿠라 바쿠신 오입니다! 보시는 바와 같이, 우수한 반장이기도 합니다! 모두의 모범이 되기 위해 지금 당장! 돌진~!",
-                "넵! 사쿠라 바쿠신 오 입니다!",
-                "트레이너 선생님의 지도는 틀림 없고 말고요",
-                "거짓말쟁이",
-                "반장을 따라라!!",
-                "몸이 뜨겁게 달아오르네요!",
-                "승리를! 향해서! 도올~지이이~~인!",
-                "제가 승리로 이끌겠습니다! 왜냐하면, 반장이니까요!",
-                "어떤 세계의 반장에게도 지지않을 힘을…!!",
-                "쵸와아앗∼∼∼ 등장입니다! 홋!！ 바쿠신! 돌진! 돌진~진! ...하하!",
-                "바쿠신, 돌지이이이이이이이이이이이이이이인!!!!!!!",
-                "전교생의 모범으로서!",
-                "이 사쿠라 바쿠신 오! 1200mX3의 장거리를 몇 번이나 제패한 우마무스메라고요?"
-            },
     };
 
     public static String[][] COMMON_BASIC_CMD = {
@@ -153,29 +98,38 @@ public class CommandList {
     public static String[][] COMMON_BASIC_MSG = {
             /* smile msg */
             {
-                    "핫~핫핫하!",
-                    "핫핫핫!"
+                    "후하하!",
+                    "크크크, 재미있군.",
+                    "하하하, 정말 즐거운걸.",
+                    "후훗, 미소가 절로 나오는구먼."
             },
             /* go to work msg */
             {
-                    "오늘도 힘차게 돌진~~ 해봅시다!",
-                    "돌진! 돌진! 돌진! 돌진! 돌진! 돌진!",
-                    BOT_FAMOUS_MSG
+                    "호오, 자네도 오늘도 분주하군.",
+                    "아침부터 부지런한 모습이라니, 감명 받았네.",
+                    "부디 오늘도 좋은 하루가 되기를 바라네.",
+                    "출근길도 한 편의 모험일세.",
+                    "항상 성실한 모습, 대단하구먼."
             },
             /* leave work msg */
             {
-                    "고생했어요!",
-                    "그럼 안녕히! 각자의 내일로 돌진합시다다!",
-                    BOT_FAMOUS_MSG
+                    "오늘 하루도 수고 많았네.",
+                    "이제 밤의 시간이구먼, 편히 쉬게나.",
+                    "퇴근의 기쁨을 만끽하길 바라네.",
+                    "무사히 일과를 마쳤으니, 안심하라네.",
+                    "하루의 끝자락, 편안히 집으로 돌아가게."
             },
             /* ohoh msg */
             {
-                    BOT_FAMOUS_MSG,
-                    "오오~~!"
+                    "오호라", "후훗", "흐음", "크크크", "오오, 흥미롭군."
             },
             /* .... msg */
             {
-                    "돌진...!"
+                    "음, 뭐라고 말해야 할지...",
+                    "흐음, 어찌된 일인지...",
+                    "크흠, 이 몸도 가끔은 할 말을 잃지.",
+                    "후훗, 침묵도 감미롭군.",
+                    "자, 이건 생각할 시간이 좀 필요하겠구먼."
             },
     };
 
@@ -184,7 +138,10 @@ public class CommandList {
             "쓔빨","씌발","싀빨","씌발","ㅆㅃ","ㅅㅃ","ㅆㅃ","ㅅㅍ","시팔","씨팔",
             "ㅄ","ㅂㅅ","ㅂ1ㅅ","병신","븅신","또라이","미친놈","미친넘","미친년",
             "개새끼","뒤1져","좆","ㅅ1ㅂ","ㅅ@ㅂ","시이발","씨댕","개빡","시파",
-            "싀파","싀팔","싀바","꺼져","꺼저","도라이","ㅈㄴ","존나","썅"
+            "싀파","싀팔","싀바","꺼져","꺼저","도라이","ㅈㄴ","존나","썅",
+            "시벌", "시팔", "찌발", "싸발", "씨방", "쒸발", "씻팔", "시바루",
+            "Tlqkf", "끼발", "뀨발", "야발", "ㅅ1ㅂ", "ㅈㄹ", "지랄", "tlqkf",
+            "끼1발", "시1발", "씨1발", "ㅆ1ㅃ", "ㅅ1ㅃ", "ㅆ1ㅂ", "쉬발"
     };
 
     public static String[] RAMEN_CMD = {
@@ -335,7 +292,7 @@ public class CommandList {
             "명예의전당", "명예의 전당"
     };
 
-    public static String[] QUIZ2_POINT_CMD = {
+    public static String[] QUIZ3_POINT_CMD = {
             "퀴즈순위", "퀴즈 순위"
     };
 
@@ -363,6 +320,18 @@ public class CommandList {
             "GPT", "gpt"
     };
 
+    public static String[] TQ_GAME_CMD = {
+            "스무고개"
+    };
+
+    public static String[] TQ_GAME_QUESTION_CMD = {
+            "질문"
+    };
+
+    public static String[] TQ_GAME_ANSWER_CMD = {
+            "정답"
+    };
+    
     public static String[] SURVIVAL_CMD = {
             "전쟁"
     };

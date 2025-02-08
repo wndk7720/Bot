@@ -24,7 +24,7 @@ public class CommandReinforce {
         int rand_2 = random.nextInt(CommandList.RAND_MAX);
 
         if (reinforce_weapon_upgrade > 9) {
-            KakaoSendReply("와.. " + CommandList.BOT_FAMOUS_MSG, getSbn());
+            KakaoSendReply("호오..?", getSbn());
             Thread.sleep(2000);
             KakaoSendReply("3", getSbn());
             Thread.sleep(1000);
@@ -34,7 +34,7 @@ public class CommandReinforce {
             Thread.sleep(1000);
         }
         else if (reinforce_weapon_upgrade > 4) {
-            KakaoSendReply("호오.. " + CommandList.BOT_FAMOUS_MSG, getSbn());
+            KakaoSendReply("호오..", getSbn());
             Thread.sleep(2000);
         }
 
@@ -43,7 +43,7 @@ public class CommandReinforce {
             reinforce_weapon_upgrade++;
             result = reinforce_weapon[reinforce_weapon_index] +
                     " (+" + reinforce_weapon_upgrade +
-                    ") 강화에 성공했어요!\n( 다음 성공 확률 : " +
+                    ") 강화에 성공했다네.\n( 다음 성공 확률 : " +
                     Math.floor(reinforce_chance * 100) + "% )";
         }
         else if (rand_2 < (CommandList.RAND_MAX * reinforce_chance)) {
@@ -54,11 +54,12 @@ public class CommandReinforce {
 
             result = reinforce_weapon[reinforce_weapon_index] +
                     " (+" + reinforce_weapon_upgrade +
-                    ") 강화에 실패했어요..\n( 다음 성공 확률 : " +
+                    ") 강화에 실패했구먼.\n( 다음 성공 확률 : " +
                     Math.floor(reinforce_chance * 100) + "% )";
         }
         else {
-            result = reinforce_weapon[reinforce_weapon_index] + " 깨져버렸어요!";
+            result = reinforce_weapon[reinforce_weapon_index] + " 깨져버렸구먼. " +
+                    "하지만 실패는 무엇을 고쳐야 할지 알려주는 훌륭한 교사이지. 그러니 낙심할 필요 없다네. 자, 다음 기회를 위해 더 큰 그림을 그려보자구나.";
 
             reinforce_chance = 1;
             reinforce_weapon_upgrade = 0;
