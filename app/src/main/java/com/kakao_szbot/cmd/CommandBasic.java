@@ -35,7 +35,7 @@ public class CommandBasic {
 
         for (int i = 0; i < list.length; i++) {
             if (msg.indexOf(list[i]) != -1) {
-                responseMessage = "쵸왓!? '" + list[i] + "' 라는 단어 맙소사!?";
+                responseMessage = "호오, '" + list[i] + "' 라는 단어는 조금 거친 것 같구먼. 이 몸은 느긋하고 우아한 대화를 선호한다네. 부드러운 말투로 다시 이야기해 주지 않겠나?";
             }
         }
 
@@ -51,7 +51,7 @@ public class CommandBasic {
         responseMessage = CommandList.RAMEN_CONTENTS_MSG[0][toppingRand];
         responseMessage += " 넣은 ";
         responseMessage += CommandList.RAMEN_CONTENTS_MSG[1][ramenRand];
-        responseMessage += " " + CommandList.BOT_FAMOUS_MSG;
+        responseMessage += " 추천이라네.";
 
         return responseMessage;
     }
@@ -84,7 +84,7 @@ public class CommandBasic {
 
         Arrays.sort(num);
 
-        String responseMessage = "이 번호로 " + CommandList.BOT_FAMOUS_MSG + "\n[ ";
+        String responseMessage = "이 번호로 가보게나.\n[ ";
         for (int i = 0; i < LOTTO_NUM_MAX; i++) {
             responseMessage += num[i] + " ";
         }
@@ -132,7 +132,7 @@ public class CommandBasic {
             randNum += random.nextInt(number) + 1;
         }
 
-        result = "주사위 결과는 " + randNum + " 입니다!";
+        result = "주사위 결과는 " + randNum + "!";
 
         return result;
     }

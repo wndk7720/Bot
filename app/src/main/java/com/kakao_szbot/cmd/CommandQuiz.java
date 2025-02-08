@@ -34,10 +34,13 @@ public class CommandQuiz {
 
     public final static String ANI_QUIZ1_POINT_FILE_NAME = "quizPointList.csv";
     public final static String ANI_QUIZ2_POINT_FILE_NAME = "quiz2PointList.csv";
+    public final static String ANI_QUIZ3_POINT_FILE_NAME = "quiz3PointList.csv";
     public static int total_quiz1_point = 0;
     public static int total_quiz2_point = 0;
+    public static int total_quiz3_point = 0;
     private static Map<String, Integer> player1 = new HashMap<>();
     private static Map<String, Integer> player2 = new HashMap<>();
+    private static Map<String, Integer> player3 = new HashMap<>();
 
 
     public static String convertToConsonants(String word, int hard_mode) {
@@ -97,6 +100,101 @@ public class CommandQuiz {
         result += " (" + ani_quiz_object.getString("genres") + ")\n";
         result += "  > 방영일 : " + ani_quiz_object.getString("startDate") + "\n";
         result += "  > " + ani_quiz_object.getString("website");
+
+        return result;
+    }
+
+    public String quiz3Message(String msg) throws Exception {
+        String ani_quiz_name_consonants = null;
+        String result = null;
+
+        if (ani_quiz_start == 0) {
+            ani_quiz_start = 1;
+            ani_quiz_answer_flag = 0;
+
+            JSONObject select_quiz;
+            String select_quiz_name, emptyCheckMsg;
+            select_quiz = new CommandCrawling().getAniObject();
+            select_quiz_name = select_quiz.getString("subject");
+            select_quiz_name = select_quiz_name.replaceAll("[^ ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9]", "");
+            if (select_quiz_name.length() == 0) {
+                return "퀴즈, 말인가? 아무리 이 몸이라도 휴식이 필요한 법이라네... 후훗, 잠깐의 여유를 즐기면서 나중에 다시 도전해 보는 것도 나쁘지 않지.";
+            }
+
+            Random random = new Random();
+            int rand = random.nextInt(CommandList.RAND_MAX);
+            int hard_mode = 0;
+            if (select_quiz_name.length() > 2 && rand < (CommandList.RAND_MAX / 4)) {
+                hard_mode = 1;
+            }
+
+            hard_mode = 0;
+            ani_quiz_name_consonants = convertToConsonants(select_quiz_name, hard_mode);
+
+            ani_quiz_object = select_quiz;
+            select_quiz_name = select_quiz_name.toLowerCase();
+            ani_quiz_name = select_quiz_name.replaceAll(" ", "");
+            Log.d(TAG, "퀴즈 이름: " + ani_quiz_name + " (" + select_quiz.getString("subject") + ")");
+
+            result = "[애니 제목 퀴즈 시즌3]\n - "
+                    + ani_quiz_name_consonants
+                    + "\n\n * 15분뒤 정답 공개!\n * 띄어쓰기, 대소문자 상관 없음!";
+
+            new Thread() {
+                public void run() {
+                    String result = null;
+                    int count = 0;
+                    boolean hint_1 = false, hint_2 = false;
+
+                    try {
+                        while (true) {
+                            Thread.sleep(100);
+                            count++;
+
+                            if (count > (FIFTEEN_MIN_PER_SEC * 10))
+                                break;
+
+                            if (count > (FIVE_MIN_PER_SEC * 10) && hint_1 == false) {
+                                result = "[애니 제목 퀴즈 시즌3]\n - 힌트 1 : " + select_quiz.getString("genres");
+                                KakaoSendReply(result, getSbn());
+                                hint_1 = true;
+                            }
+
+                            if (count > (TEN_MIN_PER_SEC * 10) && hint_2 == false) {
+                                result = "[애니 제목 퀴즈 시즌3]\n - 힌트 2 : " + select_quiz.getString("startDate");
+                                KakaoSendReply(result, getSbn());
+                                hint_2 = true;
+                            }
+
+                            if (ani_quiz_answer_flag == 1)
+                                return;
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    if (ani_quiz_answer_flag == 0) {
+                        ani_quiz_answer_flag = 1;
+                        ani_quiz_start = 0;
+
+                        result = "후훗, 정답은 바로 이거라네. 자네들에게는 조금 까다로웠을지도 모르겠구먼. 하지만 밤의 시간이 흐르면서 모두가 알게 될 날을 기대하겠네.\n\n";
+                        try {
+                            result += printQuizResult();
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+
+                    KakaoSendReply(result, getSbn());
+                }
+            }.start();
+
+            return result;
+        } else {
+            result = "이미 퀴즈가 한창 진행 중이구먼.";
+        }
 
         return result;
     }
@@ -327,20 +425,20 @@ public class CommandQuiz {
                     int patternIndex = patternIndexOf(sender, "[0-9`~!@#$%^&*()-_=+\\|\\[\\]{};:'\",.<>/? ]");
                     if (patternIndex != 0) sender = sender.substring(0, patternIndex);
 
-                    total_quiz2_point++;
-                    if (player2.containsKey(sender)) {
-                        player2.put(sender, player2.get(sender) + 1);
+                    total_quiz3_point++;
+                    if (player3.containsKey(sender)) {
+                        player3.put(sender, player3.get(sender) + 1);
                     } else {
-                        player2.put(sender, 1);
+                        player3.put(sender, 1);
                     }
 
                     FileLibrary csv = new FileLibrary();
-                    csv.writePointCSV(ANI_QUIZ2_POINT_FILE_NAME, sender, player2.get(sender));
+                    csv.writePointCSV(ANI_QUIZ3_POINT_FILE_NAME, sender, player3.get(sender));
 
-                    result = resultSender + "님 정답입니다!\n" +
-                            " - 누적 점수 : " + player2.get(sender);
+                    result = resultSender + " 그대 정답이라네.\n" +
+                            " - 누적 점수 : " + player3.get(sender);
 
-                    result += getPointTitle(player2.get(sender));
+                    result += getPointTitle(player3.get(sender));
 
                     try {
                         result += "\n\n";
@@ -354,6 +452,45 @@ public class CommandQuiz {
             }
         }
 
+        return result;
+    }
+
+    public String printQuiz3PointList(int top_num) {
+        String result = null;
+        String result_msg = "";
+        int i = 0;
+
+        List<String> keySet = new ArrayList<>(player3.keySet());
+        keySet.sort(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return player3.get(o1).compareTo(player3.get(o2));
+            }
+        });
+        keySet.sort((o1, o2) -> player3.get(o2).compareTo(player3.get(o1)));
+
+        if (top_num == 0) {
+            for (String key : keySet) {
+                result_msg += "\n - " + key + "님의 점수: "
+                        + player3.get(key)
+                        + getPointTitle(player3.get(key));
+            }
+
+            result = "[애니 퀴즈 시즌3 랭킹]\n * 총 점수 : " + total_quiz3_point + "\n"
+                    + result_msg;
+        } else {
+            for (String key : keySet) {
+                if (i >= top_num)
+                    break;
+
+                result_msg += "\n - " + key + "님의 점수: "
+                        + player3.get(key)
+                        + getPointTitle(player3.get(key));
+                i++;
+            }
+
+            result = "[애니 퀴즈 시즌3 랭킹]\n * TOP " + top_num + result_msg;
+        }
         return result;
     }
 
@@ -378,7 +515,7 @@ public class CommandQuiz {
                         + getPointTitle(player2.get(key));
             }
 
-            result = "[애니 퀴즈 시즌2 랭킹]\n * 총 점수 : " + total_quiz2_point + "\n"
+            result = "[애니 퀴즈 시즌2 명예의 전당]\n * 총 점수 : " + total_quiz2_point + "\n"
                     + result_msg;
         } else {
             for (String key : keySet) {
@@ -391,7 +528,7 @@ public class CommandQuiz {
                 i++;
             }
 
-            result = "[애니 퀴즈 시즌2 랭킹]\n * TOP " + top_num + result_msg;
+            result = "[애니 퀴즈 시즌2 명예의 전당]\n * TOP " + top_num + result_msg;
         }
         return result;
     }
@@ -432,7 +569,27 @@ public class CommandQuiz {
 
             result = "[애니 퀴즈 시즌1 명예의 전당]\n * TOP " + top_num + result_msg;
         }
+
+        result += "\n\n\n";
+        result += printQuiz2PointList(0);
+
         return result;
+    }
+
+    public void loadQuiz3PointList() {
+        FileLibrary csv = new FileLibrary();
+        String allData = csv.ReadCSV(ANI_QUIZ3_POINT_FILE_NAME);
+        if (allData == null)
+            return;
+
+        String[] parts = allData.split("\n");
+        for (String part : parts) {
+            String[] data = part.split(",");
+            player3.put(data[0], Integer.parseInt(data[1]));
+            total_quiz3_point += Integer.parseInt(data[1]);
+        }
+
+        Log.d(TAG, "퀴즈3 총 점수 : " + total_quiz3_point);
     }
 
     public void loadQuiz2PointList() {

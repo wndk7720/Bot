@@ -2,6 +2,11 @@ package com.kakao_szbot.cmd;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,14 +30,177 @@ import okhttp3.Response;
 
 public class CommandGPT {
     public final static String TAG = "CommandGPT";
+
     private static final String API_KEY = "";
-    private static final int MAX_TOKEN = 130;
+    private static final String ASSISTANT_ID = "";
+    private static String threadId = "";  // Thread ID 저장 (같은 대화 유지)
+
+    private static final String BASE_URL = "https://api.openai.com/v1/";
+    private static final Gson gson = new Gson();
+
     private static int SOMETIMES_RATIO = 0;
     private static final int SOMETIMES_THRESHOLD = 1000;
     public static String[] sometimes_exception =
-            {"ㅋ", "ㅎ", "이모티콘", "사진",
-            CommandList.BOT_NAME[0], CommandList.BOT_NAME[1]};
+            {"ㅋ", "ㅎ", "이모티콘", "사진"};
 
+
+    private static HttpsURLConnection openConnection(String urlStr, String method) throws IOException {
+        // URL 설정
+        URL url = new URL(urlStr);
+        HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+
+        // 요청 방식 설정 (POST)
+        connection.setRequestMethod(method);
+
+        // 요청 헤더 설정
+        connection.setRequestProperty("Authorization", "Bearer " + API_KEY);
+        connection.setRequestProperty("Content-Type", "application/json");
+        connection.setRequestProperty("OpenAI-Beta", "assistants=v2");  // 'OpenAI-Beta' 헤더 추가
+
+        if (method == "POST") {
+            // 요청 본문을 전송할 수 있도록 설정
+            connection.setDoOutput(true);
+        }
+
+        return connection;
+    }
+
+    public static String createThread() throws IOException {
+        String json = "{ \"messages\": [{\"role\": \"user\", \"content\": \"Thread content\" }] }";
+        HttpsURLConnection connection = openConnection(BASE_URL + "threads", "POST");
+
+        sendRequest(connection, json);
+        String response = readResponse(connection);
+
+        JsonObject responseObject = gson.fromJson(response, JsonObject.class);
+        return responseObject.get("id").getAsString();
+    }
+
+    public static void addHistoricalMessages(String historicalMessage) throws IOException {
+        String json = "{\"role\": \"user\", \"content\": \"" + historicalMessage + "\" }";
+        HttpsURLConnection connection = openConnection(BASE_URL + "threads/" + threadId + "/messages", "POST");
+
+        sendRequest(connection, json);
+    }
+
+    public static void addUserMessageToThread(String userInput) throws IOException {
+        String json = "{\"role\": \"user\", \"content\": \"" + userInput + "\" }";
+        HttpsURLConnection connection = openConnection(BASE_URL + "threads/" + threadId + "/messages", "POST");
+
+        sendRequest(connection, json);
+        String response = readResponse(connection);
+
+        Log.d(TAG, "Response: " + response);
+    }
+
+    public static String getAssistantResponse() throws IOException {
+        String json = "{\"assistant_id\": \"" + ASSISTANT_ID + "\" }";
+        HttpsURLConnection connection = openConnection(BASE_URL + "threads/" + threadId + "/runs", "POST");
+
+        sendRequest(connection, json);
+        String response = readResponse(connection);
+
+        JsonObject responseObject = gson.fromJson(response, JsonObject.class);
+        Log.d(TAG, "Response: " + response);
+        return responseObject.get("id").getAsString();  // Run ID 반환
+    }
+
+    private static void sendRequest(HttpsURLConnection connection, String jsonBody) throws IOException {
+        try (OutputStream os = connection.getOutputStream()) {
+            byte[] input = jsonBody.getBytes("utf-8");
+            os.write(input, 0, input.length);
+        }
+    }
+
+    private static String readResponse(HttpsURLConnection connection) throws IOException {
+        int status = connection.getResponseCode();
+        InputStream stream = (status < 400) ? connection.getInputStream() : connection.getErrorStream();
+
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(stream, "utf-8"))) {
+            StringBuilder response = new StringBuilder();
+            String responseLine;
+            while ((responseLine = br.readLine()) != null) {
+                response.append(responseLine.trim());
+            }
+            return response.toString();
+        }
+    }
+
+    public static void waitAssistantRuns(String runId) throws IOException, InterruptedException {
+        while (true) {
+            HttpsURLConnection connection = openConnection(BASE_URL + "threads/" + threadId + "/runs/" + runId, "GET");
+            String response = readResponse(connection);
+            JsonObject jsonResponse = JsonParser.parseString(response).getAsJsonObject();
+            String status = jsonResponse.get("status").getAsString();
+
+            Log.d(TAG, "Run status: " + status);
+            if (status.equals("completed")) {
+                break;
+            }
+
+            Thread.sleep(500);
+        }
+    }
+
+    public static String getLatestAssistantMessage() throws IOException {
+        HttpsURLConnection connection = openConnection(BASE_URL + "threads/" + threadId + "/messages", "GET");
+
+        String response = readResponse(connection);
+
+        JsonObject responseObject = gson.fromJson(response, JsonObject.class);
+        JsonArray messages = responseObject.getAsJsonArray("data");
+
+        Log.d(TAG, messages.toString());
+
+        // 메시지 출력
+        for (int i = 0; i < messages.size(); i++) {
+            JsonObject message = messages.get(i).getAsJsonObject();
+            String role = message.get("role").getAsString();
+            long createdAt = message.get("created_at").getAsLong();
+            String content = message.getAsJsonArray("content").get(0).getAsJsonObject()
+                    .getAsJsonObject("text").get("value").getAsString();
+
+            Log.d(TAG, role);
+
+            // 메시지 출력
+            if (role.equals("assistant")) {
+                return content;
+            }
+        }
+
+        return "GPT가 고장났군. 어디 한 번 더 도전해 볼까? 이 몸은 밤이 깊을 때 더욱 빛난다네. 그 때까지 기다려 주시겠나, 아가씨?";
+    }
+
+    public static void chatWithCharacterHistory(String userInput) throws IOException, InterruptedException {
+        if (threadId == null) {
+            threadId = createThread();
+        }
+        Log.d(TAG, "thread 선택 완료 (threadId: " + threadId + ")");
+
+        addHistoricalMessages(userInput);
+        Log.d(TAG, "OpenAI 요청 완료");
+    }
+
+    public static String chatWithCharacter(String userInput) throws IOException, InterruptedException {
+        if (threadId == null) {
+            threadId = createThread();
+        }
+        Log.d(TAG, "thread 선택 완료 (threadId: " + threadId + ")");
+
+        addUserMessageToThread(userInput);
+        Log.d(TAG, "OpenAI 요청 완료");
+
+        String runId = getAssistantResponse();
+        Log.d(TAG, "OpenAI 응답 생성 중... (Run ID: " + runId + ")");
+
+        waitAssistantRuns(runId);
+        Log.d(TAG, "OpenAI 응답 생성 완료 (Run ID: " + runId + ")");
+
+        String reply = getLatestAssistantMessage();
+        Log.d(TAG, "OpenAI 응답 : " + reply);
+
+        return reply;
+    }
 
     public String gptMessage(String msg, String sender) {
         int start_index = msg.indexOf("GPT");
@@ -44,15 +212,16 @@ public class CommandGPT {
         try {
             return generateDefaultText(requestMsg);
         } catch (Exception e) {
-            return "으, 으으윽... 움직이라고요 ChatGPT씨~!!";
+            return "호오, GPT 연결이 끊겼다라... 마치 낮의 빛 속에서 방향을 잃은 것과 같은 상황이구먼. 하지만 이 몸은 어둠 속에서의 경험이 풍부하지. 조금 시간이 걸리더라도, 곧 안정된 상태로 되돌아갈 것을 믿고 자신을 가지게.";
         }
     }
 
-    public String questionTQGPT(String msg) {
+    public void gptHistoryMessage() {
         try {
-            return generateDefaultText(msg);
+            String data = new CommandSampling().getRecentMessage();
+            chatWithCharacterHistory(data);
         } catch (Exception e) {
-            return "망했다. ChatGPT가 고장나버렸다;;";
+            Log.d(TAG, "chatWithCharacterHistory fail");
         }
     }
 
@@ -60,7 +229,7 @@ public class CommandGPT {
         try {
             return generateDefaultText(msg);
         } catch (Exception e) {
-            return "으, 으으윽... 움직이라고요 ChatGPT씨~!!";
+            return "으음, GPT도 때때로 나의 기운을 받지 못하는 날이 있는 것일세. 하지만 걱정은 말게, 이 몸은 밤의 왕이니까 말이지. 어둠 속에서 새로운 길을 찾을 수 있을 거라네. 서두르지 말고 조금 기다리면, 다시 연결될 거라 믿어도 좋다네.";
         }
     }
 
@@ -71,12 +240,20 @@ public class CommandGPT {
             }
         }
 
+        for (int i=0; i < CommandList.BOT_NAME.length; i++) {
+            if (msg.indexOf(CommandList.BOT_NAME[i]) == 0) {
+                return null;
+            }
+        }
+
         SOMETIMES_RATIO++;
         if (SOMETIMES_RATIO > SOMETIMES_THRESHOLD) {
             Random random = new Random();
             int rand = random.nextInt(CommandList.RAND_MAX);
             if (rand < SOMETIMES_RATIO) {
                 SOMETIMES_RATIO = 0;
+
+                gptHistoryMessage();
                 return gptDefaultMessage(msg);
             }
         }
@@ -94,14 +271,17 @@ public class CommandGPT {
     }
 
     public String gptBotMessage(String msg, String sender) {
+        String requestMsg = msg;
+
+        /*
         if (msg.contains(" ") == false) {
             return null;
         }
 
-        String requestMsg = msg;
         for (int i = 0; i < CommandList.BOT_NAME.length; i++) {
             requestMsg = requestMsg.replace(CommandList.BOT_NAME[i], "");
         }
+        */
 
         String emptyCheckMsg = requestMsg.replaceAll("[^ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9]", "");
         if (emptyCheckMsg.length() == 0) {
@@ -118,32 +298,6 @@ public class CommandGPT {
         // Build input and API key params
         String result = null;
         JSONObject payload = new JSONObject();
-
-        /*
-        String data = null;
-        JSONArray messageList = new JSONArray();
-        JSONObject message;
-
-
-        message = new JSONObject();
-        message.put("role", "user");
-        message.put("content", input);
-        messageList.put(message);
-
-        message = new JSONObject();
-        message.put("role", "system");
-        message.put("content",
-                //"Please write in Friendly and Optimistic. Korean language. Please answer as if your name is 바쿠신. Please answer within 5 sentences.");
-                "넌 우마무스메라는 애니의 사쿠라 바쿠신 오라는 캐릭터라는 설정이야. 매우 밝고 긍정적인 모범생에 반장역할이고 돌진! 이라는 표현을 습관적으로 쓰는 컨셉이야. 존댓말로만 5문장 이내로 답장해줘.");
-        messageList.put(message);
-
-        data = new CommandSampling().getRecentMessage();
-        data += "\n위의 내용이 이전내용이야. 참고해서 답변해줘.";
-        message = new JSONObject();
-        message.put("role", "assistant");
-        message.put("content", data);
-        messageList.put(message);
-        */
 
         //payload.put("model", "gpt-3.5-turbo"); // model is important
         payload.put("model", "gpt-4o"); // model is important
@@ -190,30 +344,8 @@ public class CommandGPT {
         return result;
     }
 
-    private String generateDefaultText(String input) throws JSONException, IOException {
-        JSONArray messageList = new JSONArray();
-        JSONObject message;
-
-        message = new JSONObject();
-        message.put("role", "user");
-        message.put("content", input);
-        messageList.put(message);
-
-        message = new JSONObject();
-        message.put("role", "system");
-        message.put("content",
-                //"Please write in Friendly and Optimistic. Korean language. Please answer as if your name is 바쿠신. Please answer within 5 sentences.");
-                "넌 우마무스메라는 애니의 사쿠라 바쿠신 오라는 캐릭터라는 설정이야. 매우 밝고 긍정적인 모범생에 반장역할이고 돌진! 이라는 표현을 습관적으로 쓰는 컨셉이야. 존댓말로만 5문장 이내로 답장해줘.");
-        messageList.put(message);
-
-        String data = new CommandSampling().getRecentMessage();
-        data += "\n위의 내용이 이전내용이야. 참고해서 답변해줘.";
-        message = new JSONObject();
-        message.put("role", "assistant");
-        message.put("content", data);
-        messageList.put(message);
-
-        return generateText(messageList);
+    private String generateDefaultText(String input) throws JSONException, IOException, InterruptedException {
+        return chatWithCharacter(input);
     }
 
     public String replaceTQText(String reply, String answer, String theme) {
@@ -310,34 +442,6 @@ public class CommandGPT {
         String reply = generateText(messageList);
         return replaceTQText(reply, answer, theme);
     }
-
-    /*
-    private String generateText(String prompt, int maxTokens) throws IOException, JSONException {
-        OkHttpClient client = new OkHttpClient();
-        MediaType mediaType = MediaType.parse("application/json");
-        RequestBody body = RequestBody.create(mediaType, "{\"prompt\":\"" + prompt + "\",\"max_tokens\":" + maxTokens + ",\"temperature\":0.7}");
-        //RequestBody body = RequestBody.create(mediaType, "{\"model\": \"gpt-3.5-turbo\",\"messages\": [{\"role\":\"user\", \"content\":\"" + prompt + "\"}]");
-        Request request = new Request.Builder()
-                //.url("https://api.openai.com/v1/engines/davinci-codex/completions")
-                .url("https://api.openai.com/v1/engines/text-davinci-003/completions")
-                //.url("https://api.openai.com/v1/chat/completions")
-                .post(body)
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Authorization", "Bearer " + API_KEY)
-                .build();
-
-        Response response = client.newCall(request).execute();
-        String responseStr = response.body().string();
-        Log.d(TAG, "responseStr: " + responseStr);
-
-        JSONObject jsonObject = new JSONObject(responseStr);
-        JSONArray jsonChoices = jsonObject.getJSONArray("choices");
-        String result = jsonChoices.getJSONObject(0).getString("text");
-        result = makePrettyText(result);
-
-        return result;
-    }
-    */
 
     private String makePrettyText(String result) {
         int start_index = result.indexOf("\n\n");

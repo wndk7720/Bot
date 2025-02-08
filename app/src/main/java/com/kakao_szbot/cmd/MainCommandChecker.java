@@ -28,9 +28,9 @@ public class MainCommandChecker {
         if (checkCommnadList(msg, CommandList.BOT_NAME) == 0) {
             replyMessage = selectBotMessage(msg, sender, sbn);
         } else {
-            if (room.indexOf("다덕임") != -1) {
+            //if (room.indexOf("다덕임") != -1) {
                 replyMessage = selectNormalMessage(msg, sender);
-            }
+            //}
         }
 
         return replyMessage;
@@ -79,18 +79,11 @@ public class MainCommandChecker {
             }
             if (checkCommnadList(msg, CommandList.SURVIVAL_BETTING_CMD) == 0) {
                 replyMessage = new CommandSurvival().voteServant(msg, sender);
-                return replyMessage;
+                if (replyMessage != null)
+                    return replyMessage;
             }
             if (checkCommnadList(msg, CommandList.GPT_CMD) == 0) {
                 replyMessage = new CommandGPT().gptMessage(msg, sender);
-                return replyMessage;
-            }
-            if (checkCommnadList(msg, CommandList.RAMEN_CMD) == 0) {
-                replyMessage = new CommandBasic().ramenMessage(msg);
-                return replyMessage;
-            }
-            if (checkCommnadList(msg, CommandList.LOTTO_CMD) == 0) {
-                replyMessage = new CommandBasic().lottoMessage(msg);
                 return replyMessage;
             }
             if (checkCommnadList(msg, CommandList.EXCHANGE_RATE_CMD) == 0) {
@@ -138,13 +131,13 @@ public class MainCommandChecker {
                 replyMessage = new CommandQuiz().printQuiz1PointList(0);
                 return replyMessage;
             }
-            if (checkCommnadList(msg, CommandList.QUIZ2_POINT_CMD) == 0) {
-                replyMessage = new CommandQuiz().printQuiz2PointList(0);
+            if (checkCommnadList(msg, CommandList.QUIZ3_POINT_CMD) == 0) {
+                replyMessage = new CommandQuiz().printQuiz3PointList(0);
                 return replyMessage;
             }
             if (checkCommnadList(msg, CommandList.QUIZ_CMD) == 0) {
                 //replyMessage = new CommandQuiz().quizMessage(msg);
-                replyMessage = new CommandQuiz().quiz2Message(msg);
+                replyMessage = new CommandQuiz().quiz3Message(msg);
                 return replyMessage;
             }
             if (checkCommnadList(msg, CommandList.GACHA_CMD) == 0) {
@@ -168,6 +161,14 @@ public class MainCommandChecker {
                 return replyMessage;
             }
             /*
+            if (checkCommnadList(msg, CommandList.RAMEN_CMD) == 0) {
+                replyMessage = new CommandBasic().ramenMessage(msg);
+                return replyMessage;
+            }
+            if (checkCommnadList(msg, CommandList.LOTTO_CMD) == 0) {
+                replyMessage = new CommandBasic().lottoMessage(msg);
+                return replyMessage;
+            }
             if (checkCommnadList(msg, CommandList.LOVE_LIST_CMD) == 0) {
                 replyMessage = new CommandLovePoint().printLovePointList();
                 return replyMessage;

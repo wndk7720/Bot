@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         new CommandLovePoint().loadLovePointList();
         new CommandQuiz().loadQuizPointList();
         new CommandQuiz().loadQuiz2PointList();
+        new CommandQuiz().loadQuiz3PointList();
         new CommandSurvival().loadSurvivalData();
         new CommandTower().loadTowerData();
         new CommandTwentyQuestions().loadTQData();
