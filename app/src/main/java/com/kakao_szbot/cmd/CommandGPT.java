@@ -233,6 +233,16 @@ public class CommandGPT {
         }
     }
 
+    public String gptQuizHintMessage(String answer) {
+        try {
+            String msg =  answer + "에 대한 힌트를 \"" + answer +
+                    "\" 라는 단어를 포함하지 말고 2줄로 표현해줘.";
+            return replaceTQText(generateDefaultText(msg), answer, answer);
+        } catch (Exception e) {
+            return "미안하지만, 이번에는 힌트가 없다네. 그만큼 자네의 능력을 믿고 있으니, 힘껏 도전해 보시게나.";
+        }
+    }
+
     public String gptSometimesMessage(String msg, String sender) {
         for (int i=0; i < sometimes_exception.length; i++) {
             if (msg.indexOf(sometimes_exception[i]) == 0) {

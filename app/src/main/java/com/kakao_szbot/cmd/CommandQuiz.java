@@ -138,7 +138,7 @@ public class CommandQuiz {
 
             result = "[애니 제목 퀴즈 시즌3]\n - "
                     + ani_quiz_name_consonants
-                    + "\n\n * 15분뒤 정답 공개!\n * 띄어쓰기, 대소문자 상관 없음!";
+                    + "\n\n * 15분뒤 정답 공개\n * 띄어쓰기, 대소문자 상관 없음";
 
             new Thread() {
                 public void run() {
@@ -155,13 +155,15 @@ public class CommandQuiz {
                                 break;
 
                             if (count > (FIVE_MIN_PER_SEC * 10) && hint_1 == false) {
-                                result = "[애니 제목 퀴즈 시즌3]\n - 힌트 1 : " + select_quiz.getString("genres");
+                                result = "[애니 제목 퀴즈 시즌3 : 힌트1]\n - ";
+                                result += new CommandGPT().gptQuizHintMessage(ani_quiz_name);
                                 KakaoSendReply(result, getSbn());
                                 hint_1 = true;
                             }
 
                             if (count > (TEN_MIN_PER_SEC * 10) && hint_2 == false) {
-                                result = "[애니 제목 퀴즈 시즌3]\n - 힌트 2 : " + select_quiz.getString("startDate");
+                                result = "[애니 제목 퀴즈 시즌3 : 힌트2]\n - ";
+                                result += new CommandGPT().gptQuizHintMessage(ani_quiz_name);
                                 KakaoSendReply(result, getSbn());
                                 hint_2 = true;
                             }
@@ -171,8 +173,6 @@ public class CommandQuiz {
                         }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
-                    } catch (JSONException e) {
-                        throw new RuntimeException(e);
                     }
 
                     if (ani_quiz_answer_flag == 0) {

@@ -98,10 +98,6 @@ public class MainCommandChecker {
                 replyMessage = new CommandCrawling().coinMessage(msg, sender);
                 return replyMessage;
             }
-            if (checkCommnadList(msg, CommandList.WEATHER_CMD) == 0) {
-                replyMessage = new CommandCrawling().weatherMessage(msg, sender);
-                return replyMessage;
-            }
             if (checkCommnadList(msg, CommandList.RECOMMEND_ANI_CMD) == 0) {
                 replyMessage = new CommandCrawling().recommendAniMessage(msg, sender);
                 return replyMessage;
@@ -161,6 +157,10 @@ public class MainCommandChecker {
                 return replyMessage;
             }
             /*
+            if (checkCommnadList(msg, CommandList.WEATHER_CMD) == 0) {
+                replyMessage = new CommandCrawling().weatherMessage(msg, sender);
+                return replyMessage;
+            }
             if (checkCommnadList(msg, CommandList.RAMEN_CMD) == 0) {
                 replyMessage = new CommandBasic().ramenMessage(msg);
                 return replyMessage;
