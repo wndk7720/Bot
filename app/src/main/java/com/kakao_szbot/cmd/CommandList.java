@@ -9,10 +9,10 @@ public class CommandList {
     public final static String TAG = "CommandList";
 
     public final static String[] BOT_NAME = {
-            "박신", "바쿠신"
+            "레이", "사쿠마", "사쿠마레이", "사쿠마 레이"
     };
     public final static String BOT_FAMOUS_MSG = "돌진, 돌진∼∼∼∼∼∼!!";
-    public final static String BOT_VERSION = "24.10.10";
+    public final static String BOT_VERSION = "25.02.09";
 
     public final static int RAND_MAX = 10000;
     public final static int RAND_ANI_MAX = 2500;
