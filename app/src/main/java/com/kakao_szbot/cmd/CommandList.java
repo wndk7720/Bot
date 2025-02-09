@@ -40,7 +40,7 @@ public class CommandList {
                 "   - 애니추천\n   - 오늘의 애니\n   - 공부하기, 잊어버려, 공부목록\n" +
                 "   - 대화요약\n   - 퀴즈, 퀴즈순위\n   - 명예의 전당\n   - 가챠\n   - 강화\n   - 투자게임\n" +
                 "   - 주사위\n   - GPT\n" +
-                "\n@github: github.com/wndk7720/Bot.git"
+                "\n@github: github.com/wndk7720/Bot"
             },
             /* notification msg */
             {
@@ -238,7 +238,7 @@ public class CommandList {
             "피지"
     };
     public static String[] EXCHANGE_RATE_SPECIFIC_CMD = {
-            "엔", "달러", "유로", "위안"
+            "엔화", "달러", "유로", "위안"
     };
     public static String[] EXCHANGE_RATE_SYMBOL = {
             "JPY", "USD", "EUR", "CNY"

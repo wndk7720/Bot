@@ -1,5 +1,7 @@
 package com.kakao_szbot.cmd;
 
+import static com.kakao_szbot.lib.CommonLibrary.patternIndexOf;
+
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -227,11 +229,22 @@ public class CommandGPT {
         }
     }
 
-    public String gptDefaultMessage(String msg) {
+    public String gptDefaultMessage(String msg, String sender) {
+        try {
+            int patternIndex = patternIndexOf(sender, "[0-9`~!@#$%^&*()-_=+\\|\\[\\]{};:'\",.<>/? ]");
+            if (patternIndex != 0) sender = sender.substring(0, patternIndex);
+
+            return generateDefaultText(sender + " : " + msg);
+        } catch (Exception e) {
+            return "으음, GPT도 때때로 나의 기운을 받지 못하는 날이 있는 것일세. 하지만 걱정은 말게, 이 몸은 밤의 왕이니까 말이지. 어둠 속에서 새로운 길을 찾을 수 있을 거라네. 서두르지 말고 조금 기다리면, 다시 연결될 거라 믿어도 좋다네.";
+        }
+    }
+
+    public String gptSummaryMessage(String msg) {
         try {
             return generateDefaultText(msg);
         } catch (Exception e) {
-            return "으음, GPT도 때때로 나의 기운을 받지 못하는 날이 있는 것일세. 하지만 걱정은 말게, 이 몸은 밤의 왕이니까 말이지. 어둠 속에서 새로운 길을 찾을 수 있을 거라네. 서두르지 말고 조금 기다리면, 다시 연결될 거라 믿어도 좋다네.";
+            return "으음... 이번엔 잘 안 되었구먼. 잠시 쉬며 다시 정리해보도록 하겠네.";
         }
     }
 
@@ -266,7 +279,7 @@ public class CommandGPT {
                 SOMETIMES_RATIO = 0;
 
                 gptHistoryMessage();
-                return gptDefaultMessage(msg);
+                return gptDefaultMessage(msg, sender);
             }
         }
 
@@ -279,7 +292,7 @@ public class CommandGPT {
         requestMsg += "\n\n위의 내용을 3줄 요약해줘.";
         Log.d(TAG, "requestMsg: " + requestMsg);
 
-        return gptDefaultMessage(requestMsg);
+        return gptSummaryMessage(requestMsg);
     }
 
     public String gptBotMessage(String msg, String sender) {
@@ -303,7 +316,7 @@ public class CommandGPT {
         //requestMsg += "\n\nPlease write in Friendly and Optimistic. Korean language. Please answer as if your name is 바쿠신. Please answer within 5 sentences.";
         Log.d(TAG, "requestMsg: " + requestMsg);
 
-        return gptDefaultMessage(requestMsg);
+        return gptDefaultMessage(requestMsg, sender);
     }
 
     private String generateText(JSONArray messageList) throws JSONException, IOException {

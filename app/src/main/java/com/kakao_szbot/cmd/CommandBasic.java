@@ -2,6 +2,7 @@ package com.kakao_szbot.cmd;
 
 
 import static com.kakao_szbot.lib.CommonLibrary.findNum;
+import static com.kakao_szbot.lib.CommonLibrary.patternIndexOf;
 
 import android.util.Log;
 
@@ -68,6 +69,9 @@ public class CommandBasic {
 
         for (int i = 0; i < list.length; i++) {
             if (msg.indexOf(list[i]) != -1) {
+                int patternIndex = patternIndexOf(sender, "[0-9`~!@#$%^&*()-_=+\\|\\[\\]{};:'\",.<>/? ]");
+                if (patternIndex != 0) sender = sender.substring(0, patternIndex);
+
                 total_slang_point++;
                 if (slangMember.containsKey(sender)) {
                     slangMember.put(sender, slangMember.get(sender) + 1);
@@ -88,7 +92,7 @@ public class CommandBasic {
                     responseMessage = "호오, '" + list[i] + "' " + BOT_SLANG_RESPONSE_MSG[slang_index] + "\n" +
                             "(비속어 점수 : " + slangMember.get(sender) + ")";
                 } else if (slangMember.get(sender) < 20) {
-                    responseMessage = "'" + list[i] + "' ..? " + BOT_SLANG_RESPONSE_MSG_2[slang_index] + "\n" +
+                    responseMessage = "'" + list[i] + "' 라니 " + BOT_SLANG_RESPONSE_MSG_2[slang_index] + "\n" +
                             "(비속어 점수 : " + slangMember.get(sender) + ")";
                 } else if (slangMember.get(sender) < 30) {
                     responseMessage = "'" + list[i] + "' ..? " + BOT_SLANG_RESPONSE_MSG_3[slang_index] + "\n" +
