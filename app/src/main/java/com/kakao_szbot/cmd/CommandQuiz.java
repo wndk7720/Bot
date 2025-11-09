@@ -118,7 +118,8 @@ public class CommandQuiz {
             select_quiz_name = select_quiz.getString("subject");
             select_quiz_name = select_quiz_name.replaceAll("[^ ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9]", "");
             if (select_quiz_name.length() == 0) {
-                return "퀴즈, 말인가? 아무리 이 몸이라도 휴식이 필요한 법이라네... 후훗, 잠깐의 여유를 즐기면서 나중에 다시 도전해 보는 것도 나쁘지 않지.";
+                ani_quiz_start = 0;
+                return "흥! 퀴즈 출제 실패라니… 잠시 기다려주겠네, 트레이너.";
             }
 
             Random random = new Random();
@@ -155,15 +156,17 @@ public class CommandQuiz {
                                 break;
 
                             if (count > (FIVE_MIN_PER_SEC * 10) && hint_1 == false) {
-                                result = "[애니 제목 퀴즈 시즌3 : 힌트1]\n - ";
+                                result = "[애니 제목 퀴즈 시즌3 : 힌트1]\n";
                                 result += new CommandGPT().gptQuizHintMessage(ani_quiz_name);
                                 KakaoSendReply(result, getSbn());
                                 hint_1 = true;
                             }
 
                             if (count > (TEN_MIN_PER_SEC * 10) && hint_2 == false) {
-                                result = "[애니 제목 퀴즈 시즌3 : 힌트2]\n - ";
-                                result += new CommandGPT().gptQuizHintMessage(ani_quiz_name);
+                                result = "[애니 제목 퀴즈 시즌3 : 힌트2]\n";
+                                result += new CommandGPT().gptQuizHint2Message(ani_quiz_name,
+                                                            ani_quiz_object.getString("genres"),
+                                                            ani_quiz_object.getString("startDate"));
                                 KakaoSendReply(result, getSbn());
                                 hint_2 = true;
                             }
@@ -173,13 +176,15 @@ public class CommandQuiz {
                         }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
                     }
 
                     if (ani_quiz_answer_flag == 0) {
                         ani_quiz_answer_flag = 1;
                         ani_quiz_start = 0;
 
-                        result = "후훗, 정답은 바로 이거라네. 자네들에게는 조금 까다로웠을지도 모르겠구먼. 하지만 밤의 시간이 흐르면서 모두가 알게 될 날을 기대하겠네.\n\n";
+                        result = "흥! 아무도 정답을 못 맞췄군… 도전 정신은 훌륭하다!\n\n";
                         try {
                             result += printQuizResult();
                         } catch (Exception e) {
@@ -193,7 +198,7 @@ public class CommandQuiz {
 
             return result;
         } else {
-            result = "이미 퀴즈가 한창 진행 중이구먼.";
+            result = "이미 퀴즈가 한창 진행 중이다!";
         }
 
         return result;
@@ -213,7 +218,7 @@ public class CommandQuiz {
             select_quiz_name = select_quiz.getString("subject");
             select_quiz_name = select_quiz_name.replaceAll("[^ ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9]", "");
             if (select_quiz_name.length() == 0) {
-                return "퀴즈, 인가요~?\n아무리 저라도 휴식은 필요해요~...";
+                return "흥! 퀴즈 출제 실패라니… 잠시 기다려주겠네, 트레이너.";
             }
 
             Random random = new Random();
@@ -435,7 +440,7 @@ public class CommandQuiz {
                     FileLibrary csv = new FileLibrary();
                     csv.writePointCSV(ANI_QUIZ3_POINT_FILE_NAME, sender, player3.get(sender));
 
-                    result = resultSender + " 그대 정답이라네.\n" +
+                    result = resultSender + " 트레이너 정답이다!\n" +
                             " - 누적 점수 : " + player3.get(sender);
 
                     result += getPointTitle(player3.get(sender));

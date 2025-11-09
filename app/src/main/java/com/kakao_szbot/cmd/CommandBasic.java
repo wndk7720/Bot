@@ -22,28 +22,6 @@ public class CommandBasic {
     public static int total_slang_point = 0;
     private static Map<String, Integer> slangMember = new HashMap<>();
 
-    public static String[] BOT_SLANG_RESPONSE_MSG = {
-        "이런 거친 말은 필요 없네. 이 몸의 주위에서는 부드러운 대화를 이어가길 바라네.",
-        "라는 단어보단 부디 상냥한 말을 골라주게. 서로를 아끼는 마음으로 함께해 주시게나.",
-        "라는 거친 단어는 밤하늘에 어울리지 않는다네. 부디 부드러운 소리로 메시지를 전해주게.",
-        "라는 단어는 조금 거친 것 같구먼. 이 몸은 느긋하고 우아한 대화를 선호한다네. 부드러운 말투로 다시 이야기해 주지 않겠나?"
-    };
-
-    public static String[] BOT_SLANG_RESPONSE_MSG_2 = {
-        "자넨 한계를 시험하려 드는가? 더 이상 이런 비난을 들어주진 않을 테니, 그 말투를 즉시 멈추게나.",
-        "이 몸도 인내심엔 한계가 있네. 지금 당장 그런 언사를 멈추지 않는다면 더는 용서하지 않겠네.",
-        "그만하게. 더 이상 참을 수 없다네. 지금 이 자리에서 거친 말은 허락되지 않는다네.",
-        "이 몸도 참을 만큼 참았네. 마지막으로 경고하겠네, 지금 당장 그만두시게.",
-        "지금 하고 있는 말이 어떤 결과를 초래할지 생각하길 바란다네. 자네의 거친 언사는 여기서 끝이라네.",
-    };
-
-    public static String[] BOT_SLANG_RESPONSE_MSG_3 = {
-        "이제 선택의 기로에 서 있네. 더 이상 이런 언사를 지속한다면, 우리 사이도 이 밤같이 영원히 끝날 수 있음을 명심하게.",
-        "자네의 말이 계속된다면, 그건 곧 우리 인연의 마지막이 될 것이네. 여기서 멈추지 않으면, 모든 것이 끝난다네.",
-        "이 순간이 마지막 기회라네. 더 이상 나를 시험하려 든다면 그 결과는 영원한 작별일세.",
-        "끝을 보고 싶지 않다면, 지금 바로 멈추게나. 그렇지 않으면, 우리 인연도 여기까지라네.",
-        "자, 선택은 자네에게 달렸네. 더 이상의 무례함은 우리 관계를 영원히 밤 속으로 사라지게 할 테니 말일세."
-    };
 
     public String echoMessage(String msg, String sender) {
         return msg;
@@ -81,26 +59,6 @@ public class CommandBasic {
 
                 FileLibrary csv = new FileLibrary();
                 csv.writePointCSV(ANI_SLANG_POINT_FILE_NAME, sender, slangMember.get(sender));
-
-                Random random = new Random();
-                int rand = random.nextInt(CommandList.RAND_MAX);
-                int slang_index;
-
-                slang_index = rand % BOT_SLANG_RESPONSE_MSG.length;
-
-                if (slangMember.get(sender) < 10) {
-                    responseMessage = "호오, '" + list[i] + "' " + BOT_SLANG_RESPONSE_MSG[slang_index] + "\n" +
-                            "(비속어 점수 : " + slangMember.get(sender) + ")";
-                } else if (slangMember.get(sender) < 20) {
-                    responseMessage = "'" + list[i] + "' 라니 " + BOT_SLANG_RESPONSE_MSG_2[slang_index] + "\n" +
-                            "(비속어 점수 : " + slangMember.get(sender) + ")";
-                } else if (slangMember.get(sender) < 30) {
-                    responseMessage = "'" + list[i] + "' ..? " + BOT_SLANG_RESPONSE_MSG_3[slang_index] + "\n" +
-                            "(비속어 점수 : " + slangMember.get(sender) + ")";
-                } else {
-                    responseMessage = "고결하고 여유로운 이 몸이 그간 참아온 인내의 한계가 이제는 바닥이 나고 있음을 자네가 충분히 알아차렸어야 했을 텐데, 여전히 그 거친 말투를 멈출 생각이 없다면, 이는 곧 우리 사이의 모든 관계가 어둠 속으로 영원히 사라지는 결과를 초래할 뿐이라는 것을 명심해야 할 것이네. 자네와의 대화 속에서 여유와 너그러움을 버리지 않으려 했으나, 지금의 자네의 태도는 그 모든 노력을 무색하게 만들고 있으며, 만약 이 순간 이후에도 변함이 없다면, 이 몸은 더 이상 그 자네의 편에 서지 않을 것을 분명히 하겠네. 한 때는 한 줄기 빛 같았던 우리의 시간들이 실낱 같은 인연으로 남아야만 하는 이 상황이 안타깝긴 하나, 자네의 후회 없는 선택을 기대해도 좋을지 모르겠다네. 이 몸의 마지막 경고가 될 것이니, 다시는 이 분위기의 여유로움 속에서 자네와 이야기할 수 없다는 생각에 마음을 가다듬고 지금 당장 그 무례함을 멈추라고 조언해 보겠네. 이 신사의 명예와도 같은 우리의 관계를 지키고 싶다면, 진정 그 말투를 멈추고 참회의 길을 선택하길 바라네. 이는 최후의 경고이자, 애정 어린 충고라는 점을 잊지말게나. 자네의 결단이 무엇이든, 이후 그것이 초래할 결과라면 감내하기 바랄 뿐이라네.\n" +
-                            "(비속어 점수 : " + slangMember.get(sender) + ")";
-                }
             }
         }
 
@@ -116,7 +74,7 @@ public class CommandBasic {
         responseMessage = CommandList.RAMEN_CONTENTS_MSG[0][toppingRand];
         responseMessage += " 넣은 ";
         responseMessage += CommandList.RAMEN_CONTENTS_MSG[1][ramenRand];
-        responseMessage += " 추천이라네.";
+        responseMessage += " 추천!";
 
         return responseMessage;
     }
@@ -149,7 +107,7 @@ public class CommandBasic {
 
         Arrays.sort(num);
 
-        String responseMessage = "이 번호로 가보게나.\n[ ";
+        String responseMessage = "확신! 이 번호다!\n[ ";
         for (int i = 0; i < LOTTO_NUM_MAX; i++) {
             responseMessage += num[i] + " ";
         }

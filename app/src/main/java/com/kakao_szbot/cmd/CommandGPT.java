@@ -40,6 +40,7 @@ public class CommandGPT {
     private static final String BASE_URL = "https://api.openai.com/v1/";
     private static final Gson gson = new Gson();
 
+    private static int RAND_LINE_MAX = 3;
     private static int SOMETIMES_RATIO = 0;
     private static final int SOMETIMES_THRESHOLD = 1000;
     public static String[] sometimes_exception =
@@ -89,10 +90,12 @@ public class CommandGPT {
         String json = "{\"role\": \"user\", \"content\": \"" + userInput + "\" }";
         HttpsURLConnection connection = openConnection(BASE_URL + "threads/" + threadId + "/messages", "POST");
 
+        Log.d(TAG, "addUserMessageToThread: " + json);
+
         sendRequest(connection, json);
         String response = readResponse(connection);
 
-        Log.d(TAG, "Response: " + response);
+        Log.d(TAG, "addUserMessageToThread: " + response);
     }
 
     public static String getAssistantResponse() throws IOException {
@@ -152,7 +155,13 @@ public class CommandGPT {
         JsonObject responseObject = gson.fromJson(response, JsonObject.class);
         JsonArray messages = responseObject.getAsJsonArray("data");
 
-        Log.d(TAG, messages.toString());
+        Log.d(TAG, "getLatestAssistantMessage : " + messages.toString());
+        Log.d(TAG, "Reply Size : " + messages.size());
+
+        for (int i = 0; i < messages.size(); i++) {
+            JsonObject message = messages.get(i).getAsJsonObject();
+            Log.d(TAG, "messages(" + i + ") : " + message.toString());
+        }
 
         // 메시지 출력
         for (int i = 0; i < messages.size(); i++) {
@@ -170,19 +179,9 @@ public class CommandGPT {
             }
         }
 
-        return "GPT가 고장났군. 어디 한 번 더 도전해 볼까? 이 몸은 밤이 깊을 때 더욱 빛난다네. 그 때까지 기다려 주시겠나, 아가씨?";
+        return "흥! GPT가 고장났다고? 걱정 마라, 다시 시작하면 된다!";
     }
 
-    public static void chatWithCharacterHistory(String userInput) throws IOException, InterruptedException {
-        if (threadId == null) {
-            threadId = createThread();
-        }
-        Log.d(TAG, "thread 선택 완료 (threadId: " + threadId + ")");
-
-        userInput = userInput.replaceAll("\"", "");
-        addHistoricalMessages(userInput);
-        Log.d(TAG, "OpenAI 요청 완료");
-    }
 
     public static String chatWithCharacter(String userInput) throws IOException, InterruptedException {
         if (threadId == null) {
@@ -216,17 +215,25 @@ public class CommandGPT {
         try {
             return generateDefaultText(requestMsg);
         } catch (Exception e) {
-            return "호오, GPT 연결이 끊겼다라... 마치 낮의 빛 속에서 방향을 잃은 것과 같은 상황이구먼. 하지만 이 몸은 어둠 속에서의 경험이 풍부하지. 조금 시간이 걸리더라도, 곧 안정된 상태로 되돌아갈 것을 믿고 자신을 가지게.";
+            return "흥! GPT가 고장났다고? 걱정 마라, 다시 시작하면 된다!";
         }
     }
 
-    public void gptHistoryMessage() {
+    public String gptHistoryMessage() {
         try {
             String data = new CommandSampling().getRecentMessage();
-            chatWithCharacterHistory(data);
+            Random random = new Random();
+            int rand_line = random.nextInt(RAND_LINE_MAX) + 1;
+
+            data = data + "\\n\\n위의 내용을 기반해서 답장을 " + rand_line + "줄로 만들어줘.";
+            Log.d(TAG, "gptHistoryMessage " + data);
+
+            return generateDefaultText(data);
         } catch (Exception e) {
-            Log.d(TAG, "chatWithCharacterHistory fail");
+            Log.d(TAG, "gptHistoryMessage fail");
         }
+
+        return null;
     }
 
     public String gptDefaultMessage(String msg, String sender) {
@@ -234,9 +241,15 @@ public class CommandGPT {
             int patternIndex = patternIndexOf(sender, "[0-9`~!@#$%^&*()-_=+\\|\\[\\]{};:'\",.<>/? ]");
             if (patternIndex != 0) sender = sender.substring(0, patternIndex);
 
-            return generateDefaultText(sender + " : " + msg);
+            Random random = new Random();
+            int rand_line = random.nextInt(RAND_LINE_MAX) + 1;
+
+            String input = sender + " : " + msg + "\\n\\n답장은 " + rand_line + "줄로 부탁해.";
+            Log.d(TAG, "gptDefaultMessage " + input);
+
+            return generateDefaultText(input);
         } catch (Exception e) {
-            return "으음, GPT도 때때로 나의 기운을 받지 못하는 날이 있는 것일세. 하지만 걱정은 말게, 이 몸은 밤의 왕이니까 말이지. 어둠 속에서 새로운 길을 찾을 수 있을 거라네. 서두르지 말고 조금 기다리면, 다시 연결될 거라 믿어도 좋다네.";
+            return "흥! GPT가 고장났다고? 걱정 마라, 다시 시작하면 된다!";
         }
     }
 
@@ -244,17 +257,27 @@ public class CommandGPT {
         try {
             return generateDefaultText(msg);
         } catch (Exception e) {
-            return "으음... 이번엔 잘 안 되었구먼. 잠시 쉬며 다시 정리해보도록 하겠네.";
+            return "흥! GPT가 고장났다고? 걱정 마라, 다시 시작하면 된다!";
         }
     }
 
     public String gptQuizHintMessage(String answer) {
         try {
             String msg = answer + "에 대한 힌트를 \'" + answer +
-                    "\'' 라는 단어를 포함하지 말고 2줄로 표현해줘.";
+                    "\'' 라는 단어를 포함하지 말고 2줄로 표현해줘. 웃기게 써줘.";
             return replaceTQText(generateDefaultText(msg), answer, answer);
         } catch (Exception e) {
-            return "미안하지만, 이번에는 힌트가 없다네. 그만큼 자네의 능력을 믿고 있으니, 힘껏 도전해 보시게나.";
+            return "후후, 힌트는 없다! 오직 트레이너의 직감과 판단력만이 필요하다!";
+        }
+    }
+
+    public String gptQuizHint2Message(String answer, String genre, String date) {
+        try {
+            String msg = date + "에 나온 " + genre + " 장르의 " + answer + "에 대한 힌트를 \'" + answer +
+                    "\'' 라는 단어를 포함하지 말고 3줄로 표현해줘. 웃기게 써줘.";
+            return replaceTQText(generateDefaultText(msg), answer, answer);
+        } catch (Exception e) {
+            return "후후, 힌트는 없다! 오직 트레이너의 직감과 판단력만이 필요하다!";
         }
     }
 
@@ -278,8 +301,7 @@ public class CommandGPT {
             if (rand < SOMETIMES_RATIO) {
                 SOMETIMES_RATIO = 0;
 
-                gptHistoryMessage();
-                return gptDefaultMessage(msg, sender);
+                return gptHistoryMessage();
             }
         }
 
@@ -289,7 +311,7 @@ public class CommandGPT {
     public String gptConversationSummary(String msg) {
         String requestMsg = msg;
 
-        requestMsg += "\n\n위의 내용을 3줄 요약해줘.";
+        requestMsg += "\\n\\n위의 내용을 3줄 요약해줘.";
         Log.d(TAG, "requestMsg: " + requestMsg);
 
         return gptSummaryMessage(requestMsg);
@@ -313,7 +335,6 @@ public class CommandGPT {
             return null;
         }
 
-        //requestMsg += "\n\nPlease write in Friendly and Optimistic. Korean language. Please answer as if your name is 바쿠신. Please answer within 5 sentences.";
         Log.d(TAG, "requestMsg: " + requestMsg);
 
         return gptDefaultMessage(requestMsg, sender);
@@ -325,7 +346,7 @@ public class CommandGPT {
         JSONObject payload = new JSONObject();
 
         //payload.put("model", "gpt-3.5-turbo"); // model is important
-        payload.put("model", "gpt-4o"); // model is important
+        payload.put("model", "gpt-4o-mini"); // model is important
         payload.put("messages", messageList);
         //payload.put("temperature", 0.7);
 

@@ -18,19 +18,17 @@ public class MainCommandChecker {
         if (replyMessage != null) {
             return replyMessage;
         }
-        */
 
         replyMessage = highPriorityMessage(msg, sender);
         if (replyMessage != null) {
             return replyMessage;
         }
+        */
 
         if (checkCommnadList(msg, CommandList.BOT_NAME) == 0) {
             replyMessage = selectBotMessage(msg, sender, sbn);
         } else {
-            //if (room.indexOf("다덕임") != -1) {
-                replyMessage = selectNormalMessage(msg, sender);
-            //}
+            replyMessage = selectNormalMessage(msg, sender);
         }
 
         return replyMessage;
@@ -250,7 +248,7 @@ public class MainCommandChecker {
                 return null;
             }
 
-            replyMessage = "채팅 금지입니다.. 사진 또는 이모티콘만 올려주세요..";
+            replyMessage = "채팅 금지다! 사진 또는 이모티콘만 올려라!";
         }
 
         return replyMessage;
