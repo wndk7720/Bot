@@ -22,4 +22,4 @@
    - 투자게임
    - 주사위
 
-@github: github.com/wndk7720/Bot.git
+@github: [github.com/wndk7720/Bot.git](https://github.com/wndk7720/Bot)
