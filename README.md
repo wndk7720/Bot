@@ -2,7 +2,7 @@
 ### Version 25.11.09
 
 - 운영환경 : android
-- 언어 : java 
+- 언어 : java
 
 ---
 
@@ -13,13 +13,11 @@
    - 도움말, -h, --help
    - 애니추천
    - 오늘의 애니
-   - 공부하기, 잊어버려, 공부목록
    - 요약
    - 퀴즈, 퀴즈순위
    - 명예의 전당
    - 가챠
    - 강화
-   - 투자게임
    - 주사위
 
 @github: [github.com/wndk7720/Bot.git](https://github.com/wndk7720/Bot)

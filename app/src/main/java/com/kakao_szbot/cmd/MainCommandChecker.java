@@ -48,38 +48,6 @@ public class MainCommandChecker {
         String replyMessage = null;
 
         try {
-            if (checkCommnadList(msg, CommandList.TQ_GAME_CMD) == 0) {
-                replyMessage = new CommandTwentyQuestions().mainTQCommand(msg, sender, sbn);
-                return replyMessage;
-            }
-            if (CommandTwentyQuestions.getTQStart() == 1) {
-                if (checkCommnadList(msg, CommandList.TQ_GAME_QUESTION_CMD) == 0) {
-                    replyMessage = new CommandTwentyQuestions().mainTQCommand(msg, sender, sbn);
-                    return replyMessage;
-                }
-
-                if (checkCommnadList(msg, CommandList.TQ_GAME_ANSWER_CMD) == 0) {
-                    replyMessage = new CommandTwentyQuestions().mainTQCommand(msg, sender, sbn);
-                    return replyMessage;
-                }
-            }
-            if (checkCommnadList(msg, CommandList.SURVIVAL_CMD) == 0) {
-                if (sender.indexOf("방장") >= 0) {
-                    replyMessage = new CommandSurvival().startSurvivalCommand(sbn);
-                    return replyMessage;
-                }
-            }
-            if (checkCommnadList(msg, CommandList.TOWER_CMD) == 0) {
-                if (sender.indexOf("방장") >= 0) {
-                    replyMessage = new CommandTower().startTowerCommand(sbn);
-                    return replyMessage;
-                }
-            }
-            if (checkCommnadList(msg, CommandList.SURVIVAL_BETTING_CMD) == 0) {
-                replyMessage = new CommandSurvival().voteServant(msg, sender);
-                if (replyMessage != null)
-                    return replyMessage;
-            }
             if (checkCommnadList(msg, CommandList.GPT_CMD) == 0) {
                 replyMessage = new CommandGPT().gptMessage(msg, sender);
                 return replyMessage;
@@ -104,18 +72,7 @@ public class MainCommandChecker {
                 replyMessage = new CommandCrawling().todayAniMessage(msg, sender);
                 return replyMessage;
             }
-            if (checkCommnadList(msg, CommandList.STUDY_CMD) == 0) {
-                replyMessage = new CommandStudy().studyMessage(msg);
-                return replyMessage;
-            }
-            if (checkCommnadList(msg, CommandList.STUDY_FORGOT_CMD) == 0) {
-                replyMessage = new CommandStudy().forgotStudyMessage(msg);
-                return replyMessage;
-            }
-            if (checkCommnadList(msg, CommandList.STUDY_LIST_CMD) == 0) {
-                replyMessage = new CommandStudy().getStudyMessage();
-                return replyMessage;
-            }
+
             if (checkCommnadList(msg, CommandList.SAMPLING_CMD) == 0) {
                 //replyMessage = new CommandSampling().samplingMessage(msg);
                 replyMessage = new CommandSampling().samplingGptMessage(msg);
@@ -146,6 +103,47 @@ public class MainCommandChecker {
                 replyMessage = new CommandBasic().diceMessage(msg);
                 return replyMessage;
             }
+            /*
+            if (checkCommnadList(msg, CommandList.TQ_GAME_CMD) == 0) {
+                replyMessage = new CommandTwentyQuestions().mainTQCommand(msg, sender, sbn);
+                return replyMessage;
+            }
+            if (CommandTwentyQuestions.getTQStart() == 1) {
+                if (checkCommnadList(msg, CommandList.TQ_GAME_QUESTION_CMD) == 0) {
+                    replyMessage = new CommandTwentyQuestions().mainTQCommand(msg, sender, sbn);
+                    return replyMessage;
+                }
+
+                if (checkCommnadList(msg, CommandList.TQ_GAME_ANSWER_CMD) == 0) {
+                    replyMessage = new CommandTwentyQuestions().mainTQCommand(msg, sender, sbn);
+                    return replyMessage;
+                }
+            }
+            if (checkCommnadList(msg, CommandList.SURVIVAL_CMD) == 0) {
+                replyMessage = new CommandSurvival().startSurvivalCommand(sbn);
+                return replyMessage;
+            }
+            if (checkCommnadList(msg, CommandList.SURVIVAL_BETTING_CMD) == 0) {
+                replyMessage = new CommandSurvival().voteServant(msg, sender);
+                if (replyMessage != null)
+                    return replyMessage;
+            }
+            if (checkCommnadList(msg, CommandList.TOWER_CMD) == 0) {
+                replyMessage = new CommandTower().startTowerCommand(sbn);
+                return replyMessage;
+            }
+            if (checkCommnadList(msg, CommandList.STUDY_CMD) == 0) {
+                replyMessage = new CommandStudy().studyMessage(msg);
+                return replyMessage;
+            }
+            if (checkCommnadList(msg, CommandList.STUDY_FORGOT_CMD) == 0) {
+                replyMessage = new CommandStudy().forgotStudyMessage(msg);
+                return replyMessage;
+            }
+            if (checkCommnadList(msg, CommandList.STUDY_LIST_CMD) == 0) {
+                replyMessage = new CommandStudy().getStudyMessage();
+                return replyMessage;
+            }
             if (checkCommnadList(msg, CommandList.INVEST_CMD) == 0) {
                 replyMessage = new CommandInvest().investMessage(msg);
                 return replyMessage;
@@ -154,7 +152,6 @@ public class MainCommandChecker {
                 replyMessage = new CommandInvest().investPurchaseMessage(msg, sender);
                 return replyMessage;
             }
-            /*
             if (checkCommnadList(msg, CommandList.WEATHER_CMD) == 0) {
                 replyMessage = new CommandCrawling().weatherMessage(msg, sender);
                 return replyMessage;
