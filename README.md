@@ -1,5 +1,5 @@
-# Sakuma Rei Bot ![](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white) ![](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white) ![](https://img.shields.io/badge/Android_Studio-3DDC84?style=for-the-badge&logo=android-studio&logoColor=white)
-### Version 25.02.09
+# Akikawa Yayoi Bot ![](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white) ![](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white) ![](https://img.shields.io/badge/Android_Studio-3DDC84?style=for-the-badge&logo=android-studio&logoColor=white)
+### Version 25.11.09
 
 - 운영환경 : android
 - 언어 : java 
@@ -8,7 +8,7 @@
 
 ### Command List
 
- 「"바쿠신" + "명령어"」 형태로 동작합니다.
+ 「"이사장" + "명령어"」 형태로 동작합니다.
 
    - 도움말, -h, --help
    - 애니추천
