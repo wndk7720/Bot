@@ -88,7 +88,7 @@ public class CommandCrawling {
                 String exchangeRate = row.select("td.sale").text();
 
                 if (currencyName.contains(exchangeName)) {
-                    result = "현.재 " + currencyName + " " + exchangeRate + "원이라네.";
+                    result = "현.재 " + currencyName + " " + exchangeRate + "원이다!";
                 }
             }
         } catch (IOException e) {
@@ -124,10 +124,10 @@ public class CommandCrawling {
         String keystat  = response.getString("KEYSTAT_NAME");
         if (unit == "%") {
             double data = response.getDouble("DATA_VALUE");
-            result = "현.재 " + keystat + " " + data + unit + "이라네.";
+            result = "현.재 " + keystat + " " + data + unit + "이다!";
         } else {
             long data = response.getLong("DATA_VALUE");
-            result = "현.재 " + keystat + " " + data + unit + "이라네.";
+            result = "현.재 " + keystat + " " + data + unit + "이다!";
         }
 
         return result;
@@ -155,7 +155,7 @@ public class CommandCrawling {
         JSONObject response = jsonArray.getJSONObject(0);
         double price = response.getDouble("trade_price");
 
-        result = "현.재 " + coin_name + " 시세는 " + (int)price + "원이라네.";
+        result = "현.재 " + coin_name + " 시세는 " + (int)price + "원이다!";
         return result;
     }
 
@@ -209,7 +209,7 @@ public class CommandCrawling {
 
         JSONObject object = content.getJSONObject("data");
 
-        result = "이 몸이 추천하고 싶은 애니메이션이 있다네.\n\n";
+        result = "추천! 보고 싶은 애니메이션이다!\n\n";
         result += " - " + object.getString("subject");
         result += " (" + object.getString("genres") + ")\n";
         result += "  > 방영일 : " + object.getString("startDate") + "\n";
@@ -230,7 +230,7 @@ public class CommandCrawling {
         JSONObject jsonResult = new JSONObject(result);
         JSONArray jsonArray = jsonResult.getJSONArray("data");
 
-        result = "오늘 방영하는 애니 목록이라네.\n";
+        result = "오늘 방영하는 애니 목록이다!\n";
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             result += "\n - " + jsonObject.getString("subject");

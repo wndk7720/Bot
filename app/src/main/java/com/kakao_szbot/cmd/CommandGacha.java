@@ -31,40 +31,40 @@ public class CommandGacha {
 
 
         if (gacha_rand > (CommandList.RAND_MAX * (0.5))) {
-            result = gacha_reply_1[rand % gacha_reply_1.length] + " 뽑았다네.\n(일반: 50%)";
+            result = gacha_reply_1[rand % gacha_reply_1.length] + " 뽑았다!\n(일반: 50%)";
         }
         else if (gacha_rand > (CommandList.RAND_MAX * (0.2))) {
-            result = gacha_reply_2[rand % gacha_reply_2.length] + " 뽑았다네.\n(고급: 30%)";
+            result = gacha_reply_2[rand % gacha_reply_2.length] + " 뽑았다!\n(고급: 30%)";
         }
         else if (gacha_rand > (CommandList.RAND_MAX * (0.1))) {
-            result = gacha_reply_3[rand % gacha_reply_3.length] + " 뽑았다네.\n(희귀: 10%)";
+            result = gacha_reply_3[rand % gacha_reply_3.length] + " 뽑았다!\n(희귀: 10%)";
         }
         else if (gacha_rand > (CommandList.RAND_MAX * (0.05))) {
-            result = gacha_reply_4[rand % gacha_reply_4.length] + " 뽑았다네.\n(고대: 5%)";
+            result = gacha_reply_4[rand % gacha_reply_4.length] + " 뽑았다!\n(고대: 5%)";
         }
         else if (gacha_rand > (CommandList.RAND_MAX * (0.02))) {
-            result = gacha_reply_5[rand % gacha_reply_5.length] + " 뽑았다네.\n(영웅: 3%)";
+            result = gacha_reply_5[rand % gacha_reply_5.length] + " 뽑았다!\n(영웅: 3%)";
         }
         else if (gacha_rand > (CommandList.RAND_MAX * (0.01))) {
-            result = gacha_reply_6[rand % gacha_reply_6.length] + " 뽑았다네.\n(유일: 1%)";
+            result = gacha_reply_6[rand % gacha_reply_6.length] + " 뽑았다!\n(유일: 1%)";
         }
         else if (gacha_rand > (CommandList.RAND_MAX * (0.005))) {
-            result = gacha_reply_7[rand % gacha_reply_7.length] + " 뽑았다네.\n(유물: 0.5%)";
+            result = gacha_reply_7[rand % gacha_reply_7.length] + " 뽑았다!\n(유물: 0.5%)";
         }
         else if (gacha_rand > (CommandList.RAND_MAX * (0.002))) {
-            result = gacha_reply_8[rand % gacha_reply_8.length] + " 뽑았다네.\n(경이: 0.3%)";
+            result = gacha_reply_8[rand % gacha_reply_8.length] + " 뽑았다!\n(경이: 0.3%)";
         }
         else if (gacha_rand > (CommandList.RAND_MAX * (0.001))) {
-            result = gacha_reply_9[rand % gacha_reply_9.length] + " 뽑았다네.\n(서사: 0.1%)";
+            result = gacha_reply_9[rand % gacha_reply_9.length] + " 뽑았다!\n(서사: 0.1%)";
         }
         else if (gacha_rand > (CommandList.RAND_MAX * (0.0003))) {
-            result = gacha_reply_10[rand % gacha_reply_10.length] + " 뽑았다네.\n(전설: 0.07%)";
+            result = gacha_reply_10[rand % gacha_reply_10.length] + " 뽑았다!\n(전설: 0.07%)";
         }
         else if (gacha_rand > (CommandList.RAND_MAX * (0.0001))) {
-            result = gacha_reply_11[rand % gacha_reply_11.length] + " 뽑았다네.\n(신화: 0.02%)";
+            result = gacha_reply_11[rand % gacha_reply_11.length] + " 뽑았다!\n(신화: 0.02%)";
         }
         else {
-            result = gacha_reply_12[rand % gacha_reply_12.length] + " 뽑았다네.\n(태초: 0.01%)";
+            result = gacha_reply_12[rand % gacha_reply_12.length] + " 뽑았다!\n(태초: 0.01%)";
         }
 
         return result;
